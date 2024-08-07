@@ -1,0 +1,3 @@
+[submodule "SeikanScenario"]
+	path = SeikanScenario
+	url = https://github.com/raichi0205/SeikanScenario.git
