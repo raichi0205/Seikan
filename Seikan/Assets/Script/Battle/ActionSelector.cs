@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Star.Common;
+using Star.Battle.UI;
 
 namespace Star.Battle
 {
     public class ActionSelector : SingletonMonoBehaviour<ActionSelector>
     {
+        [SerializeField] List<ActionSelectCellBase> actionSelectCellBases;
+
 #if UNITY_EDITOR
         private void Update()
         {
@@ -19,6 +23,14 @@ namespace Star.Battle
             }
         }
 #endif
+
+        public void Initialize()
+        {
+            foreach(var cell in actionSelectCellBases)
+            {
+                cell.Initialize();
+            }
+        }
 
         /// <summary>
         /// 行動選択後の処理

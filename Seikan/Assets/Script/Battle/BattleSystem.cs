@@ -55,6 +55,8 @@ namespace Star.Battle
             schedule.Add(TurnStart);
             schedule.Add(SelectAction);
 
+            ActionSelector.Instance.Initialize();
+
             MainSystem();
         }
 
