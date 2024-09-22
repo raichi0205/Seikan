@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Star.Common;
 using Star.Character;
+using Star.Battle.UI;
 
 namespace Star.Battle
 {
@@ -12,8 +13,11 @@ namespace Star.Battle
         public enum TurnAction
         {
             None = -1,
-            TurnStart,
-            SelectAction,
+            TurnStart,          // ターン開始
+            SelectAction,       // 行動選択
+            SelectEnemy,        // 目標選択
+            ActionTurn,         // 行動ターン
+            TurnEnd,            // ターン終了
             Num,
         }
 
@@ -50,10 +54,19 @@ namespace Star.Battle
             Initialize();
         }
 
+        /// <summary>
+        /// 初期化処理
+        /// ToDo: 非同期にして初期化処理が終了するまでロード画面で止めるなどの工夫
+        /// </summary>
         public void Initialize()
         {
+            battleUI.Initialize();
+
             schedule.Add(TurnStart);
             schedule.Add(SelectAction);
+            schedule.Add(SelectEnemy);
+            schedule.Add(ActionTurn);
+            schedule.Add(TurnEnd);
 
             ActionSelector.Instance.Initialize();
 
@@ -105,6 +118,23 @@ namespace Star.Battle
         private void SelectAction()
         {
             Debug.Log("[BattleSystem] SelectAction");
+            battleUI.OpenActionSelectWindow();
+        }
+
+        private void SelectEnemy()
+        {
+            Debug.Log("[BattleSystem] SelectEnemy");
+            battleUI.CloseActionSelectWindow();
+        }
+
+        private void ActionTurn()
+        {
+            Debug.Log("[BattleSystem] ActionTurn");
+        }
+
+        private void TurnEnd()
+        {
+            Debug.Log("[BattleSystem] TurnEnd");
         }
     }
 }
