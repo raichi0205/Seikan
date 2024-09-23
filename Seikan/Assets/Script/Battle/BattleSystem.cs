@@ -32,6 +32,10 @@ namespace Star.Battle
         List<UnityAction> schedule = new List<UnityAction>();
         public TurnAction turnAction = TurnAction.None;
 
+        public SelectData CurrentSelectData = null;
+        private List<SelectData> selectDatas = new List<SelectData>();
+        public List<SelectData> SelectDatas { get { return selectDatas; } }
+
         /// <summary>
         /// システムメッセージ
         /// </summary>
@@ -95,6 +99,10 @@ namespace Star.Battle
         private void TurnStart()
         {
             Debug.Log($"[BattleSystem] TurnStart:{turn}");
+
+            selectDatas.Clear();        // 選択内容をリセット
+            CurrentSelectData = null;
+            
             if(turn < maxTurn)
             { 
                 turn++;     // ターンを一つ繰り上げる
@@ -118,6 +126,13 @@ namespace Star.Battle
         private void SelectAction()
         {
             Debug.Log("[BattleSystem] SelectAction");
+
+            if (CurrentSelectData == null)
+            {
+                CurrentSelectData = new SelectData();       // 新しい選択情報の作成
+                selectDatas.Add(CurrentSelectData);
+            }
+
             battleUI.OpenActionSelectWindow();
         }
 

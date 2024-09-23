@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Star.Battle;
+using Star.Character;
 
-namespace Star.Character
+namespace Star.Battle
 {
-    public class ActionBase : MonoBehaviour
+    [System.Serializable]
+    [CreateAssetMenu(fileName = "ActionData", menuName = "Battle/Action/ActionData", order = 0)]
+    public class ActionBase : ScriptableObject
     {
         /// <summary>
         /// 補正パラメータ
         /// </summary>
+        [System.Serializable]
         public class Correction
         {
-            public int Value = 0;
-            public float Rate = 0;
+            public int Value = 0;           // 加減値
+            public float Rate = 0;          // 補正倍率
         }
 
-        Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
+        [SerializeField] Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         public CharacterData CharaData;        // 行動主のキャラデータ
 
         /// <summary>
