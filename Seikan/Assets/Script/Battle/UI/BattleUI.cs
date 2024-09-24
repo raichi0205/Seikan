@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Star.Common.UI;
 
 namespace Star.Battle.UI
 {
@@ -14,9 +15,16 @@ namespace Star.Battle.UI
         public TextMeshProUGUI SystemMsgUi { get { return systemMsgUi; } }
         [SerializeField] ActionSelectWindow actionSelectWindow;
 
+        [SerializeField] CommonButton enemySelectEnter;
+
         public void Initialize()
         {
             actionSelectWindow.Initialize();
+
+            enemySelectEnter.onClick.AddListener(() =>
+            {
+                BattleSystem.Instance.EnemySelector.EnterSelectIndex();
+            });
         }
 
         public void OpenActionSelectWindow()
@@ -33,6 +41,7 @@ namespace Star.Battle.UI
         public void ActiveTargetEnemySelect()
         {
             // ToDo: 攻撃対象の敵キャラの選択UIを有効に
+            enemySelectEnter.gameObject.SetActive(true);
         }
     }
 }

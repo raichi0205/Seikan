@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Star.Character
 {
-    public class Actor : CharacterData
+    public class ActorData : CharacterData
     {
 
     }

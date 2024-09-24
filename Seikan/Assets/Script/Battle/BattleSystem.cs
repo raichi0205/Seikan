@@ -22,11 +22,14 @@ namespace Star.Battle
         }
 
         const int maxTurn = 999;    // 最大ターン数
-        [SerializeField]
-        int turn = 0;           // 現在のターン
+        [SerializeField] int turn = 0;           // 現在のターン
 
-        [SerializeField]
-        BattleUI battleUI;      // 戦闘画面UI
+        [SerializeField] EnemyManager enemyManager;
+
+        private EnemySelector enemySelector = new EnemySelector();
+        public EnemySelector EnemySelector { get { return enemySelector; } }
+
+        [SerializeField] BattleUI battleUI;      // 戦闘画面UI
 
         ActionScheduler actionScheduler = new ActionScheduler();
         List<UnityAction> schedule = new List<UnityAction>();
@@ -50,8 +53,8 @@ namespace Star.Battle
             }
         }
 
-        Actor actor = new Actor();                  // 主人公
-        List<Enemy> enemies = new List<Enemy>();    // 敵
+        CharacterBase actor = new CharacterBase();                  // 主人公
+        List<CharacterBase> enemies = new List<CharacterBase>();    // 敵
 
         private void Start()
         {
@@ -64,6 +67,7 @@ namespace Star.Battle
         /// </summary>
         public void Initialize()
         {
+            enemyManager.Initialize();
             battleUI.Initialize();
 
             schedule.Add(TurnStart);
@@ -140,6 +144,7 @@ namespace Star.Battle
         {
             Debug.Log("[BattleSystem] SelectEnemy");
             battleUI.CloseActionSelectWindow();
+            battleUI.ActiveTargetEnemySelect();
         }
 
         private void ActionTurn()

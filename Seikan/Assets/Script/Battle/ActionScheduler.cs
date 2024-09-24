@@ -20,9 +20,9 @@ namespace Star.Battle
         /// </summary>
         private List<ActionBase> ActionOrderEvaluation()
         {
-            List<CharacterData> actionOrderCharacters = new List<CharacterData>();      // キャラクターの行動順を決める
+            List<CharacterBase> actionOrderCharacters = new List<CharacterBase>();      // キャラクターの行動順を決める
             List<ActionBase> actions = new List<ActionBase>();
-            foreach (CharacterData chara in actionOrderCharacters)
+            foreach (CharacterBase chara in actionOrderCharacters)
             {
                 // 行動の結合
                 actions.AddRange(chara.Actions);
