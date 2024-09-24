@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   systemMsgUi: {fileID: 805462228}
   actionSelectWindow: {fileID: 421648387}
-  enemySelectEnter: {fileID: 0}
+  enemySelectEnter: {fileID: 1108999338}
 --- !u!1 &740008041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,6 +2950,7 @@ MonoBehaviour:
   CurrentSelectData:
     action: {fileID: 0}
     selectEnemy: -1
+  actorData: {fileID: 11400000, guid: fa20ef1f5595c974d95221fe8a839133, type: 2}
 --- !u!114 &1696587182
 MonoBehaviour:
   m_ObjectHideFlags: 0

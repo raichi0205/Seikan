@@ -42,7 +42,7 @@ namespace Star.Battle
             BattleSystem.Instance.Actor.SelectCounter++;
 
             // 次の行動へ進ませる
-            BattleSystem.Instance.MainSystem(_turnAction);
+            BattleSystem.Instance.NextTurnAction(_turnAction);
         }
     }
 }

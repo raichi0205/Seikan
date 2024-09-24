@@ -11,6 +11,11 @@ namespace Star.Character
         public List<StateBase> States = new List<StateBase>();      // 現在の状態リスト
         public List<ActionBase> Actions = new List<ActionBase>();   // 行動のリスト
 
+        public virtual void Initialize(CharacterData _characterData)
+        {
+            characterData = _characterData;
+        }
+
         /// <summary>
         /// 状態の更新
         /// </summary>

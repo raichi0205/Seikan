@@ -9,7 +9,8 @@ namespace Star.Battle
     {
         [SerializeField] private ActionBase action;
         public ActionBase Action { get { return action; } set { action = value; } }
+
         [SerializeField] private int selectEnemy = int.MinValue;
-        public int SelectEnemy { get { return selectEnemy; } set { selectEnemy = value; } }
+        public int Target { get { return selectEnemy; } set { selectEnemy = value; } }
     }
 }

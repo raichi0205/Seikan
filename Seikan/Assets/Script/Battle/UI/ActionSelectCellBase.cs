@@ -19,6 +19,7 @@ namespace Star.Battle.UI
         public virtual void Select()
         {
             // 選択内容を記録
+            action.Chara = BattleSystem.Instance.Actor;
             BattleSystem.Instance.CurrentSelectData.Action = action;
             ActionSelector.Instance.Selected();
         }

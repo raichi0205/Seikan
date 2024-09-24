@@ -29,8 +29,8 @@ namespace Star.Battle
         /// </summary>
         public void EnterSelectIndex()
         {
-            BattleSystem.Instance.CurrentSelectData.SelectEnemy = stackIndex;        // 選択した番号を記録
-            BattleSystem.Instance.MainSystem();
+            BattleSystem.Instance.CurrentSelectData.Target = stackIndex;        // 選択した番号を記録
+            BattleSystem.Instance.NextTurnAction();
         }
     }
 }

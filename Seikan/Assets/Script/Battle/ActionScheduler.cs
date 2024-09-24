@@ -10,25 +10,26 @@ namespace Star.Battle
         /// <summary>
         /// 選択行動実行
         /// </summary>
-        private void Action()
+        public void Action()
         {
+            // ToDo: 順番に行えるようにする
+            List<SelectData> selectDatas = ActionOrderEvaluation();
+            foreach(SelectData data in selectDatas)
+            {
+                BattleSystem.Instance.ActionExecute(data);
+            }
 
+            // ToDo: 演出が終わってから次の行動へ移る
+            BattleSystem.Instance.NextTurnAction();
         }
 
         /// <summary>
         /// 行動順評価
         /// </summary>
-        private List<ActionBase> ActionOrderEvaluation()
+        private List<SelectData> ActionOrderEvaluation()
         {
-            List<CharacterBase> actionOrderCharacters = new List<CharacterBase>();      // キャラクターの行動順を決める
-            List<ActionBase> actions = new List<ActionBase>();
-            foreach (CharacterBase chara in actionOrderCharacters)
-            {
-                // 行動の結合
-                actions.AddRange(chara.Actions);
-            }
-            actions.Sort((a, b) => b.GetActionOrderRate() - a.GetActionOrderRate());        // レートの降順でソート         
-
+            List<SelectData> actions = BattleSystem.Instance.SelectDatas;
+            actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート         
             return actions;
         }
     }

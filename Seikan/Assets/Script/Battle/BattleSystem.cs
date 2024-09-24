@@ -26,6 +26,7 @@ namespace Star.Battle
 
         [SerializeField] EnemyManager enemyManager;
 
+        // 敵キャラの選択システム
         private EnemySelector enemySelector = new EnemySelector();
         public EnemySelector EnemySelector { get { return enemySelector; } }
 
@@ -35,13 +36,14 @@ namespace Star.Battle
         List<UnityAction> schedule = new List<UnityAction>();
         public TurnAction turnAction = TurnAction.None;
 
+        // プレイヤー行動データ
         public SelectData CurrentSelectData = null;
+        private List<SelectData> playerSelectDatas = new List<SelectData>();
+        public List<SelectData> PlayerSelectDatas { get { return playerSelectDatas; } }
         private List<SelectData> selectDatas = new List<SelectData>();
         public List<SelectData> SelectDatas { get { return selectDatas; } }
 
-        /// <summary>
-        /// システムメッセージ
-        /// </summary>
+        // システムメッセージ
         string systemMsg = "";
         public string SystemMsg { get { return systemMsg; } 
             set
@@ -53,6 +55,7 @@ namespace Star.Battle
             }
         }
 
+        [SerializeField] ActorData actorData;
         private Actor actor = new Actor();                  // 主人公
         public Actor Actor { get { return actor; } }
         List<CharacterBase> enemies = new List<CharacterBase>();    // 敵
@@ -71,6 +74,8 @@ namespace Star.Battle
             enemyManager.Initialize();
             battleUI.Initialize();
 
+            actor.Initialize(actorData);
+
             schedule.Add(TurnStart);
             schedule.Add(SelectAction);
             schedule.Add(SelectEnemy);
@@ -79,10 +84,10 @@ namespace Star.Battle
 
             ActionSelector.Instance.Initialize();
 
-            MainSystem();
+            NextTurnAction();
         }
 
-        public void MainSystem(TurnAction _designationAction = TurnAction.None)
+        public void NextTurnAction(TurnAction _designationAction = TurnAction.None)
         {
             if (_designationAction == TurnAction.None)
             {
@@ -105,9 +110,10 @@ namespace Star.Battle
         {
             Debug.Log($"[BattleSystem] TurnStart:{turn}");
 
-            selectDatas.Clear();        // 選択内容をリセット
+            playerSelectDatas.Clear();        // 選択内容をリセット
             CurrentSelectData = null;
-            
+            actor.SelectCounter = 0;
+
             if(turn < maxTurn)
             { 
                 turn++;     // ターンを一つ繰り上げる
@@ -120,7 +126,7 @@ namespace Star.Battle
                     enemy.UpdateStatus();
                 }
 
-                MainSystem();
+                NextTurnAction();
             }
             else
             {
@@ -135,7 +141,7 @@ namespace Star.Battle
             if (CurrentSelectData == null)
             {
                 CurrentSelectData = new SelectData();       // 新しい選択情報の作成
-                selectDatas.Add(CurrentSelectData);
+                playerSelectDatas.Add(CurrentSelectData);
             }
 
             battleUI.OpenActionSelectWindow();
@@ -151,18 +157,45 @@ namespace Star.Battle
         private void ActionTurn()
         {
             // 行動選択権がまだ残っているか
+            //Debug.Log($"[Debug] {actor.GetSelectCount() > 0} : {actor.GetSelectCount()}");
             if(actor.GetSelectCount() > 0)
             {
                 // 残っていれば選択画面に戻す
-                MainSystem(TurnAction.SelectAction);
+                CurrentSelectData = null;       // 選択データも一新する
+                NextTurnAction(TurnAction.SelectAction);
+                return;
             }
 
             Debug.Log("[BattleSystem] ActionTurn");
+
+            // ToDo: 敵の行動選択
+            // Memo: Luaでやる。行動選択処理をLuaでを行い、完了まで待機する
+            selectDatas.AddRange(playerSelectDatas);        // プレイヤーの行動データを追加
+            actionScheduler.Action();
         }
 
         private void TurnEnd()
         {
             Debug.Log("[BattleSystem] TurnEnd");
+        }
+
+        public void ActionExecute(SelectData _selectData)
+        {
+            Debug.Log($"[BattleSystem][ActionExe] Action:{_selectData.Action.Chara}\nTarget:{_selectData.Target}");
+            if(_selectData.Target == -1)
+            {
+                // 全体攻撃
+
+            }
+            else if(_selectData.Target == -2)
+            {
+                // 自身への行動
+            }
+            else
+            {
+                // ToDo: 
+                //enemies[_target]
+            }
         }
     }
 }
