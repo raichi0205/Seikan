@@ -53,7 +53,8 @@ namespace Star.Battle
             }
         }
 
-        CharacterBase actor = new CharacterBase();                  // 主人公
+        private Actor actor = new Actor();                  // 主人公
+        public Actor Actor { get { return actor; } }
         List<CharacterBase> enemies = new List<CharacterBase>();    // 敵
 
         private void Start()
@@ -149,6 +150,13 @@ namespace Star.Battle
 
         private void ActionTurn()
         {
+            // 行動選択権がまだ残っているか
+            if(actor.GetSelectCount() > 0)
+            {
+                // 残っていれば選択画面に戻す
+                MainSystem(TurnAction.SelectAction);
+            }
+
             Debug.Log("[BattleSystem] ActionTurn");
         }
 

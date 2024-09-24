@@ -38,6 +38,9 @@ namespace Star.Battle
         /// <param name="_turnAction"></param>
         public virtual void Selected(BattleSystem.TurnAction _turnAction = BattleSystem.TurnAction.None)
         {
+            // 行動選択時カウントアップ
+            BattleSystem.Instance.Actor.SelectCounter++;
+
             // 次の行動へ進ませる
             BattleSystem.Instance.MainSystem(_turnAction);
         }
