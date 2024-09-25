@@ -177,6 +177,7 @@ namespace Star.Battle
         private void TurnEnd()
         {
             Debug.Log("[BattleSystem] TurnEnd");
+            NextTurnAction();
         }
 
         public void ActionExecute(SelectData _selectData)

@@ -14,6 +14,7 @@ namespace Star.Battle.UI
         [SerializeField] TextMeshProUGUI systemMsgUi;
         public TextMeshProUGUI SystemMsgUi { get { return systemMsgUi; } }
         [SerializeField] ActionSelectWindow actionSelectWindow;
+        [SerializeField] EnemyUIController enemyUIController;
 
         [SerializeField] CommonButton enemySelectEnter;
 
@@ -21,8 +22,11 @@ namespace Star.Battle.UI
         {
             actionSelectWindow.Initialize();
 
+            enemyUIController.SetActiveButton(false);
             enemySelectEnter.onClick.AddListener(() =>
             {
+                enemyUIController.SetActiveButton(false);
+                enemySelectEnter.gameObject.SetActive(false);
                 BattleSystem.Instance.EnemySelector.EnterSelectIndex();
             });
         }
@@ -40,7 +44,8 @@ namespace Star.Battle.UI
 
         public void ActiveTargetEnemySelect()
         {
-            // ToDo: 攻撃対象の敵キャラの選択UIを有効に
+            // 攻撃対象の敵キャラの選択UIを有効に
+            enemyUIController.SetActiveButton(true);
             enemySelectEnter.gameObject.SetActive(true);
         }
     }

@@ -21,5 +21,13 @@ namespace Star.Battle.UI
                 enemyCells.Add(newCell);
             }
         }
+
+        public void SetActiveButton(bool _isActive)
+        {
+            foreach(EnemyCell cell in enemyCells)
+            {
+                cell.SetActive(_isActive);
+            }
+        }
     }
 }
