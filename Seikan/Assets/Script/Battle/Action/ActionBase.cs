@@ -18,6 +18,7 @@ namespace Star.Battle
             public float Rate = 0;          // 補正倍率
         }
 
+        public int DefaultTargetNum = int.MinValue;
         [SerializeField] Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         public CharacterBase Chara;        // 行動主のキャラデータ
 

@@ -150,6 +150,12 @@ namespace Star.Battle
         private void SelectEnemy()
         {
             Debug.Log("[BattleSystem] SelectEnemy");
+            if(CurrentSelectData.Action.DefaultTargetNum == -2)
+            {
+                CurrentSelectData.Target = CurrentSelectData.Action.DefaultTargetNum;
+                NextTurnAction();       // 自分が対象の場合はスキップ
+                return;
+            }
             battleUI.CloseActionSelectWindow();
             battleUI.ActiveTargetEnemySelect();
         }
