@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae431618945e269498d47d56cea3ddfb, type: 3}
-  m_Name: Attack
+  m_Script: {fileID: 11500000, guid: 04a22c00a0fc9be41b7436f2b9706640, type: 3}
+  m_Name: Escape
   m_EditorClassIdentifier: 
   DefaultTargetNum: -2147483648
   actionType: 0

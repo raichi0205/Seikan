@@ -58,7 +58,6 @@ namespace Star.Battle
         [SerializeField] ActorData actorData;
         private Actor actor = new Actor();                  // 主人公
         public Actor Actor { get { return actor; } }
-        List<CharacterBase> enemies = new List<CharacterBase>();    // 敵
 
         private void Start()
         {
@@ -121,7 +120,7 @@ namespace Star.Battle
                 // プレイヤーの状態の更新
                 actor.UpdateStatus();
                 // 敵の状態の更新
-                foreach(var enemy in enemies)
+                foreach(var enemy in enemyManager.Enemies)
                 {
                     enemy.UpdateStatus();
                 }
@@ -189,19 +188,30 @@ namespace Star.Battle
         public void ActionExecute(SelectData _selectData)
         {
             Debug.Log($"[BattleSystem][ActionExe] Action:{_selectData.Action.Chara}\nTarget:{_selectData.Target}");
-            if(_selectData.Target == -1)
+            if(_selectData.Target == int.MinValue)
+            {
+                Debug.LogError("ターゲット未選択");
+            }
+            else if(_selectData.Target == -1)
             {
                 // 全体攻撃
-
+                _selectData.Action.Action(enemyManager.Enemies);
             }
             else if(_selectData.Target == -2)
             {
                 // 自身への行動
+                _selectData.Action.Action(actor);
             }
             else
             {
-                // ToDo: 
-                //enemies[_target]
+                if (_selectData.Target < enemyManager.Enemies.Count)
+                {
+                    _selectData.Action.Action(enemyManager.Enemies[_selectData.Target]);
+                }
+                else
+                {
+                    Debug.LogError("[BS Select]Index over");
+                }
             }
         }
     }

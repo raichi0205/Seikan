@@ -8,6 +8,16 @@ namespace Star.Battle
     [CreateAssetMenu(fileName = "ActionData", menuName = "Battle/Action/ActionData", order = 0)]
     public class ActionBase : ScriptableObject
     {
+        public enum Action_Type
+        {
+            None,
+            Attack,
+            Guard,
+            Skill,
+            Exhaust,
+            Escape,
+        }
+
         /// <summary>
         /// 補正パラメータ
         /// </summary>
@@ -19,8 +29,11 @@ namespace Star.Battle
         }
 
         public int DefaultTargetNum = int.MinValue;
-        [SerializeField] Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
+        [SerializeField] protected Action_Type actionType = Action_Type.None;
+        public Action_Type ActionType { get { return actionType; } }
+        [SerializeField] protected Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         public CharacterBase Chara;        // 行動主のキャラデータ
+        protected CharacterBase target = null;
 
         /// <summary>
         /// 行動順を決める値を還す
@@ -31,6 +44,16 @@ namespace Star.Battle
             float result = (Chara.GetStatus(Status.AGI) + corrections[(int)Status.AGI].Value) * corrections[(int)Status.AGI].Rate;
             result *= 100;
             return (int)result;
+        }
+
+        public virtual void Action(CharacterBase _target)
+        {
+            target = _target;
+        }
+
+        public virtual void Action(List<CharacterBase> _targets)
+        {
+
         }
     }
 }
