@@ -24,6 +24,7 @@ namespace Star.Battle
         const int maxTurn = 999;    // 最大ターン数
         [SerializeField] int turn = 0;           // 現在のターン
 
+        [SerializeField] SkillManager skillManager;
         [SerializeField] EnemyManager enemyManager;
 
         // 敵キャラの選択システム
@@ -70,6 +71,7 @@ namespace Star.Battle
         /// </summary>
         public void Initialize()
         {
+            skillManager.Initialize();
             enemyManager.Initialize();
             battleUI.Initialize();
 

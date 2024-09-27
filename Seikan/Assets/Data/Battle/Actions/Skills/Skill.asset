@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skill
   m_EditorClassIdentifier: 
   DefaultTargetNum: -2147483648
-  actionType: 0
+  actionType: 3
   corrections:
   - Value: 0
     Rate: 0
@@ -27,3 +27,5 @@ MonoBehaviour:
     Rate: 0
   - Value: 0
     Rate: 0
+  skillName: 
+  luaScript: Skill/TestSkill.lua
