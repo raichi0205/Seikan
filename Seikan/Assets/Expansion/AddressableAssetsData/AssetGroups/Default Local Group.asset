@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Skill/TestSkill.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 889b2942a6765104f8a3afbbef727d89
+    m_Address: Assets/Script/Lua/LuaScript/Battle/Main.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:

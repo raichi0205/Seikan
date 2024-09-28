@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using Star.Common;
 using Star.Character;
 using Star.Battle.UI;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Battle
 {
@@ -71,6 +72,8 @@ namespace Star.Battle
         /// </summary>
         public void Initialize()
         {
+            Lua.LuaSystem.Instance.StarLua("Battle/Main.lua");
+
             skillManager.Initialize();
             enemyManager.Initialize();
             battleUI.Initialize();
@@ -187,7 +190,7 @@ namespace Star.Battle
             NextTurnAction();
         }
 
-        public void ActionExecute(SelectData _selectData)
+        public async UniTask ActionExecute(SelectData _selectData)
         {
             Debug.Log($"[BattleSystem][ActionExe] Action:{_selectData.Action.Chara}\nTarget:{_selectData.Target}");
             if(_selectData.Target == int.MinValue)
@@ -202,13 +205,13 @@ namespace Star.Battle
             else if(_selectData.Target == -2)
             {
                 // 自身への行動
-                _selectData.Action.Action(actor);
+                await _selectData.Action.Action(actor);
             }
             else
             {
                 if (_selectData.Target < enemyManager.Enemies.Count)
                 {
-                    _selectData.Action.Action(enemyManager.Enemies[_selectData.Target]);
+                    await _selectData.Action.Action(enemyManager.Enemies[_selectData.Target]);
                 }
                 else
                 {

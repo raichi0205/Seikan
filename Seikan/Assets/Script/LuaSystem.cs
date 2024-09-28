@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using XLua;
@@ -13,8 +14,12 @@ namespace Star.Lua
     public class LuaSystem : SingletonMonoBehaviour<LuaSystem>
     {
         private LuaEnv luaEnv;
-        private List<TextAsset> loadScriptFiles = new List<TextAsset>();
+        public LuaEnv LuaEnv { get { return luaEnv; } }
 
+        private List<TextAsset> loadScriptFiles = new List<TextAsset>();
+        private UniTaskCompletionSource utcs = new UniTaskCompletionSource();
+        public Task CurrentTask;
+         
         private void Start()
         {
             Initialize();
@@ -34,12 +39,14 @@ namespace Star.Lua
         public void StarLua(string _path)
         {
             Debug.Log($"[Lua] Start:{_path}");
-            luaEnv.DoString($"require \"{_path}\"");
+            luaEnv.DoString($"require(\"{_path}\")");
         }
 
         private byte[] CustomLoader(ref string _filePath)
         {
+            Debug.Log($"[Lua] CustomLoader");
             AsyncLoaderToBytes(_filePath, (value)=> { luaEnv.DoString(value); });
+
             var encoding = Encoding.GetEncoding("UTF-8");
             return encoding.GetBytes($"CS.UnityEngine.Debug.Log(\"[Lua] Load:{_filePath}\")");
         }
@@ -47,7 +54,8 @@ namespace Star.Lua
         private async Task<byte[]> AsyncLoaderToBytes(string _filePath, Action<byte[]> onCompleate = null)
         {
             var loaderHandle = Addressables.LoadAssetAsync<TextAsset>(_filePath);
-            await loaderHandle.Task;
+            CurrentTask = loaderHandle.Task;
+            await CurrentTask;
 
             if(loaderHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
             {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Star.Character;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Battle
 {
@@ -10,13 +11,13 @@ namespace Star.Battle
         /// <summary>
         /// 選択行動実行
         /// </summary>
-        public void Action()
+        public async UniTask Action()
         {
             // ToDo: 順番に行えるようにする
             List<SelectData> selectDatas = ActionOrderEvaluation();
             foreach(SelectData data in selectDatas)
             {
-                BattleSystem.Instance.ActionExecute(data);
+                 await BattleSystem.Instance.ActionExecute(data);
             }
 
             // ToDo: 演出が終わってから次の行動へ移る

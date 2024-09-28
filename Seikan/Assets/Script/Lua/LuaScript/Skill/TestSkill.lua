@@ -1,6 +1,9 @@
-function SystemMsg(msg)
-    print("lua SystemMsg:"..msg)
-    CS.Star.Battle.BattleSystem.Instance.SystemMsg = msg
+TestSkill = {}
+TestSkill.new = function ()
+    obj = {}
+    obj.Action = function ()
+        Skill.SystemMsg("skill used")        
+    end
+    return obj
 end
-
-SystemMsg("skill used")
+TestSkill = TestSkill.new()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Star.Character;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Battle
 {
@@ -46,7 +47,7 @@ namespace Star.Battle
             return (int)result;
         }
 
-        public virtual void Action(CharacterBase _target)
+        public virtual async UniTask Action(CharacterBase _target)
         {
             target = _target;
         }
