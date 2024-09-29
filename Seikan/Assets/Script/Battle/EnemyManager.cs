@@ -17,15 +17,26 @@ namespace Star.Battle
         private List<Enemy> enemies = new List<Enemy>();
         public List<Enemy> Enemies { get { return enemies; } }
 
+        [SerializeField] ActionAttack actionAttack;
+        public ActionAttack ActionAttack { get { return actionAttack; } }
+        [SerializeField] ActionGuard actionGuard;
+        public ActionGuard ActionGuard { get { return actionGuard; } }
+        [SerializeField] ActionEscape actionEscape;
+        public ActionEscape ActionEscape { get { return actionEscape; } }
+        [SerializeField] List<ActionSkill> actionSkills;
+        public List<ActionSkill> ActionSkills { get { return actionSkills; } }
+
         public void Initialize()
         {
             // ToDo: 敵キャラデータの呼び出しを行う
 
+            int num = 0;
             foreach(EnemyData enemyData in enemyDatas)
             {
                 Enemy newEnemy = new Enemy();
-                newEnemy.Initialize(enemyData);
+                newEnemy.Initialize(enemyData, num);
                 enemies.Add(newEnemy);
+                num++;
             }
 
             enemyUIController.Initialize(enemyDatas);

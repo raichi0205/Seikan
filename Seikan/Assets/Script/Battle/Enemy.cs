@@ -9,9 +9,9 @@ namespace Star.Character
 {
     public class Enemy : CharacterBase
     {
-        public override void Initialize(CharacterData _characterData)
+        public override void Initialize(CharacterData _characterData, int _num)
         {
-            base.Initialize(_characterData);
+            base.Initialize(_characterData, _num);
         }
 
         /// <summary>
@@ -22,10 +22,12 @@ namespace Star.Character
         {
             LuaSystem.Instance.StarLua(((EnemyData)characterData).ActionPatternScript);
             await LuaSystem.Instance.CurrentTask;
+
+            EnemyLuaBridge.Instance.CurrentEnemy = this;
             LuaTable enemyClass = LuaSystem.Instance.LuaEnv.Global.Get<LuaTable>(characterData.name);
             Debug.Log($"[Enemy]{characterData.name}");
-            Action action = enemyClass.Get<Action>("Thinking");
-            action.Invoke();
+            LuaFunction thinkingFunc = enemyClass.Get<LuaFunction>("Thinking");
+            thinkingFunc.Call(enemyClass);
         }
     }
 }

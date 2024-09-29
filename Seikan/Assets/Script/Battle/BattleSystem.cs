@@ -27,6 +27,7 @@ namespace Star.Battle
 
         [SerializeField] SkillManager skillManager;
         [SerializeField] EnemyManager enemyManager;
+        public EnemyManager EnemyManager { get { return enemyManager; } }
 
         // 敵キャラの選択システム
         private EnemySelector enemySelector = new EnemySelector();
@@ -77,7 +78,7 @@ namespace Star.Battle
             enemyManager.Initialize();
             battleUI.Initialize();
 
-            actor.Initialize(actorData);
+            actor.Initialize(actorData, -2);
 
             ActionSelector.Instance.Initialize();
 

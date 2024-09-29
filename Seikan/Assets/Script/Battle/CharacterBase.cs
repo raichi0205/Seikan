@@ -10,9 +10,11 @@ namespace Star.Character
         [SerializeField] protected CharacterData characterData;
         public List<StateBase> States = new List<StateBase>();      // 現在の状態リスト
         public List<ActionBase> Actions = new List<ActionBase>();   // 行動のリスト
+        public int Num = int.MinValue;      // 自分の対象番号
 
-        public virtual void Initialize(CharacterData _characterData)
+        public virtual void Initialize(CharacterData _characterData, int _num)
         {
+            Num = _num;
             characterData = _characterData;
         }
 
