@@ -7,7 +7,7 @@ namespace Star.Character
 {
     public class CharacterBase
     {
-        [SerializeField] CharacterData characterData;
+        [SerializeField] protected CharacterData characterData;
         public List<StateBase> States = new List<StateBase>();      // 現在の状態リスト
         public List<ActionBase> Actions = new List<ActionBase>();   // 行動のリスト
 

@@ -22,7 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 889b2942a6765104f8a3afbbef727d89
-    m_Address: Assets/Script/Lua/LuaScript/Battle/Main.lua
+    m_Address: Battle/Main.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 00de56ca223a483438478be28c0e0639
+    m_Address: Enemy/TestEnemy.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ddc13e0ebe3a8d4d9010bce67530930, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: 15d14e3831706b9468505411869a4de8, type: 3}
+  m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  States: []
-  Actions: []
+  status: 000000000000000000000000000000000000000000000000
+  enemyName: TestEnemy
+  actionPatternScript: Enemy/TestEnemy.lua

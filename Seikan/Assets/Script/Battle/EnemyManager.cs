@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Star.Character;
 using Star.Battle.UI;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Battle
 {
@@ -13,8 +14,8 @@ namespace Star.Battle
 
         [SerializeField] EnemyUIController enemyUIController;
 
-        private List<CharacterBase> enemies = new List<CharacterBase>();
-        public List<CharacterBase> Enemies { get { return enemies; } }
+        private List<Enemy> enemies = new List<Enemy>();
+        public List<Enemy> Enemies { get { return enemies; } }
 
         public void Initialize()
         {
@@ -22,12 +23,20 @@ namespace Star.Battle
 
             foreach(EnemyData enemyData in enemyDatas)
             {
-                CharacterBase newEnemy = new CharacterBase();
+                Enemy newEnemy = new Enemy();
                 newEnemy.Initialize(enemyData);
                 enemies.Add(newEnemy);
             }
 
             enemyUIController.Initialize(enemyDatas);
+        }
+
+        public async UniTask EnemyActionThinking()
+        {
+            foreach(Enemy enemy in enemies)
+            {
+                await enemy.ActionThinking();
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Star.Battle
         private List<SelectData> ActionOrderEvaluation()
         {
             List<SelectData> actions = BattleSystem.Instance.SelectDatas;
-            actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート         
+            actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート
             return actions;
         }
     }

@@ -35,7 +35,6 @@ namespace Star.Battle
         [SerializeField] BattleUI battleUI;      // 戦闘画面UI
 
         ActionScheduler actionScheduler = new ActionScheduler();
-        List<UnityAction> schedule = new List<UnityAction>();
         public TurnAction turnAction = TurnAction.None;
 
         // プレイヤー行動データ
@@ -80,18 +79,12 @@ namespace Star.Battle
 
             actor.Initialize(actorData);
 
-            schedule.Add(TurnStart);
-            schedule.Add(SelectAction);
-            schedule.Add(SelectEnemy);
-            schedule.Add(ActionTurn);
-            schedule.Add(TurnEnd);
-
             ActionSelector.Instance.Initialize();
 
             NextTurnAction();
         }
 
-        public void NextTurnAction(TurnAction _designationAction = TurnAction.None)
+        public async UniTask NextTurnAction(TurnAction _designationAction = TurnAction.None)
         {
             if (_designationAction == TurnAction.None)
             {
@@ -104,13 +97,31 @@ namespace Star.Battle
                 turnAction = _designationAction;        
             }
             Debug.Log($"[BattleSystem] TurnAction:{turnAction}");
-            schedule[(int)turnAction].Invoke();
+
+            switch (turnAction)
+            {
+                case TurnAction.TurnStart:
+                    await TurnStart();
+                    break;
+                case TurnAction.SelectAction:
+                    await SelectAction();
+                    break;
+                case TurnAction.SelectEnemy:
+                    await SelectEnemy();
+                    break;
+                case TurnAction.ActionTurn:
+                    await ActionTurn();
+                    break;
+                case TurnAction.TurnEnd:
+                    await TurnEnd();
+                    break;
+            }
         }
 
         /// <summary>
         /// ターンの開始
         /// </summary>
-        private void TurnStart()
+        private async UniTask TurnStart()
         {
             Debug.Log($"[BattleSystem] TurnStart:{turn}");
 
@@ -138,7 +149,7 @@ namespace Star.Battle
             }
         }
 
-        private void SelectAction()
+        private async UniTask SelectAction()
         {
             Debug.Log("[BattleSystem] SelectAction");
 
@@ -151,7 +162,7 @@ namespace Star.Battle
             battleUI.OpenActionSelectWindow();
         }
 
-        private void SelectEnemy()
+        private async UniTask SelectEnemy()
         {
             Debug.Log("[BattleSystem] SelectEnemy");
             if(CurrentSelectData.Action.DefaultTargetNum == -2)
@@ -164,7 +175,7 @@ namespace Star.Battle
             battleUI.ActiveTargetEnemySelect();
         }
 
-        private void ActionTurn()
+        private async UniTask ActionTurn()
         {
             // 行動選択権がまだ残っているか
             //Debug.Log($"[Debug] {actor.GetSelectCount() > 0} : {actor.GetSelectCount()}");
@@ -178,13 +189,14 @@ namespace Star.Battle
 
             Debug.Log("[BattleSystem] ActionTurn");
 
-            // ToDo: 敵の行動選択
-            // Memo: Luaでやる。行動選択処理をLuaでを行い、完了まで待機する
+            // 敵の行動選択
+            await enemyManager.EnemyActionThinking();
             selectDatas.AddRange(playerSelectDatas);        // プレイヤーの行動データを追加
-            actionScheduler.Action();
+
+            await actionScheduler.Action();
         }
 
-        private void TurnEnd()
+        private async UniTask TurnEnd()
         {
             Debug.Log("[BattleSystem] TurnEnd");
             NextTurnAction();
@@ -200,7 +212,7 @@ namespace Star.Battle
             else if(_selectData.Target == -1)
             {
                 // 全体攻撃
-                _selectData.Action.Action(enemyManager.Enemies);
+                _selectData.Action.ActionToEnemy(enemyManager.Enemies);
             }
             else if(_selectData.Target == -2)
             {

@@ -52,7 +52,7 @@ namespace Star.Battle
             target = _target;
         }
 
-        public virtual void Action(List<CharacterBase> _targets)
+        public virtual void ActionToEnemy(List<Enemy> _targets)
         {
 
         }
