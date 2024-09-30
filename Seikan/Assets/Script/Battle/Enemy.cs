@@ -23,11 +23,13 @@ namespace Star.Character
             LuaSystem.Instance.StarLua(((EnemyData)characterData).ActionPatternScript);
             await LuaSystem.Instance.CurrentTask;
 
-            EnemyLuaBridge.Instance.CurrentEnemy = this;
+            EnemyLuaBridge.Instance.enemyNum = Num;
             LuaTable enemyClass = LuaSystem.Instance.LuaEnv.Global.Get<LuaTable>(characterData.name);
             Debug.Log($"[Enemy]{characterData.name}");
             LuaFunction thinkingFunc = enemyClass.Get<LuaFunction>("Thinking");
             thinkingFunc.Call(enemyClass);
+
+            EnemyLuaBridge.Instance.enemyNum = int.MinValue;
         }
     }
 }

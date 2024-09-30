@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Star.Common;
 using Star.Battle;
 using System;
@@ -7,12 +8,21 @@ using System;
 namespace Star.Character {
     public class EnemyLuaBridge : Singleton<EnemyLuaBridge>
     {
-        public Enemy CurrentEnemy = null;
+        public int enemyNum = int.MinValue;
 
         public void SelectAction(string _select)
         {
-            Debug.Log($"[Enemy][Select]{_select}");
+            Debug.Log($"[Enemy][Select]{enemyNum}:{_select}");
             EnemyManager enemyManager = BattleSystem.Instance.EnemyManager;
+
+            if(enemyNum < 0 && enemyNum >= enemyManager.Enemies.Count)
+            {
+                Debug.LogError("[Enemy] Enemy Num Not Setting");
+                enemyNum = int.MinValue;
+                return;
+            }
+            Enemy enemy = enemyManager.Enemies[enemyNum];
+            
             ActionBase.Action_Type action_Type;
 
             string[] select = _select.Split('/');       // 選択内容/スキル名
@@ -28,7 +38,7 @@ namespace Star.Character {
                         break;
                     case ActionBase.Action_Type.Guard:
                         selectData.Action = enemyManager.ActionGuard;
-                        selectData.Target = CurrentEnemy.Num;       // 自分への行動
+                        selectData.Target = enemy.Num;       // 自分への行動
                         break;
                     case ActionBase.Action_Type.Skill:
                         ActionSkill skill = SerachActionSkill(select[1]);
@@ -45,10 +55,10 @@ namespace Star.Character {
                         break;
                     case ActionBase.Action_Type.Escape:
                         selectData.Action = enemyManager.ActionEscape;
-                        selectData.Target = CurrentEnemy.Num;
+                        selectData.Target = enemy.Num;
                         break;
                 }
-                selectData.Action.Chara = CurrentEnemy;     // ToDo: たぶんこれだめ、敵キャラのポインタが変わるので
+                selectData.Action.Chara = enemy;
                 BattleSystem.Instance.SelectDatas.Add(selectData);
             }
         }
