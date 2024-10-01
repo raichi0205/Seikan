@@ -19,6 +19,7 @@ namespace Star.Lua
         private List<TextAsset> loadScriptFiles = new List<TextAsset>();
         private UniTaskCompletionSource utcs = new UniTaskCompletionSource();
         public Task CurrentTask;
+        public TextAsset[] luaAssets;
          
         private void Start()
         {
@@ -44,6 +45,15 @@ namespace Star.Lua
 
         private byte[] CustomLoader(ref string _filePath)
         {
+            // 例外ファイル
+            if (_filePath == "xlua.util")
+            {
+                foreach(TextAsset textAsset in luaAssets)
+                {
+                    return textAsset.bytes;
+                }
+            }
+
             Debug.Log($"[Lua] CustomLoader");
             AsyncLoaderToBytes(_filePath, (value)=> { luaEnv.DoString(value); });
 

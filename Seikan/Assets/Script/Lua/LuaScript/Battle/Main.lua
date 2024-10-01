@@ -1,3 +1,5 @@
+require("Common.lua")
+
 Skill = {}
 Skill.new = function ()
     local obj = {}

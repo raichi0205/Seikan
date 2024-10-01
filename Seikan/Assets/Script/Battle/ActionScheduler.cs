@@ -13,7 +13,7 @@ namespace Star.Battle
         /// </summary>
         public async UniTask Action()
         {
-            // ToDo: 順番に行えるようにする
+            // 順番を評価し、その順で攻撃を行う
             List<SelectData> selectDatas = ActionOrderEvaluation();
             foreach(SelectData data in selectDatas)
             {

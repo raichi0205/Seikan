@@ -10,11 +10,17 @@ namespace Star.Battle
     [CreateAssetMenu(fileName = "Skill", menuName = "Battle/Action/ActionSkill", order = 0)]
     public class ActionSkill : ActionBase
     {
+        public static ActionSkill CurrentSkill = null;
+
         [SerializeField] string skillName = string.Empty;
         public string SkillName { get { return skillName; } }
         [SerializeField] string luaScript = string.Empty;
+        public bool IsEnd = false;
+
         public override async UniTask Action(CharacterBase _target)
         {
+            CurrentSkill = this;
+
             // Luaの呼出
             if (!string.IsNullOrEmpty(luaScript))
             {
@@ -25,11 +31,15 @@ namespace Star.Battle
             await LuaSystem.Instance.CurrentTask;
 
             XLua.LuaTable skillClass = LuaSystem.Instance.LuaEnv.Global.Get<XLua.LuaTable>(name);
-            Action action = skillClass.Get<Action>($"Action");
+            XLuaGenConfig.LuaCoroutine action = skillClass.Get<XLuaGenConfig.LuaCoroutine>($"Action");
             if (action != null)
             {
                 Debug.Log($"[Skill] action");
                 action.Invoke();
+                await UniTask.WaitUntil(() => IsEnd);
+                CurrentSkill = null;
+                IsEnd = false;
+                Debug.Log($"[Skill] End action");
             }
             else
             {

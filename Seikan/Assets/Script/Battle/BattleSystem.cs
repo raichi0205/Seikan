@@ -70,8 +70,10 @@ namespace Star.Battle
         /// 初期化処理
         /// ToDo: 非同期にして初期化処理が終了するまでロード画面で止めるなどの工夫
         /// </summary>
-        public void Initialize()
+        public async UniTask Initialize()
         {
+            await Effect.EffectSystem.Instance.LoadEffectAssets();
+
             Lua.LuaSystem.Instance.StarLua("Battle/Main.lua");
 
             skillManager.Initialize();
@@ -128,6 +130,7 @@ namespace Star.Battle
 
             playerSelectDatas.Clear();        // 選択内容をリセット
             CurrentSelectData = null;
+            selectDatas.Clear();
             actor.SelectCounter = 0;
 
             if(turn < maxTurn)

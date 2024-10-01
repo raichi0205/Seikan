@@ -29,6 +29,15 @@ MonoBehaviour:
     m_Address: Enemy/TestEnemy.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9a5c861c590d0164195d2a5bf47daa20
+    m_Address: Common.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8c570615699cc024e9f8a2da696f0e2b
+    m_Address: Assets/Expansion/Effekseer/Example/Effects/Laser01.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:
