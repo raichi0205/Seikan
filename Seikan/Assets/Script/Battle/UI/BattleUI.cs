@@ -48,5 +48,12 @@ namespace Star.Battle.UI
             enemyUIController.SetActiveButton(true);
             enemySelectEnter.gameObject.SetActive(true);
         }
+
+        public void UnActiveTargetEnemySelect()
+        {
+            // 攻撃対象の敵キャラの選択UIを有効に
+            enemyUIController.SetActiveButton(false);
+            enemySelectEnter.gameObject.SetActive(false);
+        }
     }
 }

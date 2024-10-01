@@ -193,6 +193,9 @@ namespace Star.Battle
 
             Debug.Log("[BattleSystem] ActionTurn");
 
+            battleUI.CloseActionSelectWindow();
+            battleUI.UnActiveTargetEnemySelect();
+
             // 敵の行動選択
             await enemyManager.EnemyActionThinking();
             selectDatas.AddRange(playerSelectDatas);        // プレイヤーの行動データを追加
@@ -234,6 +237,8 @@ namespace Star.Battle
                     Debug.LogError("[BS Select]Index over");
                 }
             }
+            SystemMsg = $"";
+            await UniTask.Delay(250);
         }
     }
 }
