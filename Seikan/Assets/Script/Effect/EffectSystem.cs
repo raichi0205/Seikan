@@ -63,6 +63,7 @@ namespace Star.Effect
         public async UniTask EndDelay(EffekseerEmitter _emitter)
         {
             await UniTask.WaitUntil(() => _emitter.IsEnd());
+            Destroy(_emitter.gameObject);
             Debug.Log($"[Effect] End");
         }
 
