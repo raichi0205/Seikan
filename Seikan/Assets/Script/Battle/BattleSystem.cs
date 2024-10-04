@@ -6,6 +6,7 @@ using Star.Common;
 using Star.Character;
 using Star.Battle.UI;
 using Cysharp.Threading.Tasks;
+using Star.Sound;
 
 namespace Star.Battle
 {
@@ -73,6 +74,7 @@ namespace Star.Battle
         /// </summary>
         public async UniTask Initialize()
         {
+            await SoundManager.Instance.LoadAudios(SoundManager.MixerGroup.SE, "SE");
             await Effect.EffectSystem.Instance.LoadEffectAssets();
 
             Lua.LuaSystem.Instance.StarLua("Battle/Main.lua");
