@@ -42,6 +42,11 @@ namespace Star.Battle
             enemyUIController.Initialize(enemyDatas);
         }
 
+        public Transform GetEnemyTransform(int _num)
+        {
+            return enemyUIController.GetEnemyTransform(_num);
+        }
+
         public async UniTask EnemyActionThinking()
         {
             foreach(Enemy enemy in enemies)

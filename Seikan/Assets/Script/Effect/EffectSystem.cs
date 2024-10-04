@@ -51,7 +51,7 @@ namespace Star.Effect
             effekseerEmitter.isLooping = _isLoop;
             if(_parent != null)
             {
-                effect.transform.SetParent(_parent);
+                effect.transform.SetParent(_parent, false);
             }
             effect.transform.localPosition = _pos;
 

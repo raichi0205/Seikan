@@ -9,7 +9,8 @@ namespace Star.Battle.UI
     public class EnemyUIController : MonoBehaviour
     {
         [SerializeField] EnemyCell originEnemyCell;
-        private List<EnemyCell> enemyCells = new List<EnemyCell>();
+        [Header("don't setting!!")]
+        [SerializeField] private List<EnemyCell> enemyCells = new List<EnemyCell>();
 
         public void Initialize(List<EnemyData> _enemies)
         {
@@ -17,9 +18,18 @@ namespace Star.Battle.UI
             {
                 EnemyCell newCell = Instantiate(originEnemyCell);
                 newCell.Initialize(enemy, enemyCells.Count);
-                newCell.transform.SetParent(transform);
+                newCell.transform.SetParent(transform, false);
                 enemyCells.Add(newCell);
             }
+        }
+
+        public Transform GetEnemyTransform(int _num)
+        {
+            if (_num < enemyCells.Count && _num >= 0)
+            {
+                return enemyCells[_num].transform;
+            }
+            return null;
         }
 
         public void SetActiveButton(bool _isActive)

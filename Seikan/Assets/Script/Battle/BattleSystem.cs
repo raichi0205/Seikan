@@ -34,6 +34,7 @@ namespace Star.Battle
         public EnemySelector EnemySelector { get { return enemySelector; } }
 
         [SerializeField] BattleUI battleUI;      // 戦闘画面UI
+        public BattleUI BattleUI { get { return battleUI; } }
 
         ActionScheduler actionScheduler = new ActionScheduler();
         public TurnAction turnAction = TurnAction.None;

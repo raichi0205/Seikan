@@ -18,6 +18,8 @@ namespace Star.Battle.UI
 
         [SerializeField] CommonButton enemySelectEnter;
 
+        public GameObject ShakeArea;
+
         public void Initialize()
         {
             actionSelectWindow.Initialize();
