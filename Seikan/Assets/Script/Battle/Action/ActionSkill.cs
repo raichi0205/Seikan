@@ -16,10 +16,12 @@ namespace Star.Battle
         public string SkillName { get { return skillName; } }
         [SerializeField] string luaScript = string.Empty;
         public bool IsEnd = false;
+        private CharacterBase target = null;
 
         public override async UniTask Action(CharacterBase _target)
         {
             CurrentSkill = this;
+            target = _target;
 
             // Luaの呼出
             if (!string.IsNullOrEmpty(luaScript))
@@ -46,6 +48,12 @@ namespace Star.Battle
                 Debug.LogError($"[Skill] NULL ACTION:{name}.Action");
             }
             base.Action(_target);
+        }
+
+        public Effekseer.EffekseerEmitter PlayEffect(Vector3 _pos, string _name)
+        {
+            Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(target.Num);
+            return Effect.EffectSystem.Instance.Play(_pos, _name, parent);
         }
     }
 }
