@@ -15,6 +15,7 @@ namespace Star.Battle.UI
         public TextMeshProUGUI SystemMsgUi { get { return systemMsgUi; } }
         [SerializeField] ActionSelectWindow actionSelectWindow;
         [SerializeField] EnemyUIController enemyUIController;
+        [SerializeField] BattleFooter footer;
 
         [SerializeField] CommonButton enemySelectEnter;
 
@@ -23,6 +24,7 @@ namespace Star.Battle.UI
         public void Initialize()
         {
             actionSelectWindow.Initialize();
+            footer.Initialize();
 
             enemyUIController.SetActiveButton(false);
             enemySelectEnter.onClick.AddListener(() =>
