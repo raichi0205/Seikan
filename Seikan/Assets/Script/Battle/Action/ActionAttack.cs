@@ -17,6 +17,16 @@ namespace Star.Battle
         public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
             BattleSystem.Instance.SystemMsg = $"{_target}に攻撃！";
+            
+            // ダメージ処理
+            int def = _target.GetCurrentStatus(Status.DEF);
+            int damage = _executor.GetCurrentStatus(Status.ATK) - def;
+            if (damage < 0)
+            {
+                damage = 1;
+            }
+            _target.SubCurrentStatus(Status.HP, damage);
+
             base.Action(_executor, _target);
             if (_target.Num >= 0)
             {
@@ -36,17 +46,13 @@ namespace Star.Battle
                 }
                 RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUI.ShakeArea.transform;
                 await rect.DOShakePosition(1, 100).AsyncWaitForCompletion();
+                await BattleSystem.Instance.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)_target.currentStatus[(int)Status.HP] / _target.GetStatus(Status.HP));
+                BattleSystem.Instance.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(_target.currentStatus[(int)Status.HP], _target.GetStatus(Status.HP));
             }
-
-            // ダメージ処理
-            int def = _target.GetCurrentStatus(Status.DEF);
-            int damage = _executor.GetCurrentStatus(Status.ATK) - def;
-            if (damage < 0)
-            {
-                damage = 1;
-            }
-            _target.SubCurrentStatus(Status.HP, damage);
+            BattleSystem.Instance.SystemMsg = $"";
+            await UniTask.Delay(200);
             BattleSystem.Instance.SystemMsg = $"{damage}ダメージ与えた";
+            await UniTask.Delay(1000);
         }
     }
 }

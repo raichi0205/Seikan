@@ -16,6 +16,7 @@ namespace Star.Battle.UI
         [SerializeField] ActionSelectWindow actionSelectWindow;
         [SerializeField] EnemyUIController enemyUIController;
         [SerializeField] BattleFooter footer;
+        public BattleFooter Footer { get { return footer; } }
 
         [SerializeField] CommonButton enemySelectEnter;
 
