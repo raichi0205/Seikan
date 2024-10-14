@@ -28,6 +28,7 @@ namespace Star.Character {
             string[] select = _select.Split('/');       // 選択内容/スキル名
 
             SelectData selectData = new SelectData();
+            selectData.Executor = enemyManager.Enemies[enemyNum];
             if (Enum.TryParse(select[0], out action_Type))
             {
                 switch (action_Type)

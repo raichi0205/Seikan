@@ -18,7 +18,7 @@ namespace Star.Battle
         public bool IsEnd = false;
         private CharacterBase target = null;
 
-        public override async UniTask Action(CharacterBase _target)
+        public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
             CurrentSkill = this;
             target = _target;
@@ -47,7 +47,7 @@ namespace Star.Battle
             {
                 Debug.LogError($"[Skill] NULL ACTION:{name}.Action");
             }
-            base.Action(_target);
+            base.Action(_executor, _target);
         }
 
         public Effekseer.EffekseerEmitter PlayEffect(Vector3 _pos, string _name)

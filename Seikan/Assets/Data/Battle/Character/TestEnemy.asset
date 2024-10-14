@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d14e3831706b9468505411869a4de8, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  status: 000000000000000000000000000000000000000000000000
+  status: 640000006400000005000000050000000100000001000000
+  currentStatus: 640000006400000005000000050000000100000001000000
   enemyName: TestEnemy
   actionPatternScript: Enemy/TestEnemy.lua

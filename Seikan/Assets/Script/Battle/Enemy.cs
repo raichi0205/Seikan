@@ -7,6 +7,7 @@ using XLua;
 
 namespace Star.Character
 {
+    [System.Serializable]
     public class Enemy : CharacterBase
     {
         public override void Initialize(CharacterData _characterData, int _num)

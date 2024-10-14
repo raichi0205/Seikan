@@ -30,6 +30,7 @@ namespace Star.Battle
         public void EnterSelectIndex()
         {
             BattleSystem.Instance.CurrentSelectData.Target = stackIndex;        // 選択した番号を記録
+            BattleSystem.Instance.CurrentSelectData.Executor = BattleSystem.Instance.Actor;
             BattleSystem.Instance.NextTurnAction();
         }
     }

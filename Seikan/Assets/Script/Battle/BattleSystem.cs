@@ -60,7 +60,8 @@ namespace Star.Battle
         }
 
         [SerializeField] ActorData actorData;
-        private Actor actor = new Actor();                  // 主人公
+
+        [SerializeField] private Actor actor = new Actor();                  // 主人公
         public Actor Actor { get { return actor; } }
 
         private void Start()
@@ -81,11 +82,13 @@ namespace Star.Battle
 
             skillManager.Initialize();
             enemyManager.Initialize();
-            battleUI.Initialize();
 
             actor.Initialize(actorData, -2);
 
             ActionSelector.Instance.Initialize();
+
+            // UIは最後に初期化
+            battleUI.Initialize();
 
             NextTurnAction();
         }
@@ -174,6 +177,7 @@ namespace Star.Battle
             Debug.Log("[BattleSystem] SelectEnemy");
             if(CurrentSelectData.Action.DefaultTargetNum == -2)
             {
+                CurrentSelectData.Executor = actor;
                 CurrentSelectData.Target = CurrentSelectData.Action.DefaultTargetNum;
                 NextTurnAction();       // 自分が対象の場合はスキップ
                 return;
@@ -227,13 +231,13 @@ namespace Star.Battle
             else if(_selectData.Target == -2)
             {
                 // 自身への行動
-                await _selectData.Action.Action(actor);
+                await _selectData.Action.Action(_selectData.Executor, actor);
             }
             else
             {
                 if (_selectData.Target < enemyManager.Enemies.Count)
                 {
-                    await _selectData.Action.Action(enemyManager.Enemies[_selectData.Target]);
+                    await _selectData.Action.Action(_selectData.Executor, enemyManager.Enemies[_selectData.Target]);
                 }
                 else
                 {

@@ -51,7 +51,7 @@ namespace Star.Battle
             return (int)result;
         }
 
-        public virtual async UniTask Action(CharacterBase _target)
+        public virtual async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
             target = _target;
         }

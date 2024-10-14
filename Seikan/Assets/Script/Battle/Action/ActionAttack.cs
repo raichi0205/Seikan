@@ -14,15 +14,15 @@ namespace Star.Battle
     {
         AudioSource attackSound = null;
 
-        public override async UniTask Action(CharacterBase _target)
+        public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
-            BattleSystem.Instance.SystemMsg = $"に攻撃！";
-            base.Action(_target);
+            BattleSystem.Instance.SystemMsg = $"{_target}に攻撃！";
+            base.Action(_executor, _target);
             if (_target.Num >= 0)
             {
                 Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(_target.Num);
                 EffekseerEmitter emitter = EffectSystem.Instance.Play(Vector3.zero, "Laser01", parent);
-                await EffectSystem.Instance.EndDelay(emitter);
+                await EffectSystem.Instance.EndDelay(emitter);              
             }
             else if (_target.Num == -2)
             {
@@ -37,6 +37,16 @@ namespace Star.Battle
                 RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUI.ShakeArea.transform;
                 await rect.DOShakePosition(1, 100).AsyncWaitForCompletion();
             }
+
+            // ダメージ処理
+            int def = _target.GetCurrentStatus(Status.DEF);
+            int damage = _executor.GetCurrentStatus(Status.ATK) - def;
+            if (damage < 0)
+            {
+                damage = 1;
+            }
+            _target.SubCurrentStatus(Status.HP, damage);
+            BattleSystem.Instance.SystemMsg = $"{damage}ダメージ与えた";
         }
     }
 }

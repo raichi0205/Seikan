@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Star.Battle;
+using Star.Editor;
 
 namespace Star.Character
 {
@@ -19,6 +20,8 @@ namespace Star.Character
 
     public class CharacterData : ScriptableObject
     {
-        public int[] status = new int[(int)Character.Status.NUM];          // ステータス地
+        [NamedArray(typeof(Status))] public int[] status = new int[(int)Character.Status.NUM];          // ステータス値
+        [SerializeField] string charaName = string.Empty;
+        public string CharaName { get { return charaName; } }
     }
 }

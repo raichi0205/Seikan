@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Star.Character
 {
+    [System.Serializable]
     public class Actor : CharacterBase
     {
         private int selectCountMax = 3;         // 一ターンで行動できる回数

@@ -10,10 +10,12 @@ namespace Star.Battle
     {
         int delayTime = 1000;
 
-        public override async UniTask Action(CharacterBase _target)
+        public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
             BattleSystem.Instance.SystemMsg = "身を守っている";
-            base.Action(_target);
+            _executor.AddCurrentStatus(Status.DEF, corrections[(int)Status.DEF].Value);
+            _executor.MultiCurrentStatus(Status.DEF, corrections[(int)Status.DEF].Rate);
+            base.Action(_executor, _target);
 
             await UniTask.Delay(delayTime);
         }

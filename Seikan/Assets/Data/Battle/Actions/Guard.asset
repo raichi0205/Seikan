@@ -24,6 +24,6 @@ MonoBehaviour:
   - Value: 0
     Rate: 1.25
   - Value: 100
-    Rate: 0
+    Rate: 1
   - Value: 0
     Rate: 0

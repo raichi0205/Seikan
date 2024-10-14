@@ -14,7 +14,7 @@ namespace Star.Battle
 
         [SerializeField] EnemyUIController enemyUIController;
 
-        private List<Enemy> enemies = new List<Enemy>();
+        [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         public List<Enemy> Enemies { get { return enemies; } }
 
         [SerializeField] ActionAttack actionAttack;
