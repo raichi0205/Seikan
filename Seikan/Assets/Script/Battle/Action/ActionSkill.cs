@@ -16,7 +16,6 @@ namespace Star.Battle
         public string SkillName { get { return skillName; } }
         [SerializeField] string luaScript = string.Empty;
         public bool IsEnd = false;
-        private CharacterBase target = null;
 
         public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
