@@ -16,7 +16,8 @@ namespace Star.Battle
 
         public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
-            BattleSystem.Instance.SystemMsg = $"{_target}に攻撃！";
+            BattleSystem system = BattleSystem.Instance;
+            system.SystemMsg = $"{_target}に攻撃！";
             
             // ダメージ処理
             int def = _target.GetCurrentStatus(Status.DEF);
@@ -32,7 +33,8 @@ namespace Star.Battle
             {
                 Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(_target.Num);
                 EffekseerEmitter emitter = EffectSystem.Instance.Play(Vector3.zero, "Laser01", parent);
-                await EffectSystem.Instance.EndDelay(emitter);              
+                await EffectSystem.Instance.EndDelay(emitter);
+                await system.EnemyManager.UpdateEnemyHPGage(_target.Num);
             }
             else if (_target.Num == -2)
             {
@@ -46,12 +48,12 @@ namespace Star.Battle
                 }
                 RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUI.ShakeArea.transform;
                 await rect.DOShakePosition(1, 100).AsyncWaitForCompletion();
-                await BattleSystem.Instance.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)_target.currentStatus[(int)Status.HP] / _target.GetStatus(Status.HP));
-                BattleSystem.Instance.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(_target.currentStatus[(int)Status.HP], _target.GetStatus(Status.HP));
+                await system.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)_target.currentStatus[(int)Status.HP] / _target.GetStatus(Status.HP));
+                system.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(_target.currentStatus[(int)Status.HP], _target.GetStatus(Status.HP));
             }
-            BattleSystem.Instance.SystemMsg = $"";
+            system.SystemMsg = $"";
             await UniTask.Delay(200);
-            BattleSystem.Instance.SystemMsg = $"{damage}ダメージ与えた";
+            system.SystemMsg = $"{damage}ダメージ与えた";
             await UniTask.Delay(1000);
         }
     }

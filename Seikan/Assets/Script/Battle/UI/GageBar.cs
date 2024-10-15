@@ -13,9 +13,9 @@ namespace Star.Battle.UI
         [SerializeField] Image gageBar;
         [SerializeField] TextMeshProUGUI gageValue;
 
-        public async UniTask UpdateGage(float _value)
+        public async UniTask UpdateGage(float _value, float _duration = 0.5f)
         {
-            await gageBar.DOFillAmount(_value, 0.5f).AsyncWaitForCompletion();
+            await gageBar.DOFillAmount(_value, _duration).AsyncWaitForCompletion();
         }
 
         public void UpdateValueText(int _currentValue, int _maxValue)

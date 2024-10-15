@@ -39,7 +39,7 @@ namespace Star.Battle
                 num++;
             }
 
-            enemyUIController.Initialize(enemyDatas);
+            enemyUIController.Initialize(enemies);
         }
 
         public Transform GetEnemyTransform(int _num)
@@ -53,6 +53,11 @@ namespace Star.Battle
             {
                 await enemy.ActionThinking();
             }
+        }
+
+        public async UniTask UpdateEnemyHPGage(int _num)
+        {
+            await enemyUIController.GetEnemyCell(_num).UpdateGage();
         }
     }
 }
