@@ -49,10 +49,15 @@ namespace Star.Battle
             base.Action(_executor, _target);
         }
 
-        public Effekseer.EffekseerEmitter PlayEffect(Vector3 _pos, string _name)
+        /// <summary>
+        /// エフェクト再生
+        /// Luaで扱うのでコルーチンを返す
+        /// </summary>
+        /// <param name="_effectName">再生したいエフェクトの名前</param>
+        /// <returns>コルーチン</returns>
+        public IEnumerator PlayEffect(string _effectName)
         {
-            Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(target.Num);
-            return Effect.Effekseer.EffectSystem.Instance.Play(_pos, _name, parent);
+            return BattleSystem.Instance.EnemyManager.PlayEffect(target.Num, _effectName).ToCoroutine();
         }
     }
 }
