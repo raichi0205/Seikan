@@ -7,7 +7,7 @@ using System;
 using UnityEngine.AddressableAssets;
 using Star.Common;
 
-namespace Star.Effect
+namespace Star.Effect.Effekseer
 {
     public class EffectSystem : SingletonMonoBehaviour<EffectSystem>
     {

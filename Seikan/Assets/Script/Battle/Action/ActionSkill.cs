@@ -52,7 +52,7 @@ namespace Star.Battle
         public Effekseer.EffekseerEmitter PlayEffect(Vector3 _pos, string _name)
         {
             Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(target.Num);
-            return Effect.EffectSystem.Instance.Play(_pos, _name, parent);
+            return Effect.Effekseer.EffectSystem.Instance.Play(_pos, _name, parent);
         }
     }
 }

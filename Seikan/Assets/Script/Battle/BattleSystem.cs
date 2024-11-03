@@ -76,7 +76,8 @@ namespace Star.Battle
         public async UniTask Initialize()
         {
             await SoundManager.Instance.LoadAudios(SoundManager.MixerGroup.SE, "SE");
-            await Effect.EffectSystem.Instance.LoadEffectAssets();
+            await Effect.Effekseer.EffectSystem.Instance.LoadEffectAssets();        // Todo: 後で消す
+            await Effect.SpriteEffectManager.Instance.LoadEffectAssets();
 
             Lua.LuaSystem.Instance.StarLua("Battle/Main.lua");
 

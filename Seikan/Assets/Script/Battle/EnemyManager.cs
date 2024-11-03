@@ -55,6 +55,13 @@ namespace Star.Battle
             }
         }
 
+        public async UniTask PlayEffect(int _num, string _animName)
+        {
+            EnemyCell enemyCell = enemyUIController.GetEnemyCell(_num);
+            enemyCell.SetAnim(_animName);
+            await enemyCell.PlayEffect();
+        }
+
         public async UniTask UpdateEnemyHPGage(int _num)
         {
             await enemyUIController.GetEnemyCell(_num).UpdateGage();

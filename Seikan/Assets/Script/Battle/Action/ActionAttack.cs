@@ -32,8 +32,9 @@ namespace Star.Battle
             if (_target.Num >= 0)
             {
                 Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(_target.Num);
-                EffekseerEmitter emitter = EffectSystem.Instance.Play(Vector3.zero, "Laser01", parent);
-                await EffectSystem.Instance.EndDelay(emitter);
+                //EffekseerEmitter emitter = EffectSystem.Instance.Play(Vector3.zero, "Laser01", parent);
+                //await EffectSystem.Instance.EndDelay(emitter);
+                await system.EnemyManager.PlayEffect(_target.Num, "Attack_01");
                 await system.EnemyManager.UpdateEnemyHPGage(_target.Num);
             }
             else if (_target.Num == -2)

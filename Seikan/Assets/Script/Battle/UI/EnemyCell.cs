@@ -4,6 +4,7 @@ using Star.Character;
 using Star.Common.UI;
 using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
+using Star.Effect;
 
 namespace Star.Battle.UI
 {
@@ -14,6 +15,8 @@ namespace Star.Battle.UI
         [SerializeField] CommonButton enemyButton = null;       // 敵キャラ本体の画像付き選択
         [SerializeField] GageBar hpBar;
         public GageBar HPBar { get { return hpBar; } }
+        [SerializeField] EffectController effectController;
+        public EffectController EffectController { get { return effectController; } }
 
         public void Initialize(Enemy _enemy, int _index)
         {
@@ -21,6 +24,7 @@ namespace Star.Battle.UI
             enemy = _enemy;
             enemyButton.onClick.AddListener(IsSelect);
             _ = hpBar.UpdateGage((float)_enemy.GetCurrentStatus(Status.HP) / _enemy.GetStatus(Status.HP), 0);
+            effectController.Initialize();
         }
 
         /// <summary>
@@ -47,6 +51,17 @@ namespace Star.Battle.UI
         public async UniTask UpdateGage()
         {
             await hpBar.UpdateGage((float)enemy.GetCurrentStatus(Status.HP) / enemy.GetStatus(Status.HP));
+        }
+
+        public async UniTask PlayEffect()
+        {
+            effectController.Play();
+            await effectController.EndDelay();
+        }
+
+        public void SetAnim(string _animName)
+        {
+            SpriteEffectManager.Instance.SetEffect(_animName, effectController);
         }
     }
 }
