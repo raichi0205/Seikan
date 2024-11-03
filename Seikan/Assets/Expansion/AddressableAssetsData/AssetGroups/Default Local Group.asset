@@ -38,6 +38,19 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Effect
+  - m_GUID: 9e862a26d494bf441aae01cb0b6bdf30
+    m_Address: Assets/Sprite/Effect/pipo-btleffect002.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7bd6c16117a37f41a6af1889d2d87da
+    m_Address: Assets/Sprite/Effect/BattleEffect_1.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 428450dbf6ff76a4182eefa88fc74236
+    m_Address: Attack_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:
