@@ -10,7 +10,7 @@ namespace Star.Character
     public enum Status
     {
         HP,
-        MP,
+        SP,
         ATK,
         DEF,
         AGI,

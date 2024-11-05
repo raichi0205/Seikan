@@ -38,7 +38,7 @@ namespace Star.Battle
         protected Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         
         public CharacterBase Chara;        // 行動主のキャラデータ
-        protected CharacterBase target = null;
+        public CharacterBase Target = null;
 
         /// <summary>
         /// 行動順を決める値を還す
@@ -53,7 +53,7 @@ namespace Star.Battle
 
         public virtual async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
-            target = _target;
+            Target = _target;
         }
 
         public virtual void ActionToEnemy(List<Enemy> _targets)

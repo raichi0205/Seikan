@@ -48,7 +48,7 @@ namespace Star.Battle.UI
             BattleSystem.Instance.EnemySelector.SetSelectIndex(index);
         }
 
-        public async UniTask UpdateGage()
+        public async UniTask UpdateHPGage()
         {
             await hpBar.UpdateGage((float)enemy.GetCurrentStatus(Status.HP) / enemy.GetStatus(Status.HP));
         }

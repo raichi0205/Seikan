@@ -20,7 +20,7 @@ namespace Star.Battle.UI
         {
             Actor actor = BattleSystem.Instance.Actor;
             hpBar.UpdateValueText(actor.GetCurrentStatus(Status.HP), actor.GetStatus(Status.HP));
-            spBar.UpdateValueText(actor.GetCurrentStatus(Status.MP), actor.GetStatus(Status.MP));
+            spBar.UpdateValueText(actor.GetCurrentStatus(Status.SP), actor.GetStatus(Status.SP));
         }
     }
 }

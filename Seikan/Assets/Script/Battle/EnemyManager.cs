@@ -31,7 +31,7 @@ namespace Star.Battle
             // ToDo: 敵キャラデータの呼び出しを行う
 
             int num = 0;
-            foreach(EnemyData enemyData in enemyDatas)
+            foreach (EnemyData enemyData in enemyDatas)
             {
                 Enemy newEnemy = new Enemy();
                 newEnemy.Initialize(enemyData, num);
@@ -49,7 +49,7 @@ namespace Star.Battle
 
         public async UniTask EnemyActionThinking()
         {
-            foreach(Enemy enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 await enemy.ActionThinking();
             }
@@ -64,7 +64,7 @@ namespace Star.Battle
 
         public async UniTask UpdateEnemyHPGage(int _num)
         {
-            await enemyUIController.GetEnemyCell(_num).UpdateGage();
+            await enemyUIController.GetEnemyCell(_num).UpdateHPGage();
         }
     }
 }

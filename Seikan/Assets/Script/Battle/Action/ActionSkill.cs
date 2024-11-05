@@ -1,7 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using Star.Character;
 using Star.Lua;
 
@@ -20,7 +20,8 @@ namespace Star.Battle
         public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
         {
             CurrentSkill = this;
-            target = _target;
+            Chara = _executor;
+            Target = _target;
 
             // Luaの呼出
             if (!string.IsNullOrEmpty(luaScript))
@@ -46,7 +47,6 @@ namespace Star.Battle
             {
                 Debug.LogError($"[Skill] NULL ACTION:{name}.Action");
             }
-            base.Action(_executor, _target);
         }
 
         /// <summary>
@@ -57,7 +57,44 @@ namespace Star.Battle
         /// <returns>コルーチン</returns>
         public IEnumerator PlayEffect(string _effectName)
         {
-            return BattleSystem.Instance.EnemyManager.PlayEffect(target.Num, _effectName).ToCoroutine();
+            return BattleSystem.Instance.EnemyManager.PlayEffect(Target.Num, _effectName).ToCoroutine();
+        }
+
+        /// <summary>
+        /// 全敵キャラ取得
+        /// 今作はプレイヤーの取得がないのでこれでいい
+        /// </summary>
+        /// <returns>敵キャラのリスト</returns>
+        public List<Enemy> GetEnemies()
+        {
+            return BattleSystem.Instance.EnemyManager.Enemies;
+        }
+
+        public IEnumerator UpdateHPGage()
+        {
+            if (Target.Num >= 0)
+            {
+                return BattleSystem.Instance.EnemyManager.UpdateEnemyHPGage(Target.Num).ToCoroutine();
+            }
+            else if(Target.Num == -2)
+            {
+                BattleSystem system = BattleSystem.Instance;
+                system.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(Target.currentStatus[(int)Status.HP], Target.GetStatus(Status.HP));
+                return system.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)Target.currentStatus[(int)Status.HP] / Target.GetStatus(Status.HP)).ToCoroutine();
+            }
+            return null;
+        }
+
+        public IEnumerator UpdateSPGage()
+        {
+            if (Target.Num >= -1)
+            {
+                BattleSystem system = BattleSystem.Instance;
+                system.BattleUI.Footer.CharacterInfo.SPBar.UpdateValueText(Chara.currentStatus[(int)Status.SP], Chara.GetStatus(Status.SP));
+                return system.BattleUI.Footer.CharacterInfo.SPBar.UpdateGage((float)Chara.currentStatus[(int)Status.SP] / Chara.GetStatus(Status.SP)).ToCoroutine();
+            }
+            // 仕様上ないから処理しない
+            return null;
         }
     }
 }
