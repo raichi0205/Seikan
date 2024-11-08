@@ -38,7 +38,7 @@ namespace Star.Battle
         protected Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         
         public CharacterBase Chara;        // 行動主のキャラデータ
-        public CharacterBase Target = null;
+        public List<CharacterBase> Targets = null;
 
         /// <summary>
         /// 行動順を決める値を還す
@@ -51,14 +51,9 @@ namespace Star.Battle
             return (int)result;
         }
 
-        public virtual async UniTask Action(CharacterBase _executor, CharacterBase _target)
+        public virtual async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
-            Target = _target;
-        }
-
-        public virtual void ActionToEnemy(List<Enemy> _targets)
-        {
-
+            Targets = _target;
         }
     }
 }

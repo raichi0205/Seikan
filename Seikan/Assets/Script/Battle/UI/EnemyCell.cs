@@ -45,7 +45,15 @@ namespace Star.Battle.UI
 
         private void IsSelect()
         {
-            BattleSystem.Instance.EnemySelector.SetSelectIndex(index);
+            // ToDo: Enum or 定数に置き換える
+            if (BattleSystem.Instance.CurrentSelectData.Target != -1)
+            {
+                BattleSystem.Instance.EnemySelector.SetSelectIndex(index);
+            }
+            else
+            {
+                BattleSystem.Instance.EnemySelector.SetSelectIndex(BattleSystem.Instance.CurrentSelectData.Target);
+            }
         }
 
         public async UniTask UpdateHPGage()

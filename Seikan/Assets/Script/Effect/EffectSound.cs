@@ -14,6 +14,7 @@ namespace Star.Effect
         /// <param name="_soundName"></param>
         public void PlaySE(string _soundName)
         {
+            Debug.Log($"[Effect] PlaySound:{_soundName}");
             currentAudioSources.Add(SoundManager.Instance.Play(SoundManager.MixerGroup.SE, _soundName, _obj: this.gameObject));
         }
 

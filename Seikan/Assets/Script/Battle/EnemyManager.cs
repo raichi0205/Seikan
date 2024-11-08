@@ -39,6 +39,7 @@ namespace Star.Battle
                 num++;
             }
 
+            actionSkills = SkillManager.Instance.ActionSkills;
             enemyUIController.Initialize(enemies);
         }
 

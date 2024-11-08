@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Star.Common.UI;
+using Star.Effect;
 
 namespace Star.Battle.UI
 {
@@ -22,10 +24,14 @@ namespace Star.Battle.UI
 
         public GameObject ShakeArea;
 
+        [SerializeField] EffectController allEffect;
+        public EffectController AllEffect { get { return allEffect; } }
+
         public void Initialize()
         {
             actionSelectWindow.Initialize();
             footer.Initialize();
+            allEffect.Initialize();
 
             enemyUIController.SetActiveButton(false);
             enemySelectEnter.onClick.AddListener(() =>

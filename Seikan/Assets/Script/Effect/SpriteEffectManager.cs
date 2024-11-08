@@ -30,6 +30,10 @@ namespace Star.Effect
             {
                 _effectController.SetAnimatorController(animations[_animName].AnimController);
             }
+            else
+            {
+                Debug.LogError($"[Effect] Not Found :{_animName}");
+            }
         }
 
         /// <summary>

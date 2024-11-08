@@ -87,6 +87,7 @@ MonoBehaviour:
     - default
     - Effect
     - SE
+    - Skill
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9b89e84638bad8844abe22c1bcaf2295, type: 2}

@@ -17,11 +17,11 @@ namespace Star.Battle
         [SerializeField] string luaScript = string.Empty;
         public bool IsEnd = false;
 
-        public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
+        public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             CurrentSkill = this;
             Chara = _executor;
-            Target = _target;
+            Targets = _target;
 
             // Luaの呼出
             if (!string.IsNullOrEmpty(luaScript))
@@ -55,9 +55,20 @@ namespace Star.Battle
         /// </summary>
         /// <param name="_effectName">再生したいエフェクトの名前</param>
         /// <returns>コルーチン</returns>
-        public IEnumerator PlayEffect(string _effectName)
+        public IEnumerator PlayEffect(string _effectName, int _targetNum)
         {
-            return BattleSystem.Instance.EnemyManager.PlayEffect(Target.Num, _effectName).ToCoroutine();
+            if (_targetNum >= 0)
+            {
+                return BattleSystem.Instance.EnemyManager.PlayEffect(_targetNum, _effectName).ToCoroutine();
+            }
+            else
+            {
+                // 全体エフェクトの再生
+                var effect = BattleSystem.Instance.BattleUI.AllEffect;
+                Effect.SpriteEffectManager.Instance.SetEffect(_effectName, effect);
+                effect.Play();
+                return effect.EndDelay().ToCoroutine();
+            }
         }
 
         /// <summary>
@@ -70,24 +81,24 @@ namespace Star.Battle
             return BattleSystem.Instance.EnemyManager.Enemies;
         }
 
-        public IEnumerator UpdateHPGage()
+        public IEnumerator UpdateHPGage(int _targetNum)
         {
-            if (Target.Num >= 0)
+            if (_targetNum >= 0)
             {
-                return BattleSystem.Instance.EnemyManager.UpdateEnemyHPGage(Target.Num).ToCoroutine();
+                return BattleSystem.Instance.EnemyManager.UpdateEnemyHPGage(_targetNum).ToCoroutine();
             }
-            else if(Target.Num == -2)
+            else if(_targetNum == -2)
             {
                 BattleSystem system = BattleSystem.Instance;
-                system.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(Target.currentStatus[(int)Status.HP], Target.GetStatus(Status.HP));
-                return system.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)Target.currentStatus[(int)Status.HP] / Target.GetStatus(Status.HP)).ToCoroutine();
+                system.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(system.Actor.currentStatus[(int)Status.HP], system.Actor.GetStatus(Status.HP));
+                return system.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)system.Actor.currentStatus[(int)Status.HP] / system.Actor.GetStatus(Status.HP)).ToCoroutine();
             }
             return null;
         }
 
-        public IEnumerator UpdateSPGage()
+        public IEnumerator UpdateSPGage(int _targetNum = -1)
         {
-            if (Target.Num >= -1)
+            if (_targetNum >= -1)
             {
                 BattleSystem system = BattleSystem.Instance;
                 system.BattleUI.Footer.CharacterInfo.SPBar.UpdateValueText(Chara.currentStatus[(int)Status.SP], Chara.GetStatus(Status.SP));

@@ -11,6 +11,7 @@ namespace Star.Effect
     public class EffectController : MonoBehaviour
     {
         [SerializeField] Animator animator;
+        [SerializeField] Image image;
         [SerializeField] EffectSound effectSound;
         UnityEvent onAnimationEnd = new UnityEvent();
         const string PlayFlagName = "Play";
@@ -20,7 +21,7 @@ namespace Star.Effect
         /// </summary>
         public void Initialize()
         {
-
+            image.enabled = false;
         }
 
         /// <summary>
@@ -34,6 +35,15 @@ namespace Star.Effect
             ObservableStateMachineTrigger trigger = animator.GetBehaviour<ObservableStateMachineTrigger>();       // ステート取得
             if (trigger != null)
             {
+                trigger
+                    .OnStateEnterAsObservable()
+                    .Where(x => x.StateInfo.IsName("Effect"))
+                    .Subscribe(x =>
+                    {
+                        Debug.Log("[Anim] 開始");
+                        image.enabled = true;
+                    }).AddTo(this);
+
                 trigger
                     .OnStateExitAsObservable()
                     .Where(x => x.StateInfo.IsName("Effect"))
@@ -76,6 +86,7 @@ namespace Star.Effect
         {
             await UniTask.WaitUntil(() => !animator.GetBool(PlayFlagName));
             onAnimationEnd.RemoveAllListeners();        // コールバック削除
+            image.enabled = false;
         }
     }
 }

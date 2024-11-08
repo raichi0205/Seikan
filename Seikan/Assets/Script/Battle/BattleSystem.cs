@@ -81,7 +81,7 @@ namespace Star.Battle
 
             Lua.LuaSystem.Instance.StarLua("Battle/Main.lua");
 
-            skillManager.Initialize();
+            await skillManager.Initialize();
             enemyManager.Initialize();
 
             actor.Initialize(actorData, -2);
@@ -227,18 +227,18 @@ namespace Star.Battle
             else if(_selectData.Target == -1)
             {
                 // 全体攻撃
-                _selectData.Action.ActionToEnemy(enemyManager.Enemies);
+                await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>(enemyManager.Enemies));
             }
             else if(_selectData.Target == -2)
             {
                 // 自身への行動
-                await _selectData.Action.Action(_selectData.Executor, actor);
+                await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { actor });
             }
             else
             {
                 if (_selectData.Target < enemyManager.Enemies.Count)
                 {
-                    await _selectData.Action.Action(_selectData.Executor, enemyManager.Enemies[_selectData.Target]);
+                    await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { enemyManager.Enemies[_selectData.Target] });
                 }
                 else
                 {

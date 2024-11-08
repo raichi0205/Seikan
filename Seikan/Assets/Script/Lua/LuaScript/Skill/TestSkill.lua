@@ -6,15 +6,15 @@ TestSkill.new = function ()
             Skill.SystemMsg("skill used")
             local skill = CS.Star.Battle.ActionSkill.CurrentSkill
             local statusEnum = CS.Star.Character.Status
-            coroutine.yield(skill:PlayEffect("Skill_01"))
-            print("エフェクト終了")
-            local target = skill.Target
+            local target = skill.Targets[0]
             local executor = skill.Chara
-            
+
+            coroutine.yield(skill:PlayEffect("Skill_01"), target.Num)
+            print("エフェクト終了")
+          
             local targetDef = target:GetCurrentStatus(statusEnum.DEF)
             local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * 1.5
-            --print("targetDef:"..targetDef)
-            --print("executorAtk:"..executorAtk)
+
             local damage = executorAtk - targetDef
             
             if damage <= 0 then
@@ -24,7 +24,7 @@ TestSkill.new = function ()
             target:AddCurrentStatus(statusEnum.HP, -damage)
             executor:AddCurrentStatus(statusEnum.SP, -2)
 
-            coroutine.yield(skill:UpdateHPGage())
+            coroutine.yield(skill:UpdateHPGage(target.Num))
             coroutine.yield(skill:UpdateSPGage())
             skill.IsEnd = true
         end)

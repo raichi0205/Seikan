@@ -21,6 +21,7 @@ namespace Star.Battle.UI
             // 選択内容を記録
             action.Chara = BattleSystem.Instance.Actor;
             BattleSystem.Instance.CurrentSelectData.Action = action;
+            BattleSystem.Instance.CurrentSelectData.Target = action.DefaultTargetNum;       // デフォのターゲットを指定する
             ActionSelector.Instance.Selected();
         }
     }

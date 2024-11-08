@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Star.Character;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Star.Battle
 {
@@ -10,7 +11,7 @@ namespace Star.Battle
     {
         int delayTime = 1000;
 
-        public override async UniTask Action(CharacterBase _executor, CharacterBase _target)
+        public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             BattleSystem.Instance.SystemMsg = "身を守っている";
             _executor.AddCurrentStatus(Status.DEF, corrections[(int)Status.DEF].Value);

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e4bfb232428774791d4a681801f160, type: 3}
+  m_Name: TestAllSkill
+  m_EditorClassIdentifier: 
+  DefaultTargetNum: -1
+  actionType: 3
+  corrections:
+  - Value: 0
+    Rate: 1
+  - Value: 0
+    Rate: 1
+  - Value: 0
+    Rate: 1
+  - Value: 0
+    Rate: 1
+  - Value: 0
+    Rate: 1
+  - Value: 0
+    Rate: 1
+  Chara:
+    characterData: {fileID: 11400000, guid: fa20ef1f5595c974d95221fe8a839133, type: 2}
+    currentStatus: 64000000640000000a0000000a0000000500000001000000
+    States: []
+    Actions: []
+    Num: -2
+  Targets:
+  - characterData: {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
+    currentStatus: 640000006400000005000000050000000100000001000000
+    States: []
+    Actions: []
+    Num: 1
+  skillName: 
+  luaScript: Skill/TestAllSkill.lua
+  IsEnd: 0
