@@ -27,7 +27,7 @@ namespace Star.Battle
                     return;
                 }
 
-                system.SystemMsg = $"{_target}に攻撃！";
+                system.SystemMsg = $"{target.GetName()}に攻撃！";
 
                 // ダメージ処理
                 int def = target.GetCurrentStatus(Status.DEF);
@@ -38,7 +38,6 @@ namespace Star.Battle
                 }
                 target.SubCurrentStatus(Status.HP, damage);
 
-                base.Action(_executor, _target);
                 if (target.Num >= 0)
                 {
                     Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(target.Num);
@@ -65,7 +64,8 @@ namespace Star.Battle
                 system.SystemMsg = $"";
                 await UniTask.Delay(200);
                 system.SystemMsg = $"{damage}ダメージ与えた";
-                await UniTask.Delay(1000);
+                await UniTask.Delay(500);
+                return;
             }
         }
     }

@@ -245,7 +245,22 @@ namespace Star.Battle
             {
                 if (_selectData.Target < enemyManager.Enemies.Count)
                 {
-                    await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { enemyManager.Enemies[_selectData.Target] });
+                    // ターゲットが生きてるか調べる
+                    Enemy targetEnemy = enemyManager.Enemies[_selectData.Target];
+                    if (targetEnemy.currentStatus[(int)Status.HP] <= 0)
+                    {
+                        // 死んでいれば次のターゲットを探す
+                        foreach(Enemy enemy in enemyManager.FieldEnemies)
+                        {
+                            if (enemy.currentStatus[(int)Status.HP] > 0)
+                            {
+                                // 生きているやつがいればそいつをターゲットにする
+                                targetEnemy = enemy;
+                                break;
+                            }
+                        }
+                    }
+                    await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { targetEnemy });
                 }
                 else
                 {
