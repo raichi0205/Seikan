@@ -13,7 +13,7 @@ TestAllSkill.new = function ()
             
             for i, target in pairs(targets) do
                 local targetDef = target:GetCurrentStatus(statusEnum.DEF)
-                local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * 1.5
+                local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * 2
                 local damage = executorAtk - targetDef
             
                 if damage <= 0 then

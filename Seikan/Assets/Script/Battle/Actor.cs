@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Character
 {
@@ -16,6 +17,19 @@ namespace Star.Character
         public int GetSelectCount()
         {
             return selectCountMax - SelectCounter;
+        }
+
+        public async UniTask<bool> CheckHP()
+        {
+            if(currentStatus[(int)Status.HP] <= 0)
+            {
+                // Todo: 延命スキルがあるかチェックする
+                // 無ければ死亡判定
+                Battle.BattleSystem.Instance.SystemMsg = "力尽きた";
+                await UniTask.Delay(2500);
+                return true;
+            }
+            return false;
         }
     }
 }

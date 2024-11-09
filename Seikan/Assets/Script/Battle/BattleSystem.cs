@@ -247,6 +247,14 @@ namespace Star.Battle
             }
             SystemMsg = $"";
             await UniTask.Delay(250);
+            // HPの判定
+            bool isActorDeth = await Actor.CheckHP();
+            // 主人公のHPはまだ残っている
+            if (!isActorDeth)
+            {
+                // 敵のHP判定
+                await EnemyManager.CheckHP();
+            }
         }
     }
 }

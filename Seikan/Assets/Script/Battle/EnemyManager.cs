@@ -67,5 +67,24 @@ namespace Star.Battle
         {
             await enemyUIController.GetEnemyCell(_num).UpdateHPGage();
         }
+
+        public async UniTask CheckHP()
+        {
+            foreach(Enemy enemy in enemies)
+            {
+                if(enemy.currentStatus[(int)Status.HP] <= 0)
+                {
+                    await OnDeth(enemy.Num);
+                    BattleSystem.Instance.SystemMsg = $"{enemy.GetName()}を倒した。";
+                    await UniTask.Delay(500);
+                    BattleSystem.Instance.SystemMsg = "";
+                }
+            }
+        }
+
+        public async UniTask OnDeth(int _num)
+        {
+            await enemyUIController.GetEnemyCell(_num).OnDelete();
+        }
     }
 }

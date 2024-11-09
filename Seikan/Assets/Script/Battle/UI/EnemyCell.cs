@@ -5,6 +5,8 @@ using Star.Common.UI;
 using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
 using Star.Effect;
+using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Star.Battle.UI
 {
@@ -12,6 +14,8 @@ namespace Star.Battle.UI
     {
         public int index = int.MinValue;
         Enemy enemy = null;
+        [SerializeField] Image image;
+        [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] CommonButton enemyButton = null;       // 敵キャラ本体の画像付き選択
         [SerializeField] GageBar hpBar;
         public GageBar HPBar { get { return hpBar; } }
@@ -70,6 +74,12 @@ namespace Star.Battle.UI
         public void SetAnim(string _animName)
         {
             SpriteEffectManager.Instance.SetEffect(_animName, effectController);
+        }
+
+        public async UniTask OnDelete()
+        {
+            // Todo: 消滅アニメーション流す等
+            canvasGroup.DOFade(0, 0.5f);      // 表示を消す
         }
     }
 }
