@@ -9,8 +9,8 @@ TestSkill.new = function ()
             local target = skill.Targets[0]
             local executor = skill.Chara
 
-            coroutine.yield(skill:PlayEffect("Skill_01"), target.Num)
-            print("エフェクト終了")
+            coroutine.yield(skill:PlayEffect("Skill_01", target.Num))
+            print("エフェクト終了:"..target.Num)
           
             local targetDef = target:GetCurrentStatus(statusEnum.DEF)
             local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * 1.5

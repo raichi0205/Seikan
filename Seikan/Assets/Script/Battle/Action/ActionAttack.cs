@@ -18,6 +18,7 @@ namespace Star.Battle
         public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             BattleSystem system = BattleSystem.Instance;
+            Targets = _target;
 
             foreach (CharacterBase target in _target)
             {
