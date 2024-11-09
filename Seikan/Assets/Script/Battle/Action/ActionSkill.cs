@@ -21,7 +21,23 @@ namespace Star.Battle
         {
             CurrentSkill = this;
             Chara = _executor;
-            Targets = _target;
+            Targets = new List<CharacterBase>();
+            
+            foreach (CharacterBase target in _target)
+            {
+                // ターゲットが死亡していないか
+                if (target.currentStatus[(int)Status.HP] > 0)
+                {
+                    // 死亡していなければターゲットとして登録
+                    Targets.Add(target);
+                }
+            }
+
+            if(Targets.Count == 0)
+            {
+                // 目標がいなければ終了
+                return;
+            }
 
             // Luaの呼出
             if (!string.IsNullOrEmpty(luaScript))

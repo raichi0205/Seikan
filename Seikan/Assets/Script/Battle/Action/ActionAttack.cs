@@ -19,8 +19,14 @@ namespace Star.Battle
         {
             BattleSystem system = BattleSystem.Instance;
 
-            foreach (var target in _target)
+            foreach (CharacterBase target in _target)
             {
+                // ターゲットが死亡しているか
+                if (target.currentStatus[(int)Status.HP] <= 0)
+                {
+                    return;
+                }
+
                 system.SystemMsg = $"{_target}に攻撃！";
 
                 // ダメージ処理

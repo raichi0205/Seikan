@@ -17,6 +17,9 @@ namespace Star.Battle
         [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         public List<Enemy> Enemies { get { return enemies; } }
 
+        [SerializeField] private List<Enemy> fieldEnemies;
+        public List<Enemy> FieldEnemies { get { return fieldEnemies; } }
+
         [SerializeField] ActionAttack actionAttack;
         public ActionAttack ActionAttack { get { return actionAttack; } }
         [SerializeField] ActionGuard actionGuard;
@@ -39,6 +42,7 @@ namespace Star.Battle
                 num++;
             }
 
+            fieldEnemies = new List<Enemy>(enemies);            // 初期は出現する全部の敵を設定する
             actionSkills = SkillManager.Instance.ActionSkills;
             enemyUIController.Initialize(enemies);
         }
@@ -50,7 +54,7 @@ namespace Star.Battle
 
         public async UniTask EnemyActionThinking()
         {
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in fieldEnemies)
             {
                 await enemy.ActionThinking();
             }
@@ -70,7 +74,8 @@ namespace Star.Battle
 
         public async UniTask CheckHP()
         {
-            foreach(Enemy enemy in enemies)
+            List<Enemy> checkEnemy = new List<Enemy>(fieldEnemies);
+            foreach(Enemy enemy in checkEnemy)
             {
                 if(enemy.currentStatus[(int)Status.HP] <= 0)
                 {
@@ -85,6 +90,7 @@ namespace Star.Battle
         public async UniTask OnDeth(int _num)
         {
             await enemyUIController.GetEnemyCell(_num).OnDelete();
+            fieldEnemies.Remove(enemies[_num]);     // 特定の敵をフィールド上から削除
         }
     }
 }

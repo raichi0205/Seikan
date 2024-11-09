@@ -147,7 +147,7 @@ namespace Star.Battle
                 // プレイヤーの状態の更新
                 actor.UpdateStatus();
                 // 敵の状態の更新
-                foreach(var enemy in enemyManager.Enemies)
+                foreach(var enemy in enemyManager.FieldEnemies)
                 {
                     enemy.UpdateStatus();
                 }
@@ -220,6 +220,13 @@ namespace Star.Battle
         public async UniTask ActionExecute(SelectData _selectData)
         {
             Debug.Log($"[BattleSystem][ActionExe] Action:{_selectData.Action.Chara}\nTarget:{_selectData.Target}");
+            // 死亡しているか
+            if(_selectData.Executor.currentStatus[(int)Status.HP] <= 0)
+            {
+                // 実行者が死亡している場合は処理を飛ばす
+                return;
+            }
+
             if(_selectData.Target == int.MinValue)
             {
                 Debug.LogError("ターゲット未選択");
@@ -227,7 +234,7 @@ namespace Star.Battle
             else if(_selectData.Target == -1)
             {
                 // 全体攻撃
-                await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>(enemyManager.Enemies));
+                await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>(enemyManager.FieldEnemies));
             }
             else if(_selectData.Target == -2)
             {
