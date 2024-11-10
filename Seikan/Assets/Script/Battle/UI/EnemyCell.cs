@@ -52,7 +52,7 @@ namespace Star.Battle.UI
             // ToDo: Enum or 定数に置き換える
             if (BattleSystem.Instance.CurrentSelectData.Target != -1)
             {
-                BattleSystem.Instance.EnemySelector.SetSelectIndex(index);
+                BattleSystem.Instance.EnemySelector.SetSelectIndex(-1);
             }
             else
             {
