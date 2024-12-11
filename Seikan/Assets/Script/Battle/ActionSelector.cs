@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Star.Common;
 using Star.Battle.UI;
+using Star.Character;
 
 namespace Star.Battle
 {
@@ -11,17 +12,17 @@ namespace Star.Battle
         [SerializeField] List<ActionSelectCellBase> actionSelectCellBases;
 
 #if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                Selected();
-            }
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                Selected(BattleSystem.TurnAction.SelectAction);
-            }
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.N))
+        //    {
+        //        Selected();
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.M))
+        //    {
+        //        Selected(BattleSystem.TurnAction.SelectAction);
+        //    }
+        //}
 #endif
 
         public void Initialize()
@@ -36,12 +37,17 @@ namespace Star.Battle
         /// 行動選択後の処理
         /// </summary>
         /// <param name="_turnAction"></param>
-        public virtual void Selected(BattleSystem.TurnAction _turnAction = BattleSystem.TurnAction.None)
+        public void Selected(BattleSystem.TurnAction _turnAction = BattleSystem.TurnAction.None)
         {
             if (BattleSystem.Instance.CurrentSelectData.Action.ActionType != ActionBase.Action_Type.Exhaust)
             {
                 // 行動選択時カウントアップ
-                BattleSystem.Instance.Actor.SelectCounter++;
+                Actor actor = BattleSystem.Instance.Actor;
+                actor.SelectCounter++;
+                actor.IsExhaust = true;
+                actor.CurrentExhaust = 0;
+                BattleSystem.Instance.NextTurnAction(BattleSystem.TurnAction.SelectAction);
+                return;
             }
 
             // 次の行動へ進ませる
