@@ -23,6 +23,14 @@ namespace Star.Battle
             Num,
         }
 
+        public enum TurnEndSatuts
+        {
+            None = -1,
+            Continue = 0,
+            Win = 1,
+            Defeat = 2,
+        }
+
         const int maxTurn = 999;    // 最大ターン数
         [SerializeField] int turn = 0;           // 現在のターン
 
@@ -214,7 +222,45 @@ namespace Star.Battle
         private async UniTask TurnEnd()
         {
             Debug.Log("[BattleSystem] TurnEnd");
-            NextTurnAction();
+            // todo: 状態異常の処理
+
+
+            TurnEndSatuts turnEndSatuts = TurnEndSatuts.Win;
+
+            // 自分がまだ生きてるか
+            if (actor.currentStatus[(int)Status.HP] <= 0)
+            {
+                // 死んでるので敗北
+                turnEndSatuts = TurnEndSatuts.Defeat;
+            }
+            else
+            {
+                // 敵がまだ生きてるか
+                foreach (Enemy enemy in enemyManager.Enemies)
+                {
+                    if (enemy.currentStatus[(int)Status.HP] > 0)
+                    {
+                        // 敵が生きてるので続行
+                        turnEndSatuts = TurnEndSatuts.Continue;
+                    }
+                }
+            }
+
+            switch (turnEndSatuts)
+            {
+                case TurnEndSatuts.Continue:
+                    NextTurnAction();
+                    break;
+                case TurnEndSatuts.Win:
+                    // Todo: 勝利演出を出す
+                    Debug.Log($"[Result] win");
+                    break;
+                case TurnEndSatuts.Defeat:
+                    // Todo: 敗北UIを出す
+                    Debug.Log($"[Result] defeat");
+                    break;
+            }
+
         }
 
         public async UniTask ActionExecute(SelectData _selectData)
@@ -243,24 +289,41 @@ namespace Star.Battle
             }
             else
             {
+                // 敵への行動
                 if (_selectData.Target < enemyManager.Enemies.Count)
                 {
+                    bool allDead = true;
+
                     // ターゲットが生きてるか調べる
                     Enemy targetEnemy = enemyManager.Enemies[_selectData.Target];
                     if (targetEnemy.currentStatus[(int)Status.HP] <= 0)
                     {
                         // 死んでいれば次のターゲットを探す
-                        foreach(Enemy enemy in enemyManager.FieldEnemies)
+                        foreach (Enemy enemy in enemyManager.FieldEnemies)
                         {
                             if (enemy.currentStatus[(int)Status.HP] > 0)
                             {
                                 // 生きているやつがいればそいつをターゲットにする
                                 targetEnemy = enemy;
+                                allDead = false;        // 全滅していない
                                 break;
                             }
                         }
                     }
-                    await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { targetEnemy });
+                    else
+                    {
+                        // ターゲットは生きている
+                        allDead = false;
+                    }
+
+                    if (allDead)
+                    {
+
+                    }
+                    else
+                    {
+                        await _selectData.Action.Action(_selectData.Executor, new List<CharacterBase>() { targetEnemy });
+                    }
                 }
                 else
                 {
