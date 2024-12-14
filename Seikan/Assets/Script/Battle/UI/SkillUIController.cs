@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 namespace Star.Battle.UI
@@ -7,6 +7,7 @@ namespace Star.Battle.UI
     public class SkillUIController : MonoBehaviour
     {
         [SerializeField] SkillCell originalSkillCell;
+        [SerializeField] ScrollRect skillList;
         [SerializeField] Transform content;
         public void Initialize(List<ActionSkill> _actionSkills)
         {
@@ -17,5 +18,11 @@ namespace Star.Battle.UI
                 newSkillCell.transform.SetParent(content, false);
             }
         }
+
+        public void ActiveSelectWindow(bool _isActive)
+        {
+            skillList.gameObject.SetActive(_isActive);
+        }
+
     }
 }

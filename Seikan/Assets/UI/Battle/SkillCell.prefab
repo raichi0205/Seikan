@@ -146,8 +146,8 @@ GameObject:
   - component: {fileID: 2048557669603296741}
   - component: {fileID: 2048557669603296736}
   - component: {fileID: 2048557669603296743}
+  - component: {fileID: -3631068011686770178}
   - component: {fileID: 2048557669603296742}
-  - component: {fileID: 2048557669603296737}
   m_Layer: 0
   m_Name: SkillCell
   m_TagString: Untagged
@@ -214,6 +214,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-3631068011686770178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048557669603296740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543a6508317a294408ed6850434674f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 0}
+  button: {fileID: 2048557669603296742}
+  skillName: {fileID: 2048557669020780603}
 --- !u!114 &2048557669603296742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,18 +273,3 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2048557669603296737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048557669603296740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ccc8788f23d38498282e77b20c0065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  action: {fileID: 0}
-  button: {fileID: 2048557669603296742}
-  skillName: {fileID: 2048557669020780603}

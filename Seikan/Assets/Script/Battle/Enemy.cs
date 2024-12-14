@@ -10,9 +10,14 @@ namespace Star.Character
     [System.Serializable]
     public class Enemy : CharacterBase
     {
-        public override void Initialize(CharacterData _characterData, int _num)
+        // 自分の対象番号
+        [SerializeField] int num = int.MinValue;
+        public int Num { get { return num; } }      
+
+        public void Initialize(CharacterData _characterData, int _num)
         {
-            base.Initialize(_characterData, _num);
+            num = _num;
+            base.Initialize(_characterData);
         }
 
         /// <summary>
@@ -24,13 +29,13 @@ namespace Star.Character
             LuaSystem.Instance.StarLua(((EnemyData)characterData).ActionPatternScript);
             await LuaSystem.Instance.CurrentTask;
 
-            EnemyLuaBridge.Instance.enemyNum = Num;
+            EnemyLuaBridge.Instance.Enemy = this;
             LuaTable enemyClass = LuaSystem.Instance.LuaEnv.Global.Get<LuaTable>(characterData.name);
             Debug.Log($"[Enemy]{characterData.name}");
             LuaFunction thinkingFunc = enemyClass.Get<LuaFunction>("Thinking");
             thinkingFunc.Call(enemyClass);
 
-            EnemyLuaBridge.Instance.enemyNum = int.MinValue;
+            EnemyLuaBridge.Instance.Enemy = null;
         }
     }
 }

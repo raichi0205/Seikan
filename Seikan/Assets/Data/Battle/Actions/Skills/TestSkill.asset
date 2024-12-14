@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e4bfb232428774791d4a681801f160, type: 3}
   m_Name: TestSkill
   m_EditorClassIdentifier: 
-  DefaultTargetNum: -2147483648
   actionType: 3
+  actionTarget: 2
   corrections:
   - Value: 0
     Rate: 0
@@ -27,5 +27,11 @@ MonoBehaviour:
     Rate: 0
   - Value: 0
     Rate: 0
+  Chara:
+    characterData: {fileID: 0}
+    currentStatus: 000000000000000000000000000000000000000000000000
+    States: []
+  Targets: []
   skillName: 
   luaScript: Skill/TestSkill.lua
+  IsEnd: 0

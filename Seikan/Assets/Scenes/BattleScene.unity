@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 189491843}
   - component: {fileID: 189491846}
   - component: {fileID: 189491845}
+  - component: {fileID: 189491849}
   - component: {fileID: 189491844}
   - component: {fileID: 189491848}
   m_Layer: 5
@@ -335,8 +336,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9c49306c55b7642b3626809ff36cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &189491849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189491842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78eb3fa19752f541ac94d39639c1f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   action: {fileID: 11400000, guid: a36ff87874750c746804cace56477ec4, type: 2}
-  button: {fileID: 1600022375}
+  button: {fileID: 189491844}
 --- !u!1 &200073191
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalSkillCell: {fileID: 2048557669603296737, guid: aa2ba5e6cd78c67498b11fbd067dc706, type: 3}
+  skillList: {fileID: 206831880}
   content: {fileID: 380154141}
 --- !u!1 &231234545
 GameObject:
@@ -1398,7 +1412,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 421648386}
-  - component: {fileID: 421648387}
   m_Layer: 5
   m_Name: ActionSelectWindow
   m_TagString: Untagged
@@ -1428,20 +1441,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1363.0918, y: 618.0651}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &421648387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421648385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac13ccd7e294fa74180da23f86aac6cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillButton: {fileID: 1660422932}
-  skillList: {fileID: 206831880}
 --- !u!1 &427325887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,11 +2113,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 688574831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9930baa594dbf684eafe7338f7bd3faf, type: 3}
+  m_Script: {fileID: 11500000, guid: 02090acdc32341349805d7c230550cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   systemMsgUi: {fileID: 805462228}
-  actionSelectWindow: {fileID: 421648387}
+  actionSelectWindow: {fileID: 421648385}
   enemyUIController: {fileID: 575971455}
   footer: {fileID: 2058903840}
   enemySelectEnter: {fileID: 1108999338}
@@ -2472,6 +2471,7 @@ GameObject:
   - component: {fileID: 802322825}
   - component: {fileID: 802322828}
   - component: {fileID: 802322827}
+  - component: {fileID: 802322831}
   - component: {fileID: 802322826}
   - component: {fileID: 802322830}
   m_Layer: 5
@@ -2596,8 +2596,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9c49306c55b7642b3626809ff36cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &802322831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802322824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78eb3fa19752f541ac94d39639c1f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   action: {fileID: 11400000, guid: 65267f50576c66541af1ec1417a24217, type: 2}
-  button: {fileID: 1600022375}
+  button: {fileID: 802322826}
 --- !u!1 &805462226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4086,7 +4098,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242867293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9c49306c55b7642b3626809ff36cdb, type: 3}
+  m_Script: {fileID: 11500000, guid: e78eb3fa19752f541ac94d39639c1f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 11400000, guid: cf8f5ed2ea816a84fa878658ea4a1141, type: 2}
@@ -4671,6 +4683,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525900641}
   m_CullTransparentMesh: 1
+--- !u!1 &1574874718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574874720}
+  - component: {fileID: 1574874719}
+  m_Layer: 0
+  m_Name: ActionScheduler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1574874719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574874718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c68797501055cd48b829d150a229ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1574874720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574874718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9028764, y: 0.5476131, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584016254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4841,7 +4897,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1600022372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9c49306c55b7642b3626809ff36cdb, type: 3}
+  m_Script: {fileID: 11500000, guid: e78eb3fa19752f541ac94d39639c1f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 11400000, guid: 01998635259974342b4e1fde16ebcd33, type: 2}
@@ -4932,6 +4988,7 @@ GameObject:
   - component: {fileID: 1660422930}
   - component: {fileID: 1660422935}
   - component: {fileID: 1660422934}
+  - component: {fileID: 1660422936}
   - component: {fileID: 1660422932}
   m_Layer: 5
   m_Name: Skill
@@ -5043,6 +5100,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660422929}
   m_CullTransparentMesh: 1
+--- !u!114 &1660422936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660422929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78eb3fa19752f541ac94d39639c1f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 79fa16a8b628e6d4d93ada0582e585d3, type: 2}
+  button: {fileID: 1660422932}
 --- !u!1 &1674051768
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,28 +5207,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cf5f630711344489123f01e59c5d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turn: 0
-  skillManager: {fileID: 1696587183}
-  enemyManager: {fileID: 1696587182}
-  battleUI: {fileID: 688574836}
-  turnAction: -1
-  CurrentSelectData:
-    action: {fileID: 0}
-    executor:
-      characterData: {fileID: 0}
-      currentStatus: 000000000000000000000000000000000000000000000000
-      States: []
-      Actions: []
-      Num: -2147483648
-    selectEnemy: -1
+  battleUIController: {fileID: 688574836}
   actorData: {fileID: 11400000, guid: fa20ef1f5595c974d95221fe8a839133, type: 2}
   actor:
     characterData: {fileID: 0}
     currentStatus: 000000000000000000000000000000000000000000000000
     States: []
-    Actions: []
-    Num: -2147483648
-    SelectCounter: 0
+    selectCountMax: 1
+    CurrentExhaust: 0
+    IsExhaust: 0
+  currentSelectData:
+    action: {fileID: 0}
+    executor:
+      characterData: {fileID: 0}
+      currentStatus: 000000000000000000000000000000000000000000000000
+      States: []
+    targets: []
+  actionScheduler: {fileID: 1574874719}
 --- !u!114 &1696587182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5174,9 +5240,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
   - {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
   - {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
-  enemyUIController: {fileID: 575971455}
   enemies: []
   fieldEnemies: []
+  enemyUIController: {fileID: 575971455}
   actionAttack: {fileID: 11400000, guid: cf8f5ed2ea816a84fa878658ea4a1141, type: 2}
   actionGuard: {fileID: 11400000, guid: 01998635259974342b4e1fde16ebcd33, type: 2}
   actionEscape: {fileID: 11400000, guid: 65267f50576c66541af1ec1417a24217, type: 2}
@@ -5711,6 +5777,9 @@ MonoBehaviour:
   actionSelectCellBases:
   - {fileID: 1242867300}
   - {fileID: 1600022376}
+  - {fileID: 1660422936}
+  - {fileID: 189491849}
+  - {fileID: 802322831}
 --- !u!4 &1945005449
 Transform:
   m_ObjectHideFlags: 0

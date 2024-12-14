@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using Star.Character;
 
 namespace Star.Battle
@@ -12,7 +12,8 @@ namespace Star.Battle
         [SerializeField] private CharacterBase executor = null;
         public CharacterBase Executor { get { return executor; } set { executor = value; } }
 
-        [SerializeField] private int selectEnemy = int.MinValue;
-        public int Target { get { return selectEnemy; } set { selectEnemy = value; } }
+        [SerializeField] private List<CharacterBase> targets = new List<CharacterBase>();
+        public List<CharacterBase> Targets { get { return targets; } set { targets = value; } }
+        
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Star.Battle
+namespace Star.Old.Battle
 {
     public class EnemySelector
     {

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a22c00a0fc9be41b7436f2b9706640, type: 3}
   m_Name: Escape
   m_EditorClassIdentifier: 
-  DefaultTargetNum: -2147483648
-  actionType: 0
+  actionType: 5
+  actionTarget: 1
   corrections:
   - Value: 0
     Rate: 0
@@ -27,3 +27,8 @@ MonoBehaviour:
     Rate: 0
   - Value: 0
     Rate: 0
+  Chara:
+    characterData: {fileID: 0}
+    currentStatus: 000000000000000000000000000000000000000000000000
+    States: []
+  Targets: []

@@ -14,6 +14,7 @@ namespace Star.Battle
         [SerializeField] List<ActionSkill> actionSkills;
         public List<ActionSkill> ActionSkills { get { return actionSkills; } }
         [SerializeField] SkillUIController skillUIController;
+        public SkillUIController SkillUIController { get { return skillUIController; } }
         public async UniTask Initialize()
         {
             actionSkills.Clear();

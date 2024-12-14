@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Star.Common;
 using Star.Battle;
@@ -8,45 +7,53 @@ using System;
 namespace Star.Character {
     public class EnemyLuaBridge : Singleton<EnemyLuaBridge>
     {
-        public int enemyNum = int.MinValue;
+        Enemy enemy = null;
+        public Enemy Enemy { get { return enemy; } set { enemy = value; } }
 
+        /// <summary>
+        /// 敵の行動選択
+        /// 敵の行動選択Luaスクリプトから呼び出す
+        /// </summary>
+        /// <param name="_select">選択した行動</param>
         public void SelectAction(string _select)
         {
-            Debug.Log($"[Enemy][Select]{enemyNum}:{_select}");
-            EnemyManager enemyManager = BattleSystem.Instance.EnemyManager;
-
-            if(enemyNum < 0 && enemyNum >= enemyManager.Enemies.Count)
+            if(enemy == null)
             {
-                Debug.LogError("[Enemy] Enemy Num Not Setting");
-                enemyNum = int.MinValue;
+                Debug.LogError($"[Enemy]行動する敵が設定されていません");
                 return;
             }
-            Enemy enemy = enemyManager.Enemies[enemyNum];
+
+            Debug.Log($"[Enemy][Select]{enemy.Num}:{_select}");
             
             ActionBase.Action_Type action_Type;
 
             string[] select = _select.Split('/');       // 選択内容/スキル名
 
             SelectData selectData = new SelectData();
-            selectData.Executor = enemyManager.Enemies[enemyNum];
+            selectData.Executor = enemy;
             if (Enum.TryParse(select[0], out action_Type))
             {
                 switch (action_Type)
                 {
                     case ActionBase.Action_Type.Attack:
-                        selectData.Action = enemyManager.ActionAttack;
-                        selectData.Target = -2;     // 主人公相手に攻撃するので-2
+                        ActionAttack actionAttack = new ActionAttack();
+                        actionAttack.Clone(EnemyManager.Instance.ActionAttack);
+                        selectData.Action = actionAttack;
+                        selectData.Targets.Add(BattleSystem.Instance.Actor);    // 主人公への行動
                         break;
                     case ActionBase.Action_Type.Guard:
-                        selectData.Action = enemyManager.ActionGuard;
-                        selectData.Target = enemy.Num;       // 自分への行動
+                        ActionGuard actionGuard = new ActionGuard();
+                        actionGuard.Clone(EnemyManager.Instance.ActionGuard);
+                        selectData.Action = actionGuard;
+                        selectData.Targets.Add(enemy);          // 自分への行動
                         break;
                     case ActionBase.Action_Type.Skill:
-                        ActionSkill skill = SerachActionSkill(select[1]);
+                        ActionSkill skill = new ActionSkill();
+                        skill.Clone(SerachActionSkill(select[1]));
                         if(skill != null)
                         {
                             selectData.Action = skill;
-                            selectData.Target = skill.DefaultTargetNum;
+                            selectData.Targets = skill.Targets;
                         }
                         else
                         {
@@ -55,19 +62,20 @@ namespace Star.Character {
                         }
                         break;
                     case ActionBase.Action_Type.Escape:
-                        selectData.Action = enemyManager.ActionEscape;
-                        selectData.Target = enemy.Num;
+                        ActionEscape actionEscape = new ActionEscape();
+                        actionEscape.Clone(EnemyManager.Instance.ActionEscape);
+                        selectData.Action = actionEscape;
+                        selectData.Targets.Add(enemy);          // 自分への行動
                         break;
                 }
                 selectData.Action.Chara = enemy;
-                BattleSystem.Instance.SelectDatas.Add(selectData);
+                BattleSystem.Instance.ActionScheduler.SelectDatas.Add(selectData);
             }
         }
 
         private ActionSkill SerachActionSkill(string _skillName)
         {
-            EnemyManager enemyManager = BattleSystem.Instance.EnemyManager;
-            foreach(ActionSkill skill in enemyManager.ActionSkills)
+            foreach(ActionSkill skill in EnemyManager.Instance.ActionSkills)
             {
                 if(skill.name == _skillName)
                 {

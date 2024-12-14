@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Star.Battle;
 using Star.Character;
 
 namespace Star.Battle.UI

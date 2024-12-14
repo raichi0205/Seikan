@@ -1,0 +1,86 @@
+using UnityEngine;
+using System.Collections;
+using Star.Old.Character;
+using Star.Common.UI;
+using UnityEngine.Events;
+using Cysharp.Threading.Tasks;
+using Star.Effect;
+using UnityEngine.UI;
+using DG.Tweening;
+using Star.Battle.UI;
+
+namespace Star.Old.Battle.UI
+{
+    public class EnemyCell : MonoBehaviour
+    {
+        public int index = int.MinValue;
+        Enemy enemy = null;
+        [SerializeField] Image image;
+        [SerializeField] CanvasGroup canvasGroup;
+        [SerializeField] CommonButton enemyButton = null;       // 敵キャラ本体の画像付き選択
+        [SerializeField] GageBar hpBar;
+        public GageBar HPBar { get { return hpBar; } }
+        [SerializeField] EffectController effectController;
+        public EffectController EffectController { get { return effectController; } }
+
+        public void Initialize(Enemy _enemy, int _index)
+        {
+            index = _index;
+            enemy = _enemy;
+            enemyButton.onClick.AddListener(IsSelect);
+            _ = hpBar.UpdateGage((float)_enemy.GetCurrentStatus(Status.HP) / _enemy.GetStatus(Status.HP), 0);
+            effectController.Initialize();
+        }
+
+        /// <summary>
+        /// ボタンの有効性
+        /// </summary>
+        public void SetActive(bool _isActive)
+        {
+            enemyButton.enabled = _isActive;
+        }
+
+        /// <summary>
+        /// カーソルが合わさった時の処理
+        /// </summary>
+        private void OnCursor()
+        {
+
+        }
+
+        private void IsSelect()
+        {
+            // ToDo: Enum or 定数に置き換える
+            if (BattleSystem.Instance.CurrentSelectData.Target != -1)
+            {
+                BattleSystem.Instance.EnemySelector.SetSelectIndex(-1);
+            }
+            else
+            {
+                BattleSystem.Instance.EnemySelector.SetSelectIndex(BattleSystem.Instance.CurrentSelectData.Target);
+            }
+        }
+
+        public async UniTask UpdateHPGage()
+        {
+            await hpBar.UpdateGage((float)enemy.GetCurrentStatus(Status.HP) / enemy.GetStatus(Status.HP));
+        }
+
+        public async UniTask PlayEffect()
+        {
+            effectController.Play();
+            await effectController.EndDelay();
+        }
+
+        public void SetAnim(string _animName)
+        {
+            SpriteEffectManager.Instance.SetEffect(_animName, effectController);
+        }
+
+        public async UniTask OnDelete()
+        {
+            // Todo: 消滅アニメーション流す等
+            canvasGroup.DOFade(0, 0.5f);      // 表示を消す
+        }
+    }
+}

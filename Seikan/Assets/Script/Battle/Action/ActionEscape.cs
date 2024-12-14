@@ -13,5 +13,10 @@ namespace Star.Battle
         {
             base.Action(_executor, _target);
         }
+
+        public void Clone(ActionEscape _actionEscape)
+        {
+            base.Clone(_actionEscape);
+        }
     }
 }

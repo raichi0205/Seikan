@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1669d1ab36de57640af7afa27f121905, type: 3}
   m_Name: Guard
   m_EditorClassIdentifier: 
-  DefaultTargetNum: -2
-  actionType: 0
+  actionType: 2
+  actionTarget: 1
   corrections:
   - Value: 0
     Rate: 0
@@ -27,3 +27,8 @@ MonoBehaviour:
     Rate: 1
   - Value: 0
     Rate: 0
+  Chara:
+    characterData: {fileID: 0}
+    currentStatus: 000000000000000000000000000000000000000000000000
+    States: []
+  Targets: []

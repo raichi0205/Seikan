@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using Star.Character;
 using Star.Common.UI;
-using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
 using Star.Effect;
 using UnityEngine.UI;
@@ -17,8 +16,8 @@ namespace Star.Battle.UI
         [SerializeField] Image image;
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] CommonButton enemyButton = null;       // 敵キャラ本体の画像付き選択
-        [SerializeField] GageBar hpBar;
-        public GageBar HPBar { get { return hpBar; } }
+        [SerializeField] Star.Battle.UI.GageBar hpBar;
+        public Star.Battle.UI.GageBar HPBar { get { return hpBar; } }
         [SerializeField] EffectController effectController;
         public EffectController EffectController { get { return effectController; } }
 
@@ -49,14 +48,9 @@ namespace Star.Battle.UI
 
         private void IsSelect()
         {
-            // ToDo: Enum or 定数に置き換える
-            if (BattleSystem.Instance.CurrentSelectData.Target != -1)
+            if (BattleSystem.Instance.CurrentSelectData.Action.ActionTarget == ActionBase.Action_Target.Enemy_Solo)
             {
-                BattleSystem.Instance.EnemySelector.SetSelectIndex(-1);
-            }
-            else
-            {
-                BattleSystem.Instance.EnemySelector.SetSelectIndex(BattleSystem.Instance.CurrentSelectData.Target);
+                BattleSystem.Instance.TargetsSelected(enemy);
             }
         }
 

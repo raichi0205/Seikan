@@ -10,6 +10,15 @@ namespace Star.Battle
     [CreateAssetMenu(fileName = "ActionData", menuName = "Battle/Action/ActionData", order = 0)]
     public class ActionBase : ScriptableObject
     {
+        public enum Action_Target
+        {
+            None,
+            Actor,
+            Enemy_Solo,
+            Enemy_All,
+            Enemy_Random,
+        }
+
         public enum Action_Type
         {
             None,
@@ -30,9 +39,11 @@ namespace Star.Battle
             public float Rate = 1;          // 補正倍率
         }
 
-        public int DefaultTargetNum = int.MinValue;
         [SerializeField] protected Action_Type actionType = Action_Type.None;
         public Action_Type ActionType { get { return actionType; } }
+
+        [SerializeField] protected Action_Target actionTarget = Action_Target.None;
+        public Action_Target ActionTarget { get { return actionTarget; } }
 
         [SerializeField, NamedArray(typeof(Status))]
         protected Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
@@ -54,6 +65,14 @@ namespace Star.Battle
         public virtual async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             Targets = _target;
+        }
+
+        public void Clone(ActionBase _actionBase)
+        {
+            name = _actionBase.name;
+            actionType = _actionBase.actionType;
+            actionTarget = _actionBase.actionTarget;
+            corrections = _actionBase.corrections;
         }
     }
 }

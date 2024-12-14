@@ -8,6 +8,9 @@ namespace Star.Battle
 {
     public class ActionScheduler : MonoBehaviour
     {
+        List<SelectData> selectDatas = new List<SelectData>();
+        public List<SelectData> SelectDatas { get { return selectDatas; } }
+
         /// <summary>
         /// 選択行動実行
         /// </summary>
@@ -17,11 +20,32 @@ namespace Star.Battle
             List<SelectData> selectDatas = ActionOrderEvaluation();
             foreach(SelectData data in selectDatas)
             {
-                 await BattleSystem.Instance.ActionExecute(data);
-            }
+                // 単体目標の時の処理
+                if (data.Targets.Count > 0)
+                {
+                    // 目標が敵の場合
+                    if (data.Targets[0].GetType() == typeof(Enemy))
+                    {
+                        // 死亡判定
+                        if (await data.Targets[0].CheckHP())
+                        {
+                            // フィールド上に他の敵が残ってる
+                            if(EnemyManager.Instance.FieldEnemies.Count > 0)
+                            {
+                                data.Targets[0] = EnemyManager.Instance.FieldEnemies[0];
+                            }
+                        }
+                    }
+                }
+                await data.Action.Action(data.Executor, data.Targets);
 
-            // ToDo: 演出が終わってから次の行動へ移る
-            BattleSystem.Instance.NextTurnAction();
+                // 攻撃ごとに終了判定
+                if(!await BattleSystem.Instance.EndJudge(false))
+                {
+                    // 継続されない場合処理を抜ける
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -29,7 +53,7 @@ namespace Star.Battle
         /// </summary>
         private List<SelectData> ActionOrderEvaluation()
         {
-            List<SelectData> actions = BattleSystem.Instance.SelectDatas;
+            List<SelectData> actions = selectDatas;
             actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート
             return actions;
         }

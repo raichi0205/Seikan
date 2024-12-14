@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using Star.Battle;
 using System.Collections.Generic;
 using Star.Editor;
+using Cysharp.Threading.Tasks;
 
 namespace Star.Character
 {
@@ -10,14 +10,11 @@ namespace Star.Character
     public class CharacterBase
     {
         [SerializeField] protected CharacterData characterData;
-        [SerializeField, NamedArray(typeof(Status))] public int[] currentStatus = new int[(int)Character.Status.NUM];   // 現在のステータス値
+        [SerializeField, NamedArray(typeof(Status))] public int[] currentStatus = new int[(int)Status.NUM];   // 現在のステータス値
         public List<StateBase> States = new List<StateBase>();      // 現在の状態リスト
-        public List<ActionBase> Actions = new List<ActionBase>();   // 行動のリスト
-        public int Num = int.MinValue;      // 自分の対象番号
 
-        public virtual void Initialize(CharacterData _characterData, int _num)
+        public virtual void Initialize(CharacterData _characterData)
         {
-            Num = _num;
             characterData = _characterData;
             System.Array.Copy(_characterData.status, currentStatus, _characterData.status.Length);
         }
@@ -35,6 +32,11 @@ namespace Star.Character
                     States.Remove(state);       // 状態の削除
                 }
             }
+        }
+
+        public async virtual UniTask<bool> CheckHP()
+        {
+            return false;
         }
 
         public int GetStatus(Status _statusType)

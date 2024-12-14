@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using Star.Battle;
-using Star.Character;
 using Star.Common.UI;
 
-namespace Star.Battle.UI
+namespace Star.Old.Battle.UI
 {
     public class ActionSelectCellBase : MonoBehaviour
     {

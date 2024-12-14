@@ -16,5 +16,9 @@ namespace Star.Battle
 
             base.Action(_executor, _character);
         }
+        public void Clone(ActionExhaust _actionExhaust)
+        {
+            base.Clone(_actionExhaust);
+        }
     }
 }

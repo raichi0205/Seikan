@@ -3,7 +3,7 @@ using System.Collections;
 using Star.Common.UI;
 using UnityEngine.UI;
 
-namespace Star.Battle.UI
+namespace Star.Old.Battle.UI
 {
     public class ActionSelectWindow : MonoBehaviour
     {

@@ -1,18 +1,16 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Star.Character;
-using Star.Battle.UI;
 using Cysharp.Threading.Tasks;
+using Star.Common;
+using Star.Battle.UI;
+using Star.Character;
 
 namespace Star.Battle
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
     {
         [SerializeField] private List<EnemyData> enemyDatas = new List<EnemyData>();
-        public List<EnemyData> EnemyDatas { get { return enemyDatas; } }
-
-        [SerializeField] EnemyUIController enemyUIController;
+        //public List<EnemyData> EnemyDatas { get { return enemyDatas; } }
 
         [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         public List<Enemy> Enemies { get { return enemies; } }
@@ -20,6 +18,12 @@ namespace Star.Battle
         [SerializeField] private List<Enemy> fieldEnemies;
         public List<Enemy> FieldEnemies { get { return fieldEnemies; } }
 
+        [SerializeField] EnemyUIController enemyUIController;
+        public EnemyUIController EnemyUIController { get { return enemyUIController; } }
+
+        //------------------------------------------------------------------------
+        // 敵の行動
+        //------------------------------------------------------------------------
         [SerializeField] ActionAttack actionAttack;
         public ActionAttack ActionAttack { get { return actionAttack; } }
         [SerializeField] ActionGuard actionGuard;
@@ -43,7 +47,6 @@ namespace Star.Battle
             }
 
             fieldEnemies = new List<Enemy>(enemies);            // 初期は出現する全部の敵を設定する
-            actionSkills = SkillManager.Instance.ActionSkills;
             enemyUIController.Initialize(enemies);
         }
 
@@ -72,19 +75,25 @@ namespace Star.Battle
             await enemyUIController.GetEnemyCell(_num).UpdateHPGage();
         }
 
-        public async UniTask CheckHP()
+        public async UniTask<bool> CheckHP()
         {
             List<Enemy> checkEnemy = new List<Enemy>(fieldEnemies);
-            foreach(Enemy enemy in checkEnemy)
+            bool annihilation = true;          // 全滅フラグ
+            foreach (Enemy enemy in checkEnemy)
             {
-                if(enemy.currentStatus[(int)Status.HP] <= 0)
+                if (enemy.currentStatus[(int)Status.HP] <= 0)
                 {
                     await OnDeth(enemy.Num);
                     BattleSystem.Instance.SystemMsg = $"{enemy.GetName()}を倒した。";
                     await UniTask.Delay(500);
                     BattleSystem.Instance.SystemMsg = "";
                 }
+                else
+                {
+                    annihilation = false;       // 生存者がいるので全滅フラグ解除
+                }
             }
+            return annihilation;
         }
 
         public async UniTask OnDeth(int _num)

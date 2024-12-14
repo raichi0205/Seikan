@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
-using Star.Battle;
 using Star.Character;
 
 namespace Star.Battle.UI

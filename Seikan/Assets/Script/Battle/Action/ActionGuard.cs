@@ -20,5 +20,10 @@ namespace Star.Battle
 
             await UniTask.Delay(delayTime);
         }
+
+        public void Clone(ActionGuard _actionGuard)
+        {
+            base.Clone(_actionGuard);
+        }
     }
 }

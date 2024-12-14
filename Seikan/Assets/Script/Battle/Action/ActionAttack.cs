@@ -33,21 +33,20 @@ namespace Star.Battle
                 // ダメージ処理
                 int def = target.GetCurrentStatus(Status.DEF);
                 int damage = _executor.GetCurrentStatus(Status.ATK) - def;
-                if (damage < 0)
+                if (damage <= 0)
                 {
                     damage = 1;
                 }
                 target.SubCurrentStatus(Status.HP, damage);
 
-                if (target.Num >= 0)
+                if (target.GetType() == typeof(Enemy))
                 {
-                    Transform parent = BattleSystem.Instance.EnemyManager.GetEnemyTransform(target.Num);
-                    //EffekseerEmitter emitter = EffectSystem.Instance.Play(Vector3.zero, "Laser01", parent);
-                    //await EffectSystem.Instance.EndDelay(emitter);
-                    await system.EnemyManager.PlayEffect(target.Num, "Attack_01");
-                    await system.EnemyManager.UpdateEnemyHPGage(target.Num);
+                    Enemy enemy = (Enemy)target;
+                    Transform parent = EnemyManager.Instance.GetEnemyTransform(enemy.Num);
+                    await EnemyManager.Instance.PlayEffect(enemy.Num, "Attack_01");
+                    await EnemyManager.Instance.UpdateEnemyHPGage(enemy.Num);
                 }
-                else if (target.Num == -2)
+                else if (target.GetType() == typeof(Actor))
                 {
                     if (attackSound == null)
                     {
@@ -57,10 +56,10 @@ namespace Star.Battle
                     {
                         attackSound.Play();
                     }
-                    RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUI.ShakeArea.transform;
+                    RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUIController.ShakeArea.transform;
                     await rect.DOShakePosition(1, 100).AsyncWaitForCompletion();
-                    await system.BattleUI.Footer.CharacterInfo.HPBar.UpdateGage((float)target.currentStatus[(int)Status.HP] / target.GetStatus(Status.HP));
-                    system.BattleUI.Footer.CharacterInfo.HPBar.UpdateValueText(target.currentStatus[(int)Status.HP], target.GetStatus(Status.HP));
+                    await system.BattleUIController.Footer.CharacterInfo.HPBar.UpdateGage((float)target.currentStatus[(int)Status.HP] / target.GetStatus(Status.HP));
+                    system.BattleUIController.Footer.CharacterInfo.HPBar.UpdateValueText(target.currentStatus[(int)Status.HP], target.GetStatus(Status.HP));
                 }
                 system.SystemMsg = $"";
                 await UniTask.Delay(200);
@@ -68,6 +67,11 @@ namespace Star.Battle
                 await UniTask.Delay(500);
                 return;
             }
+        }
+
+        public void Clone(ActionAttack _actionAttack)
+        {
+            base.Clone(_actionAttack);
         }
     }
 }
