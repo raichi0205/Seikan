@@ -288,7 +288,12 @@ namespace Star.Battle
         {
             Debug.Log($"[BattleSystem] 選択された行動のキャンセル");
 
-            selectCount--;
+            if (actionScheduler.SelectDatas[^1].Action.GetType() != typeof(ActionExhaust))
+            {
+                // 消費した選択回数をリセット
+                Debug.Log($"[BattleSystem] 行動選択の回復");
+                selectCount--;
+            }
 
             actionScheduler.Cancel();
 
