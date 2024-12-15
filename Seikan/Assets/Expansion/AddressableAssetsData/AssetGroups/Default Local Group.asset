@@ -70,6 +70,15 @@ MonoBehaviour:
     m_Address: Skill/TestAllSkill.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a33b0f6b606ffb744b9eef23cd2921bd
+    m_Address: Assets/Data/Battle/Actions/Skills/TestExhaustSkill.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill
+  - m_GUID: 058de8a1cd5d49d40ada8dd44caf2bf8
+    m_Address: Skill/TestExhaustSkill.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:
