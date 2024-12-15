@@ -98,6 +98,8 @@ namespace Star.Battle
         {
             Debug.Log($"[BattleSystem] 行動選択");
 
+            SystemMsg = $"あと{selectCount}/{actor.SelectCountMax}";
+
             // 敵が行動する状態か
             isActionEnemy = _isActionEnemy;
 
@@ -111,7 +113,7 @@ namespace Star.Battle
         /// <summary>
         /// 行動選択後の処理
         /// </summary>
-        public void ActionSelected()
+        public async void ActionSelected()
         {
             Debug.Log($"[BattleSystem] 行動選択完了");
 
@@ -132,6 +134,17 @@ namespace Star.Battle
                     battleUIController.OpenSkillSelectWindow();
                     break;
                 case ActionExhaust exhaust:
+                    if (actor.IsExhaust || actor.CurrentExhaust == 100)
+                    {
+                        await currentSelectData.Action.Action(actor, null);
+                        selectCount--;
+                        skipSelect = true;
+                    }
+                    else
+                    {
+                        Debug.Log($"[BattleSystem] Failed Exhaust");
+                        return;
+                    }
                     break;
                 case ActionEscape escape:
                     break;
@@ -248,7 +261,7 @@ namespace Star.Battle
         {
             Debug.Log($"[BattleSystem] 敵の行動判断");
 
-            systemMsg = "思考中...";
+            SystemMsg = "思考中...";
 
             await EnemyManager.Instance.EnemyActionThinking();
             ActionExecute();
@@ -266,6 +279,20 @@ namespace Star.Battle
             actionScheduler.SelectDatas.Clear();        // 行動情報をリセット
 
             StatusProcess();
+        }
+
+        /// <summary>
+        /// 行動キャンセル
+        /// </summary>
+        public void ActionCancel()
+        {
+            Debug.Log($"[BattleSystem] 選択された行動のキャンセル");
+
+            selectCount--;
+
+            actionScheduler.Cancel();
+
+            ActionSelect(isActionEnemy);
         }
 
         /// <summary>

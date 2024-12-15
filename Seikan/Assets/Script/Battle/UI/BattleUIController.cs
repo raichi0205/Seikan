@@ -21,6 +21,8 @@ namespace Star.Battle.UI
         public BattleFooter Footer { get { return footer; } }
 
         [SerializeField] CommonButton enemySelectEnter;
+        [SerializeField] CommonButton actionSelectCancelButton;
+        [SerializeField] CommonButton targetSelectCancelButton;
 
         public GameObject ShakeArea;
 
@@ -41,14 +43,26 @@ namespace Star.Battle.UI
                 {
                     enemyUIController.SetActiveButton(false);
                     enemySelectEnter.gameObject.SetActive(false);
+                    targetSelectCancelButton.gameObject.SetActive(false);
                     BattleSystem.Instance.SelectApply();
                 }
             });
+
+            actionSelectCancelButton.onClick.AddListener(BattleSystem.Instance.ActionCancel);
+            targetSelectCancelButton.onClick.AddListener(CancelTargetSelect);
         }
 
         public void OpenActionSelectWindow()
         {
             actionSelectWindow.gameObject.SetActive(true);      // アニメーションするようにする
+            if(BattleSystem.Instance.ActionScheduler.SelectDatas.Count > 0)
+            {
+                actionSelectCancelButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                actionSelectCancelButton.gameObject.SetActive(false);
+            }
         }
 
         public void CloseActionSelectWindow()
@@ -73,6 +87,7 @@ namespace Star.Battle.UI
             // 攻撃対象の敵キャラの選択UIを有効に
             enemyUIController.SetActiveButton(true);
             enemySelectEnter.gameObject.SetActive(true);
+            targetSelectCancelButton.gameObject.SetActive(true);
         }
 
         public void UnActiveTargetSelect()
@@ -80,6 +95,15 @@ namespace Star.Battle.UI
             // 攻撃対象の敵キャラの選択UIを無効に
             enemyUIController.SetActiveButton(false);
             enemySelectEnter.gameObject.SetActive(false);
+            targetSelectCancelButton.gameObject.SetActive(false);
+        }
+
+        public void CancelTargetSelect()
+        {
+            BattleSystem.Instance.CurrentSelectData.Action = null;
+            BattleSystem.Instance.CurrentSelectData.Executor = null;
+            UnActiveTargetSelect();
+            OpenActionSelectWindow();
         }
     }
 }

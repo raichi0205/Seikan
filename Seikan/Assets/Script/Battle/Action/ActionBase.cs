@@ -67,6 +67,14 @@ namespace Star.Battle
             Targets = _target;
         }
 
+        /// <summary>
+        /// 行動キャンセル
+        /// </summary>
+        public virtual void Cancel()
+        {
+
+        }
+
         public void Clone(ActionBase _actionBase)
         {
             name = _actionBase.name;

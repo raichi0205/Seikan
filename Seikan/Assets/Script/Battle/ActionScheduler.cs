@@ -8,7 +8,7 @@ namespace Star.Battle
 {
     public class ActionScheduler : MonoBehaviour
     {
-        List<SelectData> selectDatas = new List<SelectData>();
+        [SerializeField] List<SelectData> selectDatas = new List<SelectData>();
         public List<SelectData> SelectDatas { get { return selectDatas; } }
 
         /// <summary>
@@ -56,6 +56,15 @@ namespace Star.Battle
             List<SelectData> actions = selectDatas;
             actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート
             return actions;
+        }
+
+        /// <summary>
+        /// 行動選択キャンセル
+        /// </summary>
+        public void Cancel()
+        {
+            selectDatas[^1].Action.Cancel();
+            selectDatas.RemoveAt(selectDatas.Count - 1);
         }
     }
 }
