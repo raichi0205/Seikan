@@ -51,6 +51,10 @@ namespace Star.Battle
         public CharacterBase Chara;        // 行動主のキャラデータ
         public List<CharacterBase> Targets = null;
 
+        // エグゾースト使用したか
+        protected bool usedExhaust = false;
+        public bool UsedExhaust { get { return usedExhaust; } set { usedExhaust = value; } }
+        
         /// <summary>
         /// 行動順を決める値を還す
         /// </summary>

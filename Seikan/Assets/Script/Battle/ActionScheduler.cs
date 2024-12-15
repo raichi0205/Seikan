@@ -43,9 +43,14 @@ namespace Star.Battle
                         }
                     }
                 }
-                await data.Action.Action(data.Executor, data.Targets);
 
-                // 攻撃ごとに終了判定
+                // エグゾーストを実行しない
+                if (data.Action.GetType() != typeof(ActionExhaust))
+                {
+                    await data.Action.Action(data.Executor, data.Targets);
+                }
+
+                // 実行ごとに終了判定
                 if(!await BattleSystem.Instance.EndJudge(false))
                 {
                     // 継続されない場合処理を抜ける

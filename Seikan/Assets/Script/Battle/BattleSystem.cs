@@ -163,9 +163,19 @@ namespace Star.Battle
         /// <summary>
         /// スキル選択
         /// </summary>
-        public void SkillSelected()
+        public void SkillSelected(ActionSkill _skill)
         {
             Debug.Log($"[BattleSystem] スキル選択");
+            // エグゾーストを使用するか
+            if (_skill.UseExhaust)
+            {
+                // 使用する場合エグゾーストが有効になっていること
+                if (!actor.IsExhaust)
+                {
+                    // 使用していない場合処理を抜ける
+                    return;
+                }
+            }
 
             battleUIController.CloseSkillSelectWindow();
             battleUIController.CloseActionSelectWindow();
@@ -210,6 +220,23 @@ namespace Star.Battle
                     {
                         CurrentSelectData.Targets.Add(enemy);
                     }
+                    break;
+            }
+
+            // エグゾーストを消費する
+            switch (currentSelectData.Action)
+            {
+                case ActionAttack attack:
+                case ActionGuard guard:
+                case ActionSkill skill:
+                    if (actor.IsExhaust)
+                    {
+                        actor.IsExhaust = false;
+                    }
+                    break;
+                case ActionExhaust exhaust:
+                    break;
+                case ActionEscape escape:
                     break;
             }
 

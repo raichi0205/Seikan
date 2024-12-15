@@ -16,6 +16,8 @@ namespace Star.Battle
         public string SkillName { get { return skillName; } }
         [SerializeField] string luaScript = string.Empty;
         public bool IsEnd = false;
+        [SerializeField] bool useExhaust = false;
+        public bool UseExhaust { get { return useExhaust; } }
 
         public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
@@ -138,7 +140,20 @@ namespace Star.Battle
         {
             skillName = _actionSkill.skillName;
             luaScript = _actionSkill.luaScript;
+            useExhaust = _actionSkill.useExhaust;
             base.Clone(_actionSkill);
+        }
+
+        public override void Cancel()
+        {
+            // エグゾースト使用しているか
+            if (usedExhaust)
+            {
+                // 使用している場合戻す
+                BattleSystem.Instance.Actor.IsExhaust = true;
+                BattleSystem.Instance.Actor.CurrentExhaust = 100;
+            }
+            base.Cancel();
         }
     }
 }
