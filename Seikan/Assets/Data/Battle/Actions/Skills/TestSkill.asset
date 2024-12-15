@@ -32,6 +32,7 @@ MonoBehaviour:
     currentStatus: 000000000000000000000000000000000000000000000000
     States: []
   Targets: []
-  skillName: 
+  skillName: "\u5358\u4F53\u30C6\u30B9\u30C8\u30B9\u30AD\u30EB"
   luaScript: Skill/TestSkill.lua
   IsEnd: 0
+  useExhaust: 0

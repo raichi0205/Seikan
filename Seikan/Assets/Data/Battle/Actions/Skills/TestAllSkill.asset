@@ -35,6 +35,7 @@ MonoBehaviour:
   - characterData: {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
     currentStatus: 640000006400000005000000050000000100000001000000
     States: []
-  skillName: 
+  skillName: "\u5168\u4F53\u30C6\u30B9\u30C8\u30B9\u30AD\u30EB"
   luaScript: Skill/TestAllSkill.lua
   IsEnd: 0
+  useExhaust: 0
