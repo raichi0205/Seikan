@@ -11,13 +11,13 @@ namespace Star.Battle.UI
         public void Initialize(ActionSkill _skill)
         {
             action = _skill;
-            skillName.name = _skill.SkillName;
-            button.onClick.AddListener(BattleSystem.Instance.SkillSelected);
+            skillName.text = _skill.SkillName;
             button.onClick.AddListener(() => 
             {
                 ActionSkill actionSkill = new ActionSkill();
                 actionSkill.Clone(_skill);
                 BattleSystem.Instance.CurrentSelectData.Action = actionSkill; 
+                BattleSystem.Instance.SkillSelected(actionSkill);
             });
         }
     }
