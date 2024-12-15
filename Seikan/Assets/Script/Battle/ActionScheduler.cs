@@ -20,6 +20,12 @@ namespace Star.Battle
             List<SelectData> selectDatas = ActionOrderEvaluation();
             foreach(SelectData data in selectDatas)
             {
+                // 実行者が死んでいないか
+                if(await data.Executor.CheckHP())
+                {
+                    continue;
+                }
+
                 // 単体目標の時の処理
                 if (data.Targets.Count > 0)
                 {

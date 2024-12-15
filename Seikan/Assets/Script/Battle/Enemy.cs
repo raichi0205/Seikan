@@ -37,5 +37,16 @@ namespace Star.Character
 
             EnemyLuaBridge.Instance.Enemy = null;
         }
+
+        public override async UniTask<bool> CheckHP()
+        {
+            if (currentStatus[(int)Status.HP] <= 0)
+            {
+                // Todo: 延命スキルがあるかチェックする
+                // 無ければ死亡判定
+                return true;
+            }
+            return false;
+        }
     }
 }
