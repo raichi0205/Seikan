@@ -16,8 +16,6 @@ namespace Star.Lua
         private LuaEnv luaEnv;
         public LuaEnv LuaEnv { get { return luaEnv; } }
 
-        private List<TextAsset> loadScriptFiles = new List<TextAsset>();
-        private UniTaskCompletionSource utcs = new UniTaskCompletionSource();
         public Task CurrentTask;
         public TextAsset[] luaAssets;
          
@@ -82,12 +80,18 @@ namespace Star.Lua
 
         private void Update()
         {
-            luaEnv.Tick();
+            if (luaEnv != null)
+            {
+                luaEnv.Tick();
+            }
         }
 
         private void OnDestroy()
         {
-            luaEnv.Dispose();
+            if (luaEnv != null)
+            {
+                luaEnv.Dispose();
+            }
         }
     }
 }
