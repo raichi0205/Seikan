@@ -7,6 +7,7 @@ namespace Star.Common.UI
 {
     public class CommonButton : Button
     {
+#if UNITY_EDITOR
         [MenuItem("GameObject/Common/UI/CommonButton", priority = 2)]
         public static void Commonbutton()
         {
@@ -16,5 +17,6 @@ namespace Star.Common.UI
             var button = obj.AddComponent<CommonButton>();
             button.image = image;
         }
+#endif
     }
 }
