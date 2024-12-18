@@ -29,6 +29,9 @@ namespace Star.Battle.UI
         [SerializeField] EffectController allEffect;
         public EffectController AllEffect { get { return allEffect; } }
 
+        [SerializeField] WinnerUIController winnerController;
+        [SerializeField] DefeatUIController defeatController;
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -36,23 +39,31 @@ namespace Star.Battle.UI
         {
             footer.Initialize();
             allEffect.Initialize();
-
+            winnerController.Initialize();
+            defeatController.Initialize();
             ActionSelector.Instance.Initialize();
             enemyUIController.SetActiveButton(false);
-            selectApply.onClick.AddListener(() =>
-            {
-                if (!(BattleSystem.Instance.CurrentSelectData.Action.ActionTarget == ActionBase.Action_Target.Enemy_Solo)
-                || BattleSystem.Instance.CurrentSelectData.Targets.Count > 0)
-                {
-                    enemyUIController.SetActiveButton(false);
-                    selectApply.gameObject.SetActive(false);
-                    targetSelectCancelButton.gameObject.SetActive(false);
-                    BattleSystem.Instance.SelectApply();
-                }
-            });
 
+            // 選択画面の設定
             actionSelectCancelButton.onClick.AddListener(BattleSystem.Instance.ActionCancel);
             targetSelectCancelButton.onClick.AddListener(CancelTargetSelect);
+            selectApply.onClick.AddListener(OnSelectApply);
+        }
+
+        /// <summary>
+        /// 行動選択確定ボタンの処理
+        /// </summary>
+        private void OnSelectApply()
+        {
+            // 選択が必要な行動かつ選択できる敵がいるか
+            if (!(BattleSystem.Instance.CurrentSelectData.Action.ActionTarget == ActionBase.Action_Target.Enemy_Solo)
+            || BattleSystem.Instance.CurrentSelectData.Targets.Count > 0)
+            {
+                enemyUIController.SetActiveButton(false);
+                selectApply.gameObject.SetActive(false);
+                targetSelectCancelButton.gameObject.SetActive(false);
+                BattleSystem.Instance.SelectApply();
+            }
         }
 
         /// <summary>
@@ -137,6 +148,22 @@ namespace Star.Battle.UI
             BattleSystem.Instance.CurrentSelectData.Executor = null;
             UnActiveTargetSelect();
             OpenActionSelectWindow();
+        }
+
+        /// <summary>
+        /// 勝利画面の表示
+        /// </summary>
+        public void OpenWinnerWindow()
+        {
+            winnerController.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// 敗北画面の表示
+        /// </summary>
+        public void OpenDefeatWindow()
+        {
+            defeatController.gameObject.SetActive(true);
         }
     }
 }

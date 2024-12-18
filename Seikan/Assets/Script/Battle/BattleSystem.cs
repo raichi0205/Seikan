@@ -383,6 +383,7 @@ namespace Star.Battle
         private void Winner()
         {
             Debug.Log($"[BattleSystem] 勝利");
+            battleUIController.OpenWinnerWindow();
         }
 
         /// <summary>
@@ -391,6 +392,7 @@ namespace Star.Battle
         private void Defeat()
         {
             Debug.Log($"[BattleSystem] 敗北");
+            battleUIController.OpenDefeatWindow();
         }
     }
 }
