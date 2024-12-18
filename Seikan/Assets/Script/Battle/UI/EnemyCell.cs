@@ -16,11 +16,16 @@ namespace Star.Battle.UI
         [SerializeField] Image image;
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] CommonButton enemyButton = null;       // 敵キャラ本体の画像付き選択
-        [SerializeField] Star.Battle.UI.GageBar hpBar;
-        public Star.Battle.UI.GageBar HPBar { get { return hpBar; } }
+        [SerializeField] GageBar hpBar;
+        public GageBar HPBar { get { return hpBar; } }
         [SerializeField] EffectController effectController;
         public EffectController EffectController { get { return effectController; } }
 
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <param name="_enemy"></param>
+        /// <param name="_index"></param>
         public void Initialize(Enemy _enemy, int _index)
         {
             index = _index;
@@ -39,32 +44,46 @@ namespace Star.Battle.UI
         }
 
         /// <summary>
-        /// カーソルが合わさった時の処理
+        /// 選択時の動作
         /// </summary>
-        private void OnCursor()
-        {
-
-        }
-
         private void IsSelect()
         {
-            if (BattleSystem.Instance.CurrentSelectData.Action.ActionTarget == ActionBase.Action_Target.Enemy_Solo)
+            switch(BattleSystem.Instance.CurrentSelectData.Action.ActionTarget)
             {
-                BattleSystem.Instance.TargetsSelected(enemy);
+                case ActionBase.Action_Target.Enemy_Solo:
+                    {
+                        BattleSystem.Instance.TargetsSelected(enemy);
+                        BattleSystem.Instance.SystemMsg = $"{enemy.GetName()}を選択中";
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
+        /// <summary>
+        /// 体力ゲージの更新
+        /// </summary>
+        /// <returns></returns>
         public async UniTask UpdateHPGage()
         {
             await hpBar.UpdateGage((float)enemy.GetCurrentStatus(Status.HP) / enemy.GetStatus(Status.HP));
         }
 
+        /// <summary>
+        /// エフェクトの再生
+        /// </summary>
+        /// <returns></returns>
         public async UniTask PlayEffect()
         {
             effectController.Play();
             await effectController.EndDelay();
         }
 
+        /// <summary>
+        /// エフェクトアニメーションの設定
+        /// </summary>
+        /// <param name="_animName"></param>
         public void SetAnim(string _animName)
         {
             SpriteEffectManager.Instance.SetEffect(_animName, effectController);
