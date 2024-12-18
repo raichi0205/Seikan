@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Actor
   m_EditorClassIdentifier: 
   status: 64000000640000000a0000000a0000000500000001000000
-  charaName: 
+  charaName: "\u7F8E\u591C"
   selectCountMax: 3

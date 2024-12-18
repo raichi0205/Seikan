@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
   status: 320000006400000005000000050000000100000001000000
-  charaName: 
+  charaName: "\u30C6\u30B9\u30C8\u30A8\u30CD\u30DF\u30FC"
   enemyName: TestEnemy
   actionPatternScript: Enemy/TestEnemy.lua
