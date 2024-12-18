@@ -82,9 +82,16 @@ namespace Star.Sound
             await handle.Task;
             if(handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
             {
-                foreach(var clip in handle.Result)
+                foreach (var clip in handle.Result)
                 {
-                    audioClips[_group].Add(clip.name, clip);
+                    if (audioClips[_group].ContainsKey(clip.name))
+                    {
+                        Debug.LogWarning($"[Sound]多重読込です:{clip.name}");
+                    }
+                    else
+                    {
+                        audioClips[_group].Add(clip.name, clip);
+                    }
                 }
             }
             else
