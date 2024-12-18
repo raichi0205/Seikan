@@ -15,7 +15,7 @@ namespace Star.Battle
             if (_executor.GetType() == typeof(Actor))
             {
                 Actor actor = (Actor)_executor;
-                Chara = actor;
+                Executor = actor;
                 // エグゾーストを有効に
                 actor.IsExhaust = true;
                 actor.CurrentExhaust = 0;
@@ -24,9 +24,9 @@ namespace Star.Battle
 
         public override void Cancel()
         {
-            if (Chara.GetType() == typeof(Actor))
+            if (Executor.GetType() == typeof(Actor))
             {
-                Actor actor = (Actor)Chara;
+                Actor actor = (Actor)Executor;
                 // エグゾーストを有効に
                 actor.IsExhaust = false;
                 actor.CurrentExhaust = 100;

@@ -22,7 +22,7 @@ namespace Star.Battle
         public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             CurrentSkill = this;
-            Chara = _executor;
+            Executor = _executor;
             Targets = new List<CharacterBase>();
             
             foreach (CharacterBase target in _target)
@@ -129,8 +129,8 @@ namespace Star.Battle
             if (_targetNum >= -1)
             {
                 BattleSystem system = BattleSystem.Instance;
-                system.BattleUIController.Footer.CharacterInfo.SPBar.UpdateValueText(Chara.currentStatus[(int)Status.SP], Chara.GetStatus(Status.SP));
-                return system.BattleUIController.Footer.CharacterInfo.SPBar.UpdateGage((float)Chara.currentStatus[(int)Status.SP] / Chara.GetStatus(Status.SP)).ToCoroutine();
+                system.BattleUIController.Footer.CharacterInfo.SPBar.UpdateValueText(Executor.currentStatus[(int)Status.SP], Executor.GetStatus(Status.SP));
+                return system.BattleUIController.Footer.CharacterInfo.SPBar.UpdateGage((float)Executor.currentStatus[(int)Status.SP] / Executor.GetStatus(Status.SP)).ToCoroutine();
             }
             // 仕様上ないから処理しない
             return null;

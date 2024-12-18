@@ -48,7 +48,7 @@ namespace Star.Battle
         [SerializeField, NamedArray(typeof(Status))]
         protected Correction[] corrections = new Correction[(int)Status.NUM];     // 各ステータスの補正データ
         
-        public CharacterBase Chara;        // 行動主のキャラデータ
+        public CharacterBase Executor;        // 行動主のキャラデータ
         public List<CharacterBase> Targets = null;
 
         // エグゾースト使用したか
@@ -61,7 +61,7 @@ namespace Star.Battle
         /// <returns>算出されたAgiの値</returns>
         public int GetActionOrderRate()
         {
-            float result = (Chara.GetStatus(Status.AGI) + corrections[(int)Status.AGI].Value) * corrections[(int)Status.AGI].Rate;
+            float result = (Executor.GetStatus(Status.AGI) + corrections[(int)Status.AGI].Value) * corrections[(int)Status.AGI].Rate;
             result *= 100;
             return (int)result;
         }

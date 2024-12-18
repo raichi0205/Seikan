@@ -68,7 +68,7 @@ namespace Star.Character {
                         selectData.Targets.Add(enemy);          // 自分への行動
                         break;
                 }
-                selectData.Action.Chara = enemy;
+                selectData.Action.Executor = enemy;
                 BattleSystem.Instance.ActionScheduler.SelectDatas.Add(selectData);
             }
         }

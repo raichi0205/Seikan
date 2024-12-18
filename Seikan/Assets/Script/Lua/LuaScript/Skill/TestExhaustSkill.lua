@@ -7,7 +7,7 @@ TestExhaustSkill.new = function ()
             local skill = CS.Star.Battle.ActionSkill.CurrentSkill
             local statusEnum = CS.Star.Character.Status
             local target = skill.Targets[0]
-            local executor = skill.Chara
+            local executor = skill.Executor
 
             coroutine.yield(skill:PlayEffect("Skill_01", target.Num))
             print("エフェクト終了:"..target.Num)

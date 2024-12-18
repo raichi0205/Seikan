@@ -241,7 +241,7 @@ namespace Star.Battle
             }
 
             actionScheduler.SelectDatas.Add(currentSelectData);
-            currentSelectData.Action.Chara = currentSelectData.Executor;
+            currentSelectData.Action.Executor = currentSelectData.Executor;
             SelectEnd();
         }
 
