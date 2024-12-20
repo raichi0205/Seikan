@@ -165,5 +165,10 @@ namespace Star.Battle.UI
         {
             defeatController.gameObject.SetActive(true);
         }
+
+        public void UpdateExhaustActive()
+        {
+            footer.CharacterInfo.UpdateExhaustActive();
+        }
     }
 }

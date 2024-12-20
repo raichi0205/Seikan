@@ -19,6 +19,8 @@ namespace Star.Battle
                 // エグゾーストを有効に
                 actor.IsExhaust = true;
                 actor.CurrentExhaust = 0;
+                // エグゾーストの表記更新
+                BattleSystem.Instance.BattleUIController.UpdateExhaustActive();
             }
         }
 
@@ -30,6 +32,9 @@ namespace Star.Battle
                 // エグゾーストを有効に
                 actor.IsExhaust = false;
                 actor.CurrentExhaust = 100;
+                // エグゾーストの表記更新
+                BattleSystem.Instance.BattleUIController.UpdateExhaustActive();
+
             }
         }
 
