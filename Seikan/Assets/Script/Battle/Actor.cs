@@ -11,7 +11,26 @@ namespace Star.Character
         [SerializeField] private int selectCountMax = 1;         // 一ターンで行動できる回数
         public int SelectCountMax { get { return selectCountMax; } }
 
-        public int CurrentExhaust = 0;          // Exhaustの量
+        [SerializeField] private int currentExhaust = 100;      // Exhaustの量
+        public int CurrentExhaust 
+        {
+            get 
+            { 
+                return currentExhaust; 
+            }
+            set 
+            {
+                currentExhaust = value;
+                if(currentExhaust > 100)
+                {
+                    currentExhaust = 100;
+                }
+                else if(currentExhaust < 0)
+                {
+                    currentExhaust = 0;
+                }
+            } 
+        }
         public bool IsExhaust = false;          // Exhaustの使用状態
 
         public void Initialize(ActorData _actorData)
