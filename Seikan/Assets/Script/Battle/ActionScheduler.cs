@@ -66,6 +66,14 @@ namespace Star.Battle
         {
             List<SelectData> actions = selectDatas;
             actions.Sort((a, b) => b.Action.GetActionOrderRate() - a.Action.GetActionOrderRate());        // レートの降順でソート
+#if UNITY_EDITOR
+            string log = string.Empty;
+            foreach(SelectData action in actions)
+            {
+                log += $"[Action:{action.Action.ActionType} Executor:{action.Executor.GetName()} Priority:{action.Action.GetActionOrderRate()}]\n";
+            }
+            Debug.Log($"[ActionScheduler]{log}");
+#endif
             return actions;
         }
 
