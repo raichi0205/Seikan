@@ -24,10 +24,10 @@ MonoBehaviour:
   - Value: 0
     Rate: 0
   - Value: 0
-    Rate: 0
+    Rate: 1
   - Value: 0
     Rate: 0
-  Chara:
+  Executor:
     characterData: {fileID: 0}
     currentStatus: 000000000000000000000000000000000000000000000000
     States: []
