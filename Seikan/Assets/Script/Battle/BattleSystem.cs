@@ -14,8 +14,8 @@ namespace Star.Battle
     public class BattleSystem : SingletonMonoBehaviour<BattleSystem>
     {
         const int MaxTurn = 999;    // 最大ターン数
-        int currentTurn = 0;        // 現在のターン
-        int selectCount = 0;        // 行動選択の回数
+        [SerializeField] int currentTurn = 0;       // 現在のターン
+        [SerializeField] int selectCount = 0;       // 行動選択の回数
 
         [SerializeField] BattleUIController battleUIController;     // 戦闘画面のUIコントローラ
         public BattleUIController BattleUIController { get { return battleUIController; } }
@@ -39,6 +39,8 @@ namespace Star.Battle
         // 主人公の操作データ
         [SerializeField] Actor actor;
         public Actor Actor { get { return actor; } }
+
+        [SerializeField] int refrainExhaust = 25;           // エグゾーストの回復量
 
         [SerializeField] private SelectData currentSelectData = null;
         public SelectData CurrentSelectData { get { return currentSelectData; } }
@@ -81,6 +83,10 @@ namespace Star.Battle
             Debug.Log($"[BattleSystem] ターン開始:{currentTurn}");
             if (currentTurn < MaxTurn)
             {
+                // エグゾーストの回復
+                actor.CurrentExhaust += refrainExhaust;
+                BattleUIController.UpdateExhaustActive();
+
                 // 行動選択
                 ActionSelect();
             }
@@ -134,7 +140,7 @@ namespace Star.Battle
                     battleUIController.OpenSkillSelectWindow();
                     break;
                 case ActionExhaust exhaust:
-                    if (actor.IsExhaust || actor.CurrentExhaust == 100)
+                    if (!actor.IsExhaust && actor.CurrentExhaust == 100)
                     {
                         await currentSelectData.Action.Action(actor, null);
                         selectCount--;
@@ -147,6 +153,12 @@ namespace Star.Battle
                     }
                     break;
                 case ActionEscape escape:
+                    // Todo: 逃走行動の処理を作る
+                    SystemMsg = $"今は逃げられない";
+                    battleUIController.CloseActionSelectWindow();
+                    await UniTask.Delay(500);
+                    battleUIController.OpenActionSelectWindow();
+                    SystemMsg = $"あと{selectCount}/{actor.SelectCountMax}";
                     break;
             }
 

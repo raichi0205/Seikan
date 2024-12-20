@@ -12,6 +12,8 @@ namespace Star.Battle
         public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {
             base.Action(_executor, _target);
+            // Todo: 逃走可否の仕組みづくりを行う
+            BattleSystem.Instance.SystemMsg = $"逃げられない";
         }
 
         public void Clone(ActionEscape _actionEscape)
