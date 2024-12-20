@@ -61,8 +61,7 @@ namespace Star.Battle
         /// <returns>算出されたAgiの値</returns>
         public int GetActionOrderRate()
         {
-            float result = (Executor.GetStatus(Status.AGI) + corrections[(int)Status.AGI].Value) * corrections[(int)Status.AGI].Rate;
-            result *= 100;
+            float result = Mathf.Clamp((Executor.GetStatus(Status.AGI) + corrections[(int)Status.AGI].Value) * corrections[(int)Status.AGI].Rate, 0, 100);
             return (int)result;
         }
 
