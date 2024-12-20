@@ -24,12 +24,12 @@ MonoBehaviour:
   - Value: 0
     Rate: 1
   - Value: 0
-    Rate: 1
+    Rate: 0.1
   - Value: 0
     Rate: 1
-  Chara:
-    characterData: {fileID: 11400000, guid: fa20ef1f5595c974d95221fe8a839133, type: 2}
-    currentStatus: 64000000640000000a0000000a0000000500000001000000
+  Executor:
+    characterData: {fileID: 0}
+    currentStatus: 000000000000000000000000000000000000000000000000
     States: []
   Targets:
   - characterData: {fileID: 11400000, guid: 40dcbe4f7aa0aab4b82a686c83c51e42, type: 2}
@@ -39,3 +39,4 @@ MonoBehaviour:
   luaScript: Skill/TestAllSkill.lua
   IsEnd: 0
   useExhaust: 0
+  sortPriority: 1

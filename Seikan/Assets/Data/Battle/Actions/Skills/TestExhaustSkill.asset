@@ -24,10 +24,10 @@ MonoBehaviour:
   - Value: 0
     Rate: 1
   - Value: 0
-    Rate: 1
+    Rate: 0.5
   - Value: 0
     Rate: 1
-  Chara:
+  Executor:
     characterData: {fileID: 0}
     currentStatus: 000000000000000000000000000000000000000000000000
     States: []
@@ -36,3 +36,4 @@ MonoBehaviour:
   luaScript: Skill/TestExhaustSkill.lua
   IsEnd: 0
   useExhaust: 1
+  sortPriority: 2
