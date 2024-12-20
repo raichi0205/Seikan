@@ -18,6 +18,8 @@ namespace Star.Battle
         public bool IsEnd = false;
         [SerializeField] bool useExhaust = false;
         public bool UseExhaust { get { return useExhaust; } }
+        [SerializeField] int sortPriority = 0;      // ソート用
+        public int SortPriority { get { return sortPriority; } }
 
         public override async UniTask Action(CharacterBase _executor, List<CharacterBase> _target)
         {

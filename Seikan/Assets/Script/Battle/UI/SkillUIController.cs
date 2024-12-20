@@ -11,7 +11,8 @@ namespace Star.Battle.UI
         [SerializeField] Transform content;
         public void Initialize(List<ActionSkill> _actionSkills)
         {
-            foreach(ActionSkill skill in _actionSkills)
+            _actionSkills.Sort((a, b) => a.SortPriority - b.SortPriority);
+            foreach (ActionSkill skill in _actionSkills)
             {
                 SkillCell newSkillCell = Instantiate(originalSkillCell);
                 newSkillCell.Initialize(skill);
