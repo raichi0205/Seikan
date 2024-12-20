@@ -3,7 +3,7 @@ TestSkill.new = function ()
     obj = {}
     obj.Action = function ()
         startCoroutine(function ()
-            Skill.SystemMsg("skill used")
+            Skill.SystemMsg("単体目標スキル")
             local skill = CS.Star.Battle.ActionSkill.CurrentSkill
             local statusEnum = CS.Star.Character.Status
             local target = skill.Targets[0]
