@@ -85,5 +85,15 @@ namespace Star.Battle
             actionTarget = _actionBase.actionTarget;
             corrections = _actionBase.corrections;
         }
+
+        /// <summary>
+        /// 指定のパラメータ情報を返す
+        /// </summary>
+        /// <param name="_status"></param>
+        /// <returns></returns>
+        public Correction GetCorrection(Status _status)
+        {
+            return corrections[(int)_status];
+        }
     }
 }
