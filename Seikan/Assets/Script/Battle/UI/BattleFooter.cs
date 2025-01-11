@@ -8,6 +8,8 @@ namespace Star.Battle.UI
     {
         [SerializeField] CharacterInfo characterInfo;
         public CharacterInfo CharacterInfo { get { return characterInfo; } }
+        [SerializeField] OtherInfo otherInfo;
+        public OtherInfo OtherInfo { get { return otherInfo; } }
 
         public void Initialize()
         {

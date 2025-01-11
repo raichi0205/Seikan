@@ -81,6 +81,8 @@ namespace Star.Battle
         {
             currentTurn++;      // ターンのカウント開始
             Debug.Log($"[BattleSystem] ターン開始:{currentTurn}");
+            battleUIController.Footer.OtherInfo.UpdateTurn(currentTurn);
+
             if (currentTurn < MaxTurn)
             {
                 // エグゾーストの回復
