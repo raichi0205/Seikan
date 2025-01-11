@@ -189,6 +189,13 @@ namespace Star.Battle
                 }
             }
 
+            // SPが足りるか
+            if(actor.GetCurrentStatus(Status.SP) - (actionScheduler.GetSelectTotalSP() + _skill.GetCorrection(Status.SP).Value) < 0)
+            {
+                // SPが足りない
+                return;
+            }
+
             battleUIController.CloseSkillSelectWindow();
             battleUIController.CloseActionSelectWindow();
 

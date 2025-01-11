@@ -14,10 +14,10 @@ namespace Star.Battle.UI
         public void Initialize(ActionSkill _skill)
         {
             action = _skill;
-            skillName.text = _skill.SkillName;
+            skillName.text = _skill.SkillName;                          // スキル名
             var sp = _skill.GetCorrection(Character.Status.SP);
-            skillCost.text = sp.Value.ToString();
-            exhaustImage.gameObject.SetActive(_skill.UseExhaust);
+            skillCost.text = sp.Value.ToString();                       // 消費コスト
+            exhaustImage.gameObject.SetActive(_skill.UseExhaust);       // エグゾーストを必要とするスキル
 
             button.onClick.AddListener(() => 
             {

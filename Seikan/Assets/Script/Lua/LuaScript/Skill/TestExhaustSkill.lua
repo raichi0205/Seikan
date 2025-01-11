@@ -13,7 +13,7 @@ TestExhaustSkill.new = function ()
             print("エフェクト終了:"..target.Num)
           
             local targetDef = target:GetCurrentStatus(statusEnum.DEF)
-            local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * 2
+            local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * skill:GetCorrection(statusEnum.ATK).Rate
 
             local damage = executorAtk - targetDef
             
@@ -22,10 +22,10 @@ TestExhaustSkill.new = function ()
             end
 
             target:AddCurrentStatus(statusEnum.HP, -damage)
-            executor:AddCurrentStatus(statusEnum.SP, -2)
+            executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
 
-            coroutine.yield(skill:UpdateHPGage(target.Num))
             coroutine.yield(skill:UpdateSPGage())
+            coroutine.yield(skill:UpdateHPGage(target.Num))
             skill.IsEnd = true
         end)
     end

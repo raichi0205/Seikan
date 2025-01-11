@@ -78,6 +78,20 @@ namespace Star.Battle
         }
 
         /// <summary>
+        /// 選択中のスキルの消費SP取得
+        /// </summary>
+        /// <returns></returns>
+        public int GetSelectTotalSP()
+        {
+            int totalSp = 0;
+            foreach(SelectData selectData in selectDatas)
+            {
+                totalSp += selectData.Action.GetCorrection(Status.SP).Value;
+            }
+            return totalSp;
+        }
+
+        /// <summary>
         /// 行動選択キャンセル
         /// </summary>
         public void Cancel()
