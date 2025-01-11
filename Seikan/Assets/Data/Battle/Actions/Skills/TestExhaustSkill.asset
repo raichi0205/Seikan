@@ -17,10 +17,10 @@ MonoBehaviour:
   corrections:
   - Value: 0
     Rate: 1
-  - Value: 0
+  - Value: 10
     Rate: 1
   - Value: 0
-    Rate: 1
+    Rate: 5
   - Value: 0
     Rate: 1
   - Value: 0
