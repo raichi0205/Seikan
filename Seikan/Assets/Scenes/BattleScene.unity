@@ -1245,56 +1245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnNum: {fileID: 609722955}
---- !u!1 &305268436
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 305268438}
-  - component: {fileID: 305268437}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &305268437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305268436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35d396bcb8480c24eb784eebe6096a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimingOfUpdate: 0
-  EmitterScale: 0
-  TimeScale: 0
-  effectAsset: {fileID: 11400000, guid: 8c570615699cc024e9f8a2da696f0e2b, type: 2}
-  playOnStart: 0
-  isLooping: 0
---- !u!4 &305268438
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305268436}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &338801926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,6 +2832,7 @@ MonoBehaviour:
   actionSelectCancelButton: {fileID: 817779093}
   targetSelectCancelButton: {fileID: 431911451}
   ShakeArea: {fileID: 427325887}
+  skillUIController: {fileID: 206831883}
   allEffect: {fileID: 961127713}
   winnerController: {fileID: 1965838976}
   defeatController: {fileID: 832278066}
@@ -5816,7 +5767,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494850179
 GameObject:
@@ -6131,7 +6082,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584016254
 GameObject:
@@ -6693,7 +6644,6 @@ GameObject:
   - component: {fileID: 1696587180}
   - component: {fileID: 1696587181}
   - component: {fileID: 1696587182}
-  - component: {fileID: 1696587183}
   - component: {fileID: 1696587184}
   m_Layer: 0
   m_Name: BattleSystem
@@ -6740,6 +6690,7 @@ MonoBehaviour:
     selectCountMax: 1
     currentExhaust: 100
     IsExhaust: 0
+    skills: []
   refrainExhaust: 25
   currentSelectData:
     action: {fileID: 0}
@@ -6772,20 +6723,6 @@ MonoBehaviour:
   actionGuard: {fileID: 11400000, guid: 01998635259974342b4e1fde16ebcd33, type: 2}
   actionEscape: {fileID: 11400000, guid: 65267f50576c66541af1ec1417a24217, type: 2}
   actionSkills: []
---- !u!114 &1696587183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696587179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dce3ecdc4617814da9af29199a8b59d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionSkills: []
-  skillUIController: {fileID: 206831883}
 --- !u!114 &1696587184
 MonoBehaviour:
   m_ObjectHideFlags: 0

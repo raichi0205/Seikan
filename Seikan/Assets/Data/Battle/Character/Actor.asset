@@ -18,5 +18,4 @@ MonoBehaviour:
   defaultSkills:
   - {fileID: 11400000, guid: 16da5b6b3833e29478843ebd87fa9024, type: 2}
   - {fileID: 11400000, guid: 890106939763ce04aa3779be4be36611, type: 2}
-  holdSkills:
-  - {fileID: 11400000, guid: a33b0f6b606ffb744b9eef23cd2921bd, type: 2}
+  holdSkills: []
