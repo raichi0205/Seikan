@@ -27,7 +27,7 @@ namespace Star.Character {
             
             ActionBase.Action_Type action_Type;
 
-            string[] select = _select.Split('/');       // 選択内容/スキル名
+            string[] select = _select.Split('/');       // 選択内容/スキル名/対象選択
 
             SelectData selectData = new SelectData();
             selectData.Executor = enemy;
@@ -53,7 +53,15 @@ namespace Star.Character {
                         if(skill != null)
                         {
                             selectData.Action = skill;
-                            selectData.Targets = skill.Targets;
+                            int selectTarget = -1;
+                            if(select.Length >= 3)
+                            {
+                                if (!(int.TryParse(select[2], out selectTarget)))
+                                {
+                                    selectTarget = 0;
+                                }
+                            }
+                            selectData.Targets = SelectTarget(skill, selectTarget);
                         }
                         else
                         {
@@ -71,6 +79,31 @@ namespace Star.Character {
                 selectData.Action.Executor = enemy;
                 BattleSystem.Instance.ActionScheduler.SelectDatas.Add(selectData);
             }
+        }
+
+        private List<CharacterBase> SelectTarget(ActionBase _action, int _target = 0)
+        {
+            List<CharacterBase> result = new List<CharacterBase>();
+            switch (_action.ActionTarget)
+            {
+                case ActionBase.Action_Target.Actor:
+                    result.Add(BattleSystem.Instance.Actor);
+                    break;
+                case ActionBase.Action_Target.Enemy_Solo:
+                    if (EnemyManager.Instance.FieldEnemies.Count - 1 < _target)
+                    {
+                        result.Add(EnemyManager.Instance.FieldEnemies[_target]);
+                    }
+                    result.Add(EnemyManager.Instance.FieldEnemies[0]);
+                    break;
+                case ActionBase.Action_Target.Enemy_All:
+                    result.AddRange(EnemyManager.Instance.FieldEnemies);
+                    break;
+                case ActionBase.Action_Target.Enemy_Random:
+                    result.Add(EnemyManager.Instance.FieldEnemies[UnityEngine.Random.Range(0,EnemyManager.Instance.FieldEnemies.Count - 1)]);
+                    break;
+            }
+            return result;
         }
 
         private ActionSkill SerachActionSkill(string _skillName)

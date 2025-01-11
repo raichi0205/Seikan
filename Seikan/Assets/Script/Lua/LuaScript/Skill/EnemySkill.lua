@@ -1,5 +1,5 @@
-TestSkill = {}
-TestSkill.new = function ()
+EnemySkill = {}
+EnemySkill.new = function ()
     obj = {}
     obj.Action = function ()
         startCoroutine(function ()
@@ -8,11 +8,9 @@ TestSkill.new = function ()
             local statusEnum = CS.Star.Character.Status
             local target = skill.Targets[0]
             local executor = skill.Executor
-            executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
-            coroutine.yield(skill:UpdateSPGage())
 
-            coroutine.yield(skill:PlayEffect("Skill_01", target.Num))
-            print("エフェクト終了:"..target.Num)
+            coroutine.yield(skill:PlayEffect("Skill_01", -1))
+            skill:PlayShake()
           
             local targetDef = target:GetCurrentStatus(statusEnum.DEF)
             local executorAtk = executor:GetCurrentStatus(statusEnum.ATK) * skill:GetCorrection(statusEnum.ATK).Rate
@@ -24,6 +22,7 @@ TestSkill.new = function ()
             end
 
             target:AddCurrentStatus(statusEnum.HP, -damage)
+            executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
 
             coroutine.yield(skill:UpdateHPGage(target))
             skill.IsEnd = true
@@ -31,4 +30,4 @@ TestSkill.new = function ()
     end
     return obj
 end
-TestSkill = TestSkill.new()
+EnemySkill = EnemySkill.new()

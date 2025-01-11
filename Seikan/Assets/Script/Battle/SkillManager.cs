@@ -11,7 +11,7 @@ namespace Star.Battle
     public class SkillManager : SingletonMonoBehaviour<SkillManager>
     {
         const string tag = "Skill";
-        [SerializeField] List<ActionSkill> actionSkills;
+        [SerializeField] List<ActionSkill> actionSkills = new List<ActionSkill>();
         public List<ActionSkill> ActionSkills { get { return actionSkills; } }
 
         public async UniTask Initialize()
@@ -33,6 +33,12 @@ namespace Star.Battle
                     actionSkills.Add(skill);
                 }
             }
+        }
+
+        public void SetSkill()
+        {
+            //List<ActionSkill> enemySkills = new List<ActionSkill>();
+            EnemyManager.Instance.SetSkills(actionSkills);
         }
     }
 }

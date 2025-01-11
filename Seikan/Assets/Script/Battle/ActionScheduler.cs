@@ -50,6 +50,9 @@ namespace Star.Battle
                     await data.Action.Action(data.Executor, data.Targets);
                 }
 
+                BattleSystem.Instance.SystemMsg = "";
+                await UniTask.Delay(1000);
+
                 // 実行ごとに終了判定
                 if(!await BattleSystem.Instance.EndJudge(false))
                 {

@@ -30,7 +30,7 @@ namespace Star.Battle
         public ActionGuard ActionGuard { get { return actionGuard; } }
         [SerializeField] ActionEscape actionEscape;
         public ActionEscape ActionEscape { get { return actionEscape; } }
-        [SerializeField] List<ActionSkill> actionSkills;
+        [SerializeField] List<ActionSkill> actionSkills = new List<ActionSkill>();
         public List<ActionSkill> ActionSkills { get { return actionSkills; } }
 
         public void Initialize()
@@ -100,6 +100,11 @@ namespace Star.Battle
         {
             await enemyUIController.GetEnemyCell(_num).OnDelete();
             fieldEnemies.Remove(enemies[_num]);     // 特定の敵をフィールド上から削除
+        }
+
+        public void SetSkills(List<ActionSkill> _skills)
+        {
+            actionSkills = _skills;
         }
     }
 }

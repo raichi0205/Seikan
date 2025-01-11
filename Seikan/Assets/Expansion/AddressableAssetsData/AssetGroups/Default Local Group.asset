@@ -56,6 +56,10 @@ MonoBehaviour:
     m_Address: actor
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e13aa2bd83d07cc4fac21cc9941f5d63
+    m_Address: Assets/Script/Lua/LuaScript/Skill/EnemySkill.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:

@@ -24,6 +24,8 @@ namespace Star.Core
             await handle.Task;
             actorData.Clone(handle.Result);
             Debug.Log($"[Load]actor:{handle.Result.CharaName}");
+
+            await Star.Battle.SkillManager.Instance.Initialize();
         }
     }
 }

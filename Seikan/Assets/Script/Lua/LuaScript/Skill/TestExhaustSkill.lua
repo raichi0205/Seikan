@@ -8,6 +8,9 @@ TestExhaustSkill.new = function ()
             local statusEnum = CS.Star.Character.Status
             local target = skill.Targets[0]
             local executor = skill.Executor
+            
+            executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
+            coroutine.yield(skill:UpdateSPGage())
 
             coroutine.yield(skill:PlayEffect("Skill_01", target.Num))
             print("エフェクト終了:"..target.Num)
@@ -22,10 +25,8 @@ TestExhaustSkill.new = function ()
             end
 
             target:AddCurrentStatus(statusEnum.HP, -damage)
-            executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
 
-            coroutine.yield(skill:UpdateSPGage())
-            coroutine.yield(skill:UpdateHPGage(target.Num))
+            coroutine.yield(skill:UpdateHPGage(target))
             skill.IsEnd = true
         end)
     end

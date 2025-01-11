@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Star.Character;
 using Star.Lua;
+using DG.Tweening;
 
 namespace Star.Battle
 {
@@ -101,6 +102,12 @@ namespace Star.Battle
             }
         }
 
+        public void PlayShake()
+        {
+            RectTransform rect = (RectTransform)BattleSystem.Instance.BattleUIController.ShakeArea.transform;
+            rect.DOShakePosition(1, 100).WaitForCompletion();
+        }
+
         /// <summary>
         /// 全敵キャラ取得
         /// 今作はプレイヤーの取得がないのでこれでいい
@@ -111,13 +118,13 @@ namespace Star.Battle
             return EnemyManager.Instance.Enemies;
         }
 
-        public IEnumerator UpdateHPGage(int _targetNum)
+        public IEnumerator UpdateHPGage(CharacterBase _target)
         {
-            if (_targetNum >= 0)
+            if (typeof(Enemy) == _target.GetType())
             {
-                return EnemyManager.Instance.UpdateEnemyHPGage(_targetNum).ToCoroutine();
+                return EnemyManager.Instance.UpdateEnemyHPGage(((Enemy)_target).Num).ToCoroutine();
             }
-            else if(_targetNum == -2)
+            else if(typeof(Actor) == _target.GetType())
             {
                 BattleSystem system = BattleSystem.Instance;
                 system.BattleUIController.Footer.CharacterInfo.HPBar.UpdateValueText(system.Actor.currentStatus[(int)Status.HP], system.Actor.GetStatus(Status.HP));
@@ -126,9 +133,9 @@ namespace Star.Battle
             return null;
         }
 
-        public IEnumerator UpdateSPGage(int _targetNum = -1)
+        public IEnumerator UpdateSPGage(CharacterBase _target = null)
         {
-            if (_targetNum >= -1)
+            if (_target == null || typeof(Actor) == _target.GetType())
             {
                 BattleSystem system = BattleSystem.Instance;
                 system.BattleUIController.Footer.CharacterInfo.SPBar.UpdateValueText(Executor.currentStatus[(int)Status.SP], Executor.GetStatus(Status.SP));

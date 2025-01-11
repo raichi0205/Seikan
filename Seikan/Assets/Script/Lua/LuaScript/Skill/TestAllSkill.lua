@@ -9,11 +9,11 @@ TestAllSkill.new = function ()
             local targets = skill.Targets
             local executor = skill.Executor
 
-            coroutine.yield(skill:PlayEffect("Skill_01", -1))
-            print("エフェクト終了")
-
             executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)
             coroutine.yield(skill:UpdateSPGage())
+
+            coroutine.yield(skill:PlayEffect("Skill_01", -1))
+            print("エフェクト終了")
 
             for i, target in pairs(targets) do
                 local targetDef = target:GetCurrentStatus(statusEnum.DEF)
@@ -26,8 +26,7 @@ TestAllSkill.new = function ()
 
                 target:AddCurrentStatus(statusEnum.HP, -damage)
 
-
-                coroutine.yield(skill:UpdateHPGage(target.Num))
+                coroutine.yield(skill:UpdateHPGage(target))
             end
             skill.IsEnd = true
         end)

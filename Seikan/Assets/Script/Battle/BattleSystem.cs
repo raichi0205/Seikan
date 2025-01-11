@@ -16,6 +16,7 @@ namespace Star.Battle
     {
         const int MaxTurn = 999;    // 最大ターン数
         [SerializeField] int currentTurn = 0;       // 現在のターン
+        public int CurrentTurn { get { return currentTurn; } }
         [SerializeField] int selectCount = 0;       // 行動選択の回数
 
         [SerializeField] BattleUIController battleUIController;     // 戦闘画面のUIコントローラ
@@ -81,6 +82,8 @@ namespace Star.Battle
             LuaSystem.Instance.StarLua("Battle/Main.lua");
 
             EnemyManager.Instance.Initialize();
+            SkillManager.Instance.SetSkill();
+
             battleUIController.Initialize();
 
             TurnStart();
