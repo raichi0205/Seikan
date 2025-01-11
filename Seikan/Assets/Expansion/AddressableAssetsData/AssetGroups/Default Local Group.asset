@@ -52,6 +52,10 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Effect
+  - m_GUID: fa20ef1f5595c974d95221fe8a839133
+    m_Address: Assets/Data/Battle/Character/Actor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:

@@ -26,6 +26,9 @@ namespace Star.Battle.UI
 
         public GameObject ShakeArea;
 
+        [SerializeField] SkillUIController skillUIController;
+        public SkillUIController SkillUIController { get { return skillUIController; } }
+
         [SerializeField] EffectController allEffect;
         public EffectController AllEffect { get { return allEffect; } }
 
@@ -43,6 +46,7 @@ namespace Star.Battle.UI
             defeatController.Initialize();
             ActionSelector.Instance.Initialize();
             enemyUIController.SetActiveButton(false);
+            skillUIController.Initialize(BattleSystem.Instance.Actor.Skills);
 
             // 選択画面の設定
             actionSelectCancelButton.onClick.AddListener(BattleSystem.Instance.ActionCancel);
@@ -106,7 +110,7 @@ namespace Star.Battle.UI
         /// </summary>
         public void OpenSkillSelectWindow()
         {
-            SkillManager.Instance.SkillUIController.ActiveSelectWindow(true);
+            skillUIController.ActiveSelectWindow(true);
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace Star.Battle.UI
         /// </summary>
         public void CloseSkillSelectWindow()
         {
-            SkillManager.Instance.SkillUIController.ActiveSelectWindow(false);
+            skillUIController.ActiveSelectWindow(false);
         }
 
         /// <summary>

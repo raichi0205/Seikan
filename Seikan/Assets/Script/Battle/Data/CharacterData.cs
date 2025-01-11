@@ -18,7 +18,7 @@ namespace Star.Character
     public class CharacterData : ScriptableObject
     {
         [NamedArray(typeof(Status))] public int[] status = new int[(int)Character.Status.NUM];          // ステータス値
-        [SerializeField] string charaName = string.Empty;
+        [SerializeField] protected string charaName = string.Empty;
         public string CharaName { get { return charaName; } }
     }
 }

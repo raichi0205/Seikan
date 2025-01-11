@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Star.Common;
 using Cysharp.Threading.Tasks;
+using Star.Core;
 using Star.Character;
 using Star.Battle.UI;
 using Star.Effect;
@@ -62,12 +63,23 @@ namespace Star.Battle
         /// </summary>
         private async void Initialize()
         {
+            // todo: 別で呼ぶ
+            await GameManager.Instance.Load();
+            
+            if (GameManager.Instance.ActorData == null)
+            {
+                // データがなければ指定初期データを使う
+                actor.Initialize(actorData);
+            }
+            else
+            {
+                actor.Initialize(GameManager.Instance.ActorData);
+            }
+
             await SoundManager.Instance.LoadAudios(SoundManager.MixerGroup.SE, "SE");
             await SpriteEffectManager.Instance.LoadEffectAssets();
-            await SkillManager.Instance.Initialize();
             LuaSystem.Instance.StarLua("Battle/Main.lua");
 
-            actor.Initialize(actorData);
             EnemyManager.Instance.Initialize();
             battleUIController.Initialize();
 

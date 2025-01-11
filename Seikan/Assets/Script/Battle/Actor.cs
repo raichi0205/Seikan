@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Star.Battle;
 
@@ -33,9 +33,14 @@ namespace Star.Character
         }
         public bool IsExhaust = false;          // Exhaustの使用状態
 
+        [SerializeField] private List<ActionSkill> skills = new List<ActionSkill>();
+        public List<ActionSkill> Skills { get { return skills; } }
+
         public void Initialize(ActorData _actorData)
         {
             selectCountMax = _actorData.SelectCountMax;
+            skills.AddRange(_actorData.DefaultSkills);
+            skills.AddRange(_actorData.HoldSkills);
             base.Initialize(_actorData);
         }
 
