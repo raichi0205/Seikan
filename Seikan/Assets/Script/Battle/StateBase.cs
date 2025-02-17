@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Star.Character
+namespace Star.Old.Character
 {
     /// <summary>
     /// キャラクターの状態ベース

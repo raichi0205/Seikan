@@ -56,5 +56,25 @@ namespace Star.Character
             }
             return false;
         }
+
+        /// <summary>
+        /// ゲージ更新処理
+        /// </summary>
+        /// <param name="_status"></param>
+        /// <returns></returns>
+        public async override UniTask UpdateGage(Status _status = Status.HP)
+        {
+            switch (_status)
+            {
+                case Status.HP:
+                    await BattleSystem.Instance.BattleUIController.Footer.CharacterInfo.HPBar.UpdateGage((float)currentStatus[(int)Status.HP] / GetStatus(Status.HP));
+                    BattleSystem.Instance.BattleUIController.Footer.CharacterInfo.HPBar.UpdateValueText(currentStatus[(int)Status.HP], GetStatus(Status.HP));
+                    break;
+                case Status.SP:
+                    await BattleSystem.Instance.BattleUIController.Footer.CharacterInfo.SPBar.UpdateGage((float)currentStatus[(int)Status.SP] / GetStatus(Status.SP));
+                    BattleSystem.Instance.BattleUIController.Footer.CharacterInfo.SPBar.UpdateValueText(currentStatus[(int)Status.SP], GetStatus(Status.SP));
+                    break;
+            }
+        }
     }
 }

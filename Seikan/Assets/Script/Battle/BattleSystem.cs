@@ -76,6 +76,7 @@ namespace Star.Battle
             {
                 actor.Initialize(GameManager.Instance.ActorData);
             }
+            actor.GrantState("Poison");
 
             await SoundManager.Instance.LoadAudios(SoundManager.MixerGroup.SE, "SE");
             await SpriteEffectManager.Instance.LoadEffectAssets();
@@ -364,13 +365,14 @@ namespace Star.Battle
         }
 
         /// <summary>
-        /// 状態異常処理
+        /// 状態処理
         /// </summary>
         private async void StatusProcess()
         {
             Debug.Log($"[BattleSystem] 状態異常の発動");
 
             // 状態の発動
+            await actor.ExecuteState(StateDataBase.Timing.TurnEnd);
 
             // 終了判定
             EndJudge(true);

@@ -38,6 +38,10 @@ namespace Star.Character
             EnemyLuaBridge.Instance.Enemy = null;
         }
 
+        /// <summary>
+        /// 体力チェック
+        /// </summary>
+        /// <returns></returns>
         public override async UniTask<bool> CheckHP()
         {
             if (currentStatus[(int)Status.HP] <= 0)
@@ -47,6 +51,21 @@ namespace Star.Character
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// ゲージ更新処理
+        /// </summary>
+        /// <param name="_status"></param>
+        /// <returns></returns>
+        public override async UniTask UpdateGage(Status _status = Status.HP)
+        {
+            switch (_status)
+            {
+                case Status.HP:
+                    await Battle.EnemyManager.Instance.UpdateEnemyHPGage(num);
+                    break;
+            }
         }
     }
 }
