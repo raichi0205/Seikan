@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757f57f82415ff8459d7ccaf4ad46022, type: 3}
+  m_Name: Poison_01
+  m_EditorClassIdentifier: 
+  AnimController: {fileID: 9100000, guid: bf5a7741dc44d3d4eba6db4d32a4c764, type: 2}
+  AnimationClip: {fileID: 7400000, guid: d31797e03d11a6b468a001dd1520bf2b, type: 2}
+  Texture: {fileID: 2800000, guid: 098ebdf41f4e08f4da46482a81444e5c, type: 3}
