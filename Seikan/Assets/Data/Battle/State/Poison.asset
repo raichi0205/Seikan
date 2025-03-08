@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806a9b69cd3f47e45b8eef7394852f9f, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 187036002, guid: 098ebdf41f4e08f4da46482a81444e5c, type: 3}
   stateName: "\u6BD2"
+  duplicatesGroupID: Poison_A
   duration: 1
+  timing: 3
+  duplicates: 0
   decreaseRate: 0.1

@@ -76,7 +76,6 @@ namespace Star.Battle
             {
                 actor.Initialize(GameManager.Instance.ActorData);
             }
-            actor.GrantState("Poison");
 
             await SoundManager.Instance.LoadAudios(SoundManager.MixerGroup.SE, "SE");
             await SpriteEffectManager.Instance.LoadEffectAssets();

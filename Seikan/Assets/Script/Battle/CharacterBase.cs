@@ -85,7 +85,24 @@ namespace Star.Character
             StateBase state = StateManager.Instance.GetState(_stateName);
             if(state != null)
             {
-                States[state.StateData.ExeTiming].Add(state);
+                int count = 0;
+                foreach(StateBase tempState in States[state.StateData.ExeTiming])
+                {
+                    if(tempState.StateData.DuplicatesGroupID == state.StateData.DuplicatesGroupID)
+                    {
+                        count++;
+                    }
+                }
+                // 重複回数が所定数に収まっているか
+                if (count <= state.StateData.Duplicates)
+                {
+                    States[state.StateData.ExeTiming].Add(state);
+
+                    // Todo: 表示メッセージの構成は各ステートによって変える
+                    BattleSystem.Instance.SystemMsg = $"{characterData.CharaName}が{state.StateData.StateName}になりました";
+                    await UniTask.Delay(250);
+                    BattleSystem.Instance.SystemMsg = string.Empty;
+                }
             }
             else
             {

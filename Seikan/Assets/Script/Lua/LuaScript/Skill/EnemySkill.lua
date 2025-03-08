@@ -20,6 +20,8 @@ EnemySkill.new = function ()
             if damage <= 0 then
                 damage = 1
             end
+            
+            target:GrantState("Poison");
 
             target:AddCurrentStatus(statusEnum.HP, -damage)
             executor:AddCurrentStatus(statusEnum.SP, -skill:GetCorrection(statusEnum.SP).Value)

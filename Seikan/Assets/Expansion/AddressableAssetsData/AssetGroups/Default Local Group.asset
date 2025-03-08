@@ -64,6 +64,11 @@ MonoBehaviour:
     m_Address: Assets/Sprite/Effect/pipo-btleffect015.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e5decfd6a45c9a143a236678eaf4f84f
+    m_Address: Poison_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ad96824f119584540b459c7d24bd7710, type: 2}
   m_SchemaSet:
