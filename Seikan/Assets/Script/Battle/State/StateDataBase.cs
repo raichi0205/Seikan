@@ -19,10 +19,13 @@ namespace Star.Battle
         [SerializeField] protected int duration = 1;                    // 持続時間
         [SerializeField] protected Timing timing = Timing.TurnEnd;      // 発動タイミング
         [SerializeField] protected int duplicates = 0;                  // 重複回数
+        [SerializeField] protected string infotext = "情報";            // 状態の内容
         public string StateName { get { return stateName; } }
         public string DuplicatesGroupID { get { return duplicatesGroupID; } }
+        public int Duration { get { return duration; } }
         public Timing ExeTiming { get { return timing; } }
         public int Duplicates { get { return duplicates; } }
+        public string InfoText { get { return infotext; } }
 
         public virtual StateBase CreateState()
         {

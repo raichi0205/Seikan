@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Star.Editor;
 using Cysharp.Threading.Tasks;
 using Star.Battle;
+using UnityEngine.Events;
 
 namespace Star.Character
 {
@@ -80,7 +81,7 @@ namespace Star.Character
         /// </summary>
         /// <param name="_stateName"></param>
         /// <returns></returns>
-        public async UniTask GrantState(string _stateName)
+        public virtual async UniTask<StateBase> GrantState(string _stateName)
         {
             StateBase state = StateManager.Instance.GetState(_stateName);
             if(state != null)
@@ -102,19 +103,21 @@ namespace Star.Character
                     BattleSystem.Instance.SystemMsg = $"{characterData.CharaName}が{state.StateData.StateName}になりました";
                     await UniTask.Delay(250);
                     BattleSystem.Instance.SystemMsg = string.Empty;
+                    return state;
                 }
             }
             else
             {
                 Debug.LogError($"[State] 状態の取得に失敗しました");
             }
+            return null;
         }
 
         /// <summary>
         /// 状態の実行
         /// </summary>
         /// <param name="_timing"></param>
-        public async UniTask ExecuteState(StateDataBase.Timing _timing)
+        public async UniTask ExecuteState(StateDataBase.Timing _timing, UnityAction<StateBase> _onRemove = null)
         {
             List<StateBase> states = new List<StateBase>();
             foreach(StateBase state in States[_timing])
@@ -128,6 +131,7 @@ namespace Star.Character
 
             foreach(StateBase state in states)
             {
+                _onRemove?.Invoke(state);
                 States[_timing].Remove(state);
             }
         }

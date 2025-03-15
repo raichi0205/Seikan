@@ -14,9 +14,23 @@ namespace Star.Battle
         public StateDataBase StateData
         {
             get { return stateData; }
-            set { stateData = value; }
         }     
 
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <param name="_stateDataBase"></param>
+        protected void Initialize(StateDataBase _stateDataBase)
+        {
+            stateData = _stateDataBase;
+            duration = stateData.Duration;
+        }
+
+        /// <summary>
+        /// 状態発動実行処理
+        /// </summary>
+        /// <param name="_exeChara"></param>
+        /// <returns></returns>
         public async virtual UniTask Execute(Character.CharacterBase _exeChara)
         {
             

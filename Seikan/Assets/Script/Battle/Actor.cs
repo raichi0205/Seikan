@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Star.Battle;
+using System;
 
 namespace Star.Character
 {
@@ -36,6 +38,9 @@ namespace Star.Character
         [SerializeField] private List<ActionSkill> skills = new List<ActionSkill>();
         public List<ActionSkill> Skills { get { return skills; } }
 
+        public UnityAction<StateBase> OnAddState;       // 状態が増えた時に実行する
+        public UnityAction<StateBase> OnSubState;       // 状態が減った時に実行する
+
         public void Initialize(ActorData _actorData)
         {
             selectCountMax = _actorData.SelectCountMax;
@@ -55,6 +60,20 @@ namespace Star.Character
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 状態を付与
+        /// </summary>
+        /// <param name="_stateName"></param>
+        /// <returns></returns>
+        public override async UniTask<StateBase> GrantState(string _stateName)
+        {
+            var state = await base.GrantState(_stateName);
+
+            // ポップアップの更新が必要であれば行う
+            OnAddState(state);
+            return state;
         }
 
         /// <summary>

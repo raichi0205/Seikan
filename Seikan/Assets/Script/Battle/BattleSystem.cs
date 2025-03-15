@@ -371,7 +371,7 @@ namespace Star.Battle
             Debug.Log($"[BattleSystem] 状態異常の発動");
 
             // 状態の発動
-            await actor.ExecuteState(StateDataBase.Timing.TurnEnd);
+            await actor.ExecuteState(StateDataBase.Timing.TurnEnd, actor.OnSubState);
 
             // 終了判定
             EndJudge(true);

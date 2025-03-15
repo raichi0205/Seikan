@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Star.Character;
+using Star.Common.UI;
 
 namespace Star.Battle.UI
 {
@@ -16,6 +17,8 @@ namespace Star.Battle.UI
         public GageBar SPBar { get { return spBar; } }
         [SerializeField] Image exhaustActiveImage;
 
+        [SerializeField] CommonButton infoMenuButton;
+
         /// <summary>
         /// 初期化処理
         /// </summary>
@@ -25,8 +28,20 @@ namespace Star.Battle.UI
             charaName.text = actor.GetName();
             hpBar.UpdateValueText(actor.GetCurrentStatus(Status.HP), actor.GetStatus(Status.HP));
             spBar.UpdateValueText(actor.GetCurrentStatus(Status.SP), actor.GetStatus(Status.SP));
-        }
 
+            // 詳細情報を開くボタンの設定
+            infoMenuButton.onClick.AddListener(async() => 
+            {
+                PlayerInfoPopup playerInfoPopup = (PlayerInfoPopup)await PopupManager.Instance.GetPopup("Popup/PlayerInfoPopup");
+                List<StateBase> states = new List<StateBase>();
+                states.AddRange(BattleSystem.Instance.Actor.States[StateDataBase.Timing.ActionAfter]);
+                states.AddRange(BattleSystem.Instance.Actor.States[StateDataBase.Timing.TurnStart]);
+                states.AddRange(BattleSystem.Instance.Actor.States[StateDataBase.Timing.TurnEnd]);
+                playerInfoPopup.Initialize(states);
+                await playerInfoPopup.Open();
+            });
+        }
+        
         /// <summary>
         /// エグゾーストの使用可否の表示
         /// </summary>

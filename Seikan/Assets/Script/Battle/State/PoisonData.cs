@@ -16,7 +16,7 @@ namespace Star.Battle
         public override StateBase CreateState()
         {
             PoisonState state = new PoisonState();
-            state.PoisonData = this;
+            state.Initialize(this);
             return state;
         }
     }

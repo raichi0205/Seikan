@@ -8,8 +8,18 @@ namespace Star.Battle
     public class PoisonState : StateBase
     {
         PoisonData poisonData;
-        public PoisonData PoisonData { get { return poisonData; } set { stateData = poisonData = value; } }
+
         const string effectName = "Poison_01";
+
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <param name="_poisonData"></param>
+        public void Initialize(PoisonData _poisonData)
+        {
+            poisonData = _poisonData;
+            base.Initialize(_poisonData);
+        }
 
         /// <summary>
         /// 状態の実行

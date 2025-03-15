@@ -15,7 +15,8 @@ MonoBehaviour:
   iconImage: {fileID: 187036002, guid: 098ebdf41f4e08f4da46482a81444e5c, type: 3}
   stateName: "\u6BD2"
   duplicatesGroupID: Poison_A
-  duration: 1
+  duration: 2
   timing: 3
   duplicates: 0
+  infotext: "\u6BCE\u30BF\u30FC\u30F3\u7D42\u4E86\u6642\u306B\u30C0\u30E1\u30FC\u30B8\u3092\u8CA0\u3046"
   decreaseRate: 0.1
