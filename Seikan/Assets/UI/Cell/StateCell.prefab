@@ -373,6 +373,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  text: {fileID: 795261894333754678}
+  isLoop: 0
+  wait: 0
+  onLongPress:
+    m_PersistentCalls:
+      m_Calls: []
+  forcedSave: 0
 --- !u!114 &3525225705458143060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,3 +393,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 795261894477770722}
+  icon: {fileID: 795261894434941271}

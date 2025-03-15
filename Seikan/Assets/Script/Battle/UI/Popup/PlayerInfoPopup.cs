@@ -62,6 +62,8 @@ public class PlayerInfoPopup : PopupBase
 
             infoText.text = text;
         });
+        obj.Icon.sprite = _state.StateData.IconImage;
+        obj.Button.Text.text = _state.StateData.StateName;
         statusList.Add(obj);
     }
 

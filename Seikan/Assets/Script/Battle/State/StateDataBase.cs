@@ -20,6 +20,7 @@ namespace Star.Battle
         [SerializeField] protected Timing timing = Timing.TurnEnd;      // 発動タイミング
         [SerializeField] protected int duplicates = 0;                  // 重複回数
         [SerializeField] protected string infotext = "情報";            // 状態の内容
+        public Sprite IconImage { get { return iconImage; } }
         public string StateName { get { return stateName; } }
         public string DuplicatesGroupID { get { return duplicatesGroupID; } }
         public int Duration { get { return duration; } }
